@@ -34,11 +34,11 @@ WHERE
 LIMIT 1
 SQL;
 
-$SQL_aktif_program = <<< SQL
+$SQL_aktif_uzmanlik_dali = <<< SQL
 SELECT
 	*
 FROM
-	tb_programlar
+	tb_uzmanlik_dallari
 WHERE
 	universite_id 	   	= ? AND
 	varsayilan		 	= 1 AND 
@@ -57,23 +57,19 @@ WHERE
 SQL;
 
 
-$SQL_programlar = <<< SQL
+$SQL_uzmanlik_dallari = <<< SQL
 SELECT 
-	f.id AS fakulte_id, 
-	f.adi AS fakulte_adi,
-	b.id AS bolum_id,
-	b.adi AS bolum_adi,
-	p.id AS program_id, 
-	p.adi AS program_adi
+	u.id AS universite_id, 
+	u.adi AS universite_adi,
+	ud.id AS uzmanlik_dali_id,
+	ud.adi AS uzmanlik_dali_adi
 FROM 
-	tb_programlar AS p
+	tb_uzmanlik_dallari AS ud
 LEFT JOIN 
-	tb_bolumler AS b ON p.bolum_id = b.id
-LEFT JOIN 
-	tb_fakulteler AS f On b.fakulte_id = f.id
+	tb_universiteler AS u ON ud.universite_id = u.id
 WHERE 
-	f.universite_id 	= ? AND 
-	f.aktif 			= 1
+	ud.universite_id 	= ? AND 
+	ud.aktif 			= 1
 SQL;
 
 
@@ -96,16 +92,16 @@ if( !$sorguSonuc[ 0 ] ) {
 		$_SESSION[ 'super' ]			= $kullaniciBilgileri[ 'super' ];
 		$_SESSION[ 'universite_id' ]	= $kullaniciBilgileri[ 'universiteler' ];
 
-		$aktif_yil 						= $vt->selectSingle( $SQL_aktif_yil, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
-		$ders_yillari 					= $vt->select( $SQL_ders_yillari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
-		$_SESSION[ 'aktif_yil' ]		= $aktif_yil[ "id" ];
-		$_SESSION[ 'ders_yillari' ]		= $ders_yillari;
+		//$aktif_yil 						= $vt->selectSingle( $SQL_aktif_yil, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
+		//$ders_yillari 					= $vt->select( $SQL_ders_yillari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
+		//$_SESSION[ 'aktif_yil' ]		= $aktif_yil[ "id" ];
+		//$_SESSION[ 'ders_yillari' ]		= $ders_yillari;
 
-		$aktif_program_id				= $vt->selectSingle( $SQL_aktif_program, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
-		$_SESSION[ 'program_id' ]		= $aktif_program_id[ "id" ];
+		$aktif_uzmanlik_dali_id				= $vt->selectSingle( $SQL_aktif_uzmanlik_dali, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
+		$_SESSION[ 'aktif_uzmanlik_dali_id' ]		= $aktif_uzmanlik_dali_id[ "id" ];
 
-		$programlar 					= $vt->select( $SQL_programlar, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
-		$_SESSION[ 'programlar' ]		= $programlar;
+		$uzmanlik_dallari 					= $vt->select( $SQL_uzmanlik_dallari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
+		$_SESSION[ 'uzmanlik_dallari' ]		= $uzmanlik_dallari;
 
 
 	} else {

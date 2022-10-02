@@ -3,9 +3,7 @@ $fn = new Fonksiyonlar();
 
 $islem          					= array_key_exists( 'islem', $_REQUEST )  		? $_REQUEST[ 'islem' ] 	    : 'ekle';
 $ders_yili_donem_id          		= array_key_exists( 'ders_yili_donem_id', $_REQUEST ) ? $_REQUEST[ 'ders_yili_donem_id' ] 	: 0;
-$ders_id          					= array_key_exists( 'ders_id', $_REQUEST ) 		? $_REQUEST[ 'ders_id' ] 	: 0;
-
-if ( $ders_id > 0 ) $_SESSION[ "ders_id" ] = $ders_id;
+$rotasyon_id          				= array_key_exists( 'rotasyon_id', $_REQUEST ) 		? $_REQUEST[ 'rotasyon_id' ] 	: -1;
 
 $kaydet_buton_yazi		= $islem == "guncelle"	? 'Güncelle'							: 'Kaydet';
 $kaydet_buton_cls		= $islem == "guncelle"	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
@@ -27,8 +25,8 @@ SELECT
 FROM 
 	tb_mufredat
 WHERE 
-	ders_yili_donem_id  = ? AND
-	ders_id 			= ?
+	rotasyon_id			= ? AND
+	uzmanlik_dali_id 	= ?
 SQL;
 
 $SQL_donemler_getir = <<< SQL
@@ -94,39 +92,44 @@ WHERE
 	universite_id 	= ?
 SQL;
 
+$SQL_tum_rotasyonlar = <<< SQL
+SELECT 
+	r.*
+	,ud.adi AS rotasyon_uzmanlik_dali_adi
+FROM 
+	tb_rotasyonlar AS r
+LEFT JOIN tb_uzmanlik_dallari AS ud ON r.rotasyon_uzmanlik_dali_id = ud.id
+WHERE 
+	r.universite_id 	= ? AND
+	r.uzmanlik_dali_id 	= ? AND
+	r.aktif 		  	= 1
+SQL;
+
 
 $donemler 	 			= $vt->select( $SQL_donemler_getir, array( $_SESSION[ "universite_id" ], $_SESSION[ "aktif_yil" ], $_SESSION[ "program_id" ] ) )[2];
 @$_SESSION[ "donem_id" ] = $_SESSION[ "donem_id" ] ? $_SESSION[ "donem_id" ]  : $donemler[ 0 ][ "id" ];
-@$mufredatlar 			= $vt->select($SQL_mufredat_getir, array( $_SESSION[ "donem_id" ], $_SESSION[ "ders_id"] ) )[ 2 ];
+@$mufredatlar 			= $vt->select($SQL_mufredat_getir, array(  $rotasyon_id, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
 $dersler 	 			= $vt->select($SQL_dersler_getir, array( $_SESSION[ "donem_id" ] ) )[ 2 ];
 $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universite_id" ] ) )[ 2 ];
+
+$rotasyonlar		= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 
 ?>
 
 <div class="row">
-	<div class="col-sm-12 mb-2 d-flex">
-
-		<?php foreach( $donemler AS $donem ){ ?>
-				<label for="donemCard<?php echo $donem[ "id" ] ?>" class="col-sm m-1 pt-3 pb-3 bg-<?php echo $_SESSION[ 'donem_id' ] == $donem[ 'id' ] ? 'olive' : 'navy' ?> btn text-left">
-					<div class="icheck-success d-inline">
-						<input type="radio" name="aktifDonem" id="donemCard<?php echo $donem[ "id" ] ?>" data-url="./_modul/ajax/ajax_data.php" data-islem="aktifDonem" data-modul="<?php echo $_REQUEST['modul'] ?>" value="<?php echo $donem[ "id" ] ?>" class="aktifYilSec" <?php echo $_SESSION[ 'donem_id' ] == $donem[ 'id' ] ? 'checked' : null; ?>  >
-						<label for="donemCard<?php echo $donem[ "id" ] ?>"><?php echo $donem[ 'adi' ]; ?></label>
-					</div>
-				</label>
-		<?php } ?>
-		
-	</div>
 	<div class="col-md-12">
 		<div class="card card-dark">
 			<div class="card-header">
 				<h3 class="card-title">Müfredat</h3>
 				<div class="form-group float-right mb-0">
 					<select class="form-control select2" name="ders_id" required  onchange="dersSecimi(this.value);">
-						<option value="">Ders Seçiniz...</option>
-						<?php foreach( $dersler AS $ders ){ ?>
-							<option value="<?php echo $ders[ "id" ];?>" <?php echo $ders[ "id" ] == @$_SESSION[ "ders_id" ] ? 'selected' : null; ?>>
-								( <?php echo $ders[ "ders_kodu" ];?> )&nbsp;&nbsp;&nbsp; 
-								<b><?php echo $ders[ "adi" ];?></b>
+						<option value="">Rotasyon Seçiniz...</option>
+						<option value="-1" <?php echo -1 == @$rotasyon_id*1 ? 'selected' : null; ?>>
+							<?php echo $_SESSION[ 'uzmanlik_dali_adi' ];?>
+						</option>
+						<?php foreach( $rotasyonlar AS $rotasyon ){ ?>
+							<option value="<?php echo $rotasyon[ "id" ];?>" <?php echo $rotasyon[ "id" ] == @$rotasyon_id ? 'selected' : null; ?>>
+								<?php echo $rotasyon[ "rotasyon_uzmanlik_dali_adi" ];?>
 							</option>
 						<?php } ?>
 					</select>
@@ -171,7 +174,7 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 											<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 											<a href='#' id='$kategori[id]' class='btn btn-light float-right btn-xs ml-1 modalAc' data-mufredat_id='$kategori[id]'  data-kategori_ad='$kategori[adi]' data-modal='soru_ekle' data-ders_id='$kategori[ders_id]' >Soru Ekle</a>
 
-											<a href='#' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' class='btn btn-warning float-right btn-xs ml-1 modalAc'data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
+											<a href='#' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' class='btn btn-warning float-right btn-xs ml-1 modalAc' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
 
 											<a href='#' class='btn btn-dark float-right btn-xs KategoriEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='kategori_ekle'>Kategori Ekle</a>
 										</span>
@@ -241,19 +244,8 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
 					<div class="modal-body">
 						<input type="hidden" id="ust_id"  name="ust_id" >
-						<div class="form-group">
-							<label  class="control-label">Ders</label>
-							<select class="form-control select2" name="ders_id" required>
-								<option value="">Seçiniz...</option>
-								<?php foreach( $dersler AS $ders ){ ?>
-									<option value="<?php echo $ders[ "id" ];?>" <?php echo $ders[ "id" ] == $ders_id ? 'selected' : null; ?>>
-										( <?php echo $ders[ "ders_kodu" ];?> )&nbsp;&nbsp;&nbsp; 
-										<b><?php echo $ders[ "adi" ];?></b>
-									</option>
-								<?php } ?>
-							</select>
-						</div>	
-
+						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
+						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
 						<div class="form-group">
 							<label class="control-label">Kategori Adı</label>
 							<input required type="text" class="form-control" name ="adi"  autocomplete="off">
@@ -292,7 +284,8 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
 					<div class="modal-body">
 						<input type="hidden" id="yeni_kategori_ust_id"  name="ust_id">
-						<input type="hidden" id="ders_id" name="ders_id">
+						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
+						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
 						<div class="form-group">
 							<label class="control-label">Ust Kategori</label>
 							<input required type="text" class="form-control" id="kategori_ad"  autocomplete="off" disabled>
@@ -446,12 +439,10 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 	    $('.KategoriEkle').on("click", function(e) { 
 	        var ust_id      = $(this).data("id");
 	        var kategori_ad = $(this).data("kategori_ad");
-	        var ders_id 	= $(this).data("ders_id");
 	        var modal 		= $(this).data("modal");
 
 	        document.getElementById("yeni_kategori_ust_id").value 	 = ust_id;
 	        document.getElementById("kategori_ad").value = kategori_ad;
-	        document.getElementById("ders_id").value 	 = ders_id;
 	        $('#'+ modal).modal( "show" );
 	    });
 		
@@ -500,15 +491,15 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 	            $('#gorevliEkleModal').modal( "show" )
 	        });
 	    });
-	    function dersSecimi(ders_id){
+	    function dersSecimi(rotasyon_id){
 			var  url 		= window.location;
 			var origin		= url.origin;
 			var path		= url.pathname;
 			var search		= (new URL(document.location)).searchParams;
 			var modul   	= search.get('modul');
-			var ders_id  	= "&ders_id="+ders_id;
+			var rotasyon_id = "&rotasyon_id="+rotasyon_id;
 			
-			window.location.replace(origin + path+'?modul='+modul+''+ders_id);
+			window.location.replace(origin + path+'?modul='+modul+''+rotasyon_id);
 		}
 
 		function secenekOku(e){

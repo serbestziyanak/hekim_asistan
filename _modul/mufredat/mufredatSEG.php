@@ -5,7 +5,7 @@ $fn		= new Fonksiyonlar();
 
 $islem				= array_key_exists( 'islem', $_REQUEST )	? $_REQUEST[ 'islem' ]	: 'ekle';
 $mufredat_id 		= array_key_exists( 'id', $_REQUEST ) 		? $_REQUEST[ 'id' ] 	: 0;
-$ders_id 			= array_key_exists( 'ders_id', $_REQUEST ) 	? $_REQUEST[ 'ders_id' ] : 0;
+$rotasyon_id 		= array_key_exists( 'rotasyon_id', $_REQUEST ) 	? $_REQUEST[ 'rotasyon_id' ] : 0;
 
 
 $SQL_mufredat_ekle = <<< SQL
@@ -16,7 +16,8 @@ SET
 	adi 				= ?,
 	ders_yili_donem_id 	= ?,
 	program_id 			= ?,
-	ders_id 			= ?,
+	rotasyon_id 		= ?,
+	uzmanlik_dali_id	= ?,
 	kategori 			= ?
 SQL;
 
@@ -57,7 +58,8 @@ switch( $islem ) {
 		$degerler[] = $_REQUEST[ "adi" ];
 		$degerler[] = $_SESSION[ "donem_id" ];
 		$degerler[] = $_SESSION[ "program_id" ];
-		$degerler[] = $_REQUEST[ "ders_id" ];
+		$degerler[] = $_REQUEST[ "rotasyon_id" ];
+		$degerler[] = $_REQUEST[ "uzmanlik_dali_id" ];
 		$degerler[] = $kategori;
 
 		$sonuc = $vt->insert( $SQL_mufredat_ekle, $degerler );

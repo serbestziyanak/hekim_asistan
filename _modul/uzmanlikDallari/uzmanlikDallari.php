@@ -24,14 +24,11 @@ $kaydet_buton_cls		= $id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-su
 
 $SQL_tum_uzmanlik_dallari = <<< SQL
 SELECT 
-	ud.*
-	,u.adi AS universite_adi
+	*
 FROM 
-	tb_uzmanlik_dallari AS ud
-LEFT JOIN tb_universiteler AS u ON ud.universite_id = u.id
+	tb_uzmanlik_dallari
 WHERE 
-	ud.universite_id 	= ? AND
-	ud.aktif 		  	= 1
+	aktif = 1
 SQL;
 
 
@@ -45,17 +42,8 @@ WHERE
 	aktif 			= 1 
 SQL;
 
-$SQL_universiteler = <<< SQL
-SELECT
-	*
-FROM
-	tb_universiteler
-WHERE
-	aktif 			= 1
-SQL;
 
-$universiteler		= $vt->select( $SQL_universiteler, array( ) )[ 2 ];
-$uzmanlik_dallari			= $vt->select( $SQL_tum_uzmanlik_dallari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
+$uzmanlik_dallari		= $vt->select( $SQL_tum_uzmanlik_dallari, array( ) )[ 2 ];
 @$tek_uzmanlik_dali		= $vt->select( $SQL_tek_uzmanlik_dali_oku, array( $id ) )[ 2 ][ 0 ];
 
 ?>
@@ -103,7 +91,7 @@ $uzmanlik_dallari			= $vt->select( $SQL_tum_uzmanlik_dallari, array( $_SESSION[ 
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
-									<th>Üniversite</th>
+									<th>Tukmos Kodu</th>
 									<th>Uzmanlık Dalı</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
@@ -113,7 +101,7 @@ $uzmanlik_dallari			= $vt->select( $SQL_tum_uzmanlik_dallari, array( $_SESSION[ 
 								<?php $sayi = 1; foreach( $uzmanlik_dallari AS $uzmanlik_dali ) { ?>
 								<tr oncontextmenu="fun();" class ="uzmanlik_dali-Tr <?php if( $uzmanlik_dali[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $uzmanlik_dali[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
-									<td><?php echo $uzmanlik_dali[ 'universite_adi' ]; ?></td>
+									<td><?php echo $uzmanlik_dali[ 'tukmos_kodu' ]; ?></td>
 									<td><?php echo $uzmanlik_dali[ 'adi' ]; ?></td>
 									<td align = "center">
 										<a modul = 'uzmanlikDallari' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=uzmanlikDallari&islem=guncelle&id=<?php echo $uzmanlik_dali[ 'id' ]; ?>&universite_id=<?php echo $uzmanlik_dali[ 'universite_id' ]; ?>" >
@@ -145,17 +133,8 @@ $uzmanlik_dallari			= $vt->select( $SQL_tum_uzmanlik_dallari, array( $_SESSION[ 
 							<input type = "hidden" name = "id" value = "<?php echo $id; ?>">
 							<h3 class="profile-username text-center"><b> </b></h3>
 							<div class="form-group">
-								<label  class="control-label">Üniversite</label>
-								<select class="form-control select2 " name = "universite_id"  required>
-									<option>Seçiniz...</option>
-									<?php 
-										foreach( $universiteler AS $universite ){
-									?>
-											<option value="<?php echo $universite[ "id" ]; ?>" <?php if( $tek_uzmanlik_dali['universite_id'] == $universite[ "id" ] ) echo 'selected'; ?> ><?php echo $universite[ "adi" ]; ?></option>
-									<?php
-										}
-									?>
-								</select>
+								<label class="control-label">Tukmos Kodu</label>
+								<input required type="text" class="form-control form-control-sm" name ="tukmos_kodu" value = "<?php echo $tek_uzmanlik_dali[ "tukmos_kodu" ]; ?>"  autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Uzmanlık Dalı Adı</label>

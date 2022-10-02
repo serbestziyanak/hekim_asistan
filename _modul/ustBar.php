@@ -13,12 +13,12 @@
     <span class="nav-link text-red">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ||</span>
     <form class="form-inline"  method="POST">
       <div class="input-group input-group-sm">
-        <span class="nav-link">Uzmanlık Alanı</span>        
-        <select class="form-control select2 aktifYilSec" style="width: auto;" data-url="./_modul/ajax/ajax_data.php" data-islem="aktifFakulte" class="form-control">
+        <span class="nav-link">Uzmanlık Dalı</span>        
+        <select class="form-control select2 aktifYilSec" style="width: auto;" data-url="./_modul/ajax/ajax_data.php" data-islem="aktifFakulte" data-uzmanlik_adi = "<?php echo $_SESSION[ 'uzmanlik_dali_adi' ]; ?>" class="form-control">
           <?php 
             foreach ( $_SESSION[ 'uzmanlik_dallari' ] as $uzmanlik_dallari) {
-              echo '<option value="'.$uzmanlik_dallari[ "uzmanlik_dali_id" ].'" '.( $uzmanlik_dallari[ "uzmanlik_dali_id" ] == $_SESSION[ "aktif_uzmanlik_dali_id" ] ? "selected" : null ).'>
-              '.$uzmanlik_dallari[ "universite_adi" ].' - '.$uzmanlik_dallari[ "uzmanlik_dali_adi" ].
+              echo '<option value="'.$uzmanlik_dallari[ "uzmanlik_dali_id" ].'" '.( $uzmanlik_dallari[ "uzmanlik_dali_id" ] == $_SESSION[ "uzmanlik_dali_id" ] ? "selected" : null ).'>
+              '.$uzmanlik_dallari[ "uzmanlik_dali_adi" ].
               '</option>'; 
             }
           ?>

@@ -40,7 +40,6 @@ SELECT
 FROM
 	tb_uzmanlik_dallari
 WHERE
-	universite_id 	   	= ? AND
 	varsayilan		 	= 1 AND 
 	aktif 			   	= 1
 LIMIT 1
@@ -59,16 +58,11 @@ SQL;
 
 $SQL_uzmanlik_dallari = <<< SQL
 SELECT 
-	u.id AS universite_id, 
-	u.adi AS universite_adi,
 	ud.id AS uzmanlik_dali_id,
 	ud.adi AS uzmanlik_dali_adi
 FROM 
 	tb_uzmanlik_dallari AS ud
-LEFT JOIN 
-	tb_universiteler AS u ON ud.universite_id = u.id
 WHERE 
-	ud.universite_id 	= ? AND 
 	ud.aktif 			= 1
 SQL;
 
@@ -97,10 +91,11 @@ if( !$sorguSonuc[ 0 ] ) {
 		//$_SESSION[ 'aktif_yil' ]		= $aktif_yil[ "id" ];
 		//$_SESSION[ 'ders_yillari' ]		= $ders_yillari;
 
-		$aktif_uzmanlik_dali_id				= $vt->selectSingle( $SQL_aktif_uzmanlik_dali, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
-		$_SESSION[ 'aktif_uzmanlik_dali_id' ]		= $aktif_uzmanlik_dali_id[ "id" ];
+		$aktif_uzmanlik_dali_id				= $vt->selectSingle( $SQL_aktif_uzmanlik_dali, array(  ) )[ 2 ];
+		$_SESSION[ 'uzmanlik_dali_id' ]		= $aktif_uzmanlik_dali_id[ "id" ];
+		$_SESSION[ 'uzmanlik_dali_adi' ]	= $aktif_uzmanlik_dali_id[ "adi" ];
 
-		$uzmanlik_dallari 					= $vt->select( $SQL_uzmanlik_dallari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
+		$uzmanlik_dallari 					= $vt->select( $SQL_uzmanlik_dallari, array(  ) )[ 2 ];
 		$_SESSION[ 'uzmanlik_dallari' ]		= $uzmanlik_dallari;
 
 

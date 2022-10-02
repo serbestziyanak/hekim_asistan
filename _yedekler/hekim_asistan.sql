@@ -11,7 +11,7 @@
  Target Server Version : 100424 (10.4.24-MariaDB)
  File Encoding         : 65001
 
- Date: 02/10/2022 00:59:07
+ Date: 03/10/2022 01:19:11
 */
 
 SET NAMES utf8mb4;
@@ -688,7 +688,7 @@ CREATE TABLE `tb_modul`  (
   `harici_sayfa` tinyint NULL DEFAULT 0,
   `kategori_acik` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 138 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul
@@ -728,6 +728,7 @@ INSERT INTO `tb_modul` VALUES (134, 'Komite Öğrencileri', 'komiteOgrencileri',
 INSERT INTO `tb_modul` VALUES (135, 'Soru İşlemleri', NULL, NULL, 'fas fa-question-circle text-purple', 1, 0, 1, 40, 0, 0);
 INSERT INTO `tb_modul` VALUES (136, 'Soru Türleri', 'soru_turleri', 'soru_turleri', 'fas fa-question text-warning', 1, 135, 0, 1, 0, 0);
 INSERT INTO `tb_modul` VALUES (137, 'Uzmanlık Dalları', 'uzmanlikDallari', 'uzmanlikDallari', 'fas fa-book-reader text-yellow', 1, 125, 0, 1, 0, 0);
+INSERT INTO `tb_modul` VALUES (138, 'Rotasyonlar', 'rotasyonlar', 'rotasyonlar', 'fas fa-tasks text-yellow', 1, 0, 0, 20, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -1017,24 +1018,32 @@ CREATE TABLE `tb_mufredat`  (
   `ders_yili_donem_id` int NULL DEFAULT NULL,
   `program_id` int NULL DEFAULT NULL,
   `ders_id` int NULL DEFAULT NULL,
+  `rotasyon_id` int NULL DEFAULT NULL,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogretim_elemani_id` int NULL DEFAULT NULL,
   `ogrenim_hedefi_mi` tinyint NULL DEFAULT NULL,
   `kategori` tinyint NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_mufredat
 -- ----------------------------
-INSERT INTO `tb_mufredat` VALUES (21, 0, 'Ders Kategori', 1, 1, 2, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (22, 21, '1. Alt Kategori', 1, 1, 2, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (23, 22, '1 Alt Alt Kategori', 1, 1, 2, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (24, 23, '1. Alt Alt Alt Kategori', 1, 1, 2, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (25, 24, 'Öğrenim Hedefi', 1, 1, 2, NULL, NULL, 0);
-INSERT INTO `tb_mufredat` VALUES (26, 24, 'Öğrenim Hedefi', 1, 1, 2, NULL, NULL, 0);
-INSERT INTO `tb_mufredat` VALUES (27, 24, 'Öğrenim Hedefi', 1, 1, 2, NULL, NULL, 0);
-INSERT INTO `tb_mufredat` VALUES (28, 24, 'Öğrenim Hedefi', 1, 1, 2, NULL, NULL, 0);
-INSERT INTO `tb_mufredat` VALUES (30, 0, '1. Ders Kategori', 1, 1, 14, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (37, 0, 'adasd', NULL, NULL, 0, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (38, 0, 'ghbfdghgfhgf', NULL, NULL, 0, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (39, 0, 'fghfghfg', NULL, NULL, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (40, 0, 'nfgfdghfgh', NULL, NULL, NULL, -1, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (41, 0, '123123', NULL, NULL, NULL, -1, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (52, 0, 'Yöneticilik Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (53, 0, 'Ekip Üyeliği Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (54, 0, 'Sağlık Koruyuculuğu Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (55, 0, 'İletişim Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (56, 0, 'Değer ve Sorumluluk Sahibi Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (57, 0, 'Öğrenen ve Öğreten Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (58, 0, 'Hizmet Sunuculuğu Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (59, 58, 'Klinik Yetkinlikler', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (60, 58, 'Girişimsel Yetkinlikler', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (61, 59, 'Hastalık Yönetimi', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
 
 -- ----------------------------
 -- Table structure for tb_ogrenciler
@@ -1862,6 +1871,37 @@ INSERT INTO `tb_roller` VALUES (17, 'Supervi̇sor', 0);
 INSERT INTO `tb_roller` VALUES (18, 'Soru Yönetimi', 0);
 
 -- ----------------------------
+-- Table structure for tb_rotasyonlar
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_rotasyonlar`;
+CREATE TABLE `tb_rotasyonlar`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `rotasyon_uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `sure_ay` tinyint NULL DEFAULT NULL,
+  `aktif` tinyint NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_rotasyonlar
+-- ----------------------------
+INSERT INTO `tb_rotasyonlar` VALUES (1, 1, 1, 57, 4, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (2, 1, 1, 1, 2, 0);
+INSERT INTO `tb_rotasyonlar` VALUES (3, 1, 1, 1, 5, 0);
+INSERT INTO `tb_rotasyonlar` VALUES (4, 1, 1, 32, 4, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (5, 1, 1, 61, 3, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (6, 1, 1, 82, 2, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (7, 1, 1, 3, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (8, 1, 1, 50, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (9, 1, 1, 36, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (10, 1, 1, 63, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (11, 1, 1, 68, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (12, 1, 1, 42, 1, 1);
+INSERT INTO `tb_rotasyonlar` VALUES (13, 1, 1, 47, 1, 1);
+
+-- ----------------------------
 -- Table structure for tb_sistem_kullanici
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_sistem_kullanici`;
@@ -2019,18 +2059,113 @@ INSERT INTO `tb_unvanlar` VALUES (7, 'Arş. Gör.', 7);
 DROP TABLE IF EXISTS `tb_uzmanlik_dallari`;
 CREATE TABLE `tb_uzmanlik_dallari`  (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `universite_id` int NULL DEFAULT NULL,
+  `tukmos_kodu` varchar(5) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT '',
-  `varsayilan` tinyint NULL DEFAULT NULL,
-  `aktif` tinyint NULL DEFAULT 0,
+  `varsayilan` tinyint NULL DEFAULT 0,
+  `aktif` tinyint NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 99 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_uzmanlik_dallari
 -- ----------------------------
-INSERT INTO `tb_uzmanlik_dallari` VALUES (1, 1, 'Aile Hekimliği', 1, 1);
-INSERT INTO `tb_uzmanlik_dallari` VALUES (2, 1, 'Van Meslek', 0, 0);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (1, '050', 'Aile Hekimliği', 1, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (3, '010', 'Acil Tıp', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (4, '020', 'Adli Tıp', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (5, '030', 'Ağız, Diş ve Çene Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (6, '035', 'Ağız, Diş ve Çene Radyolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (7, '040', 'Ağız, Yüz ve Çene Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (8, '060', 'Algoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (9, '070', 'Anatomi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (10, '080', 'Anesteziyoloji ve Reanimasyon', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (11, '090', 'Askeri Psikiyatri', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (12, '100', 'Askeri Sağlık Hizmetleri', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (13, '110', 'Beyin ve Sinir Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (14, '120', 'Cerrahi Onkoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (15, '130', 'Çevre Sağlığı', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (16, '140', 'Çocuk Acil', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (17, '150', 'Çocuk Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (18, '160', 'Çocuk Endokrinolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (19, '170', 'Çocuk Enfeksiyon Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (20, '180', 'Çocuk Gastroenterolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (21, '190', 'Çocuk Genetik Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (22, '200', 'Çocuk Göğüs Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (23, '210', 'Çocuk Hematolojisi ve Onkolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (24, '220', 'Çocuk İmmünolojisi ve Alerji Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (25, '230', 'Çocuk Kalp ve Damar Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (26, '240', 'Çocuk Kardiyolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (27, '250', 'Çocuk Metabolizma Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (28, '260', 'Çocuk Nefrolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (29, '270', 'Çocuk Nörolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (30, '280', 'Çocuk Radyolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (31, '290', 'Çocuk Romatolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (32, '300', 'Çocuk Sağlığı ve Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (33, '310', 'Çocuk Ürolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (34, '320', 'Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (35, '330', 'Çocuk Yoğun Bakımı', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (36, '340', 'Deri ve Zührevi Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (37, '350', 'El Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (38, '360', 'Endodonti', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (39, '370', 'Endokrinoloji ve Metabolizma Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (40, '380', 'Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (41, '390', 'Epidemiyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (42, '400', 'Fiziksel Tıp ve Rehabilitasyon', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (43, '410', 'Fizyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (44, '420', 'Gastroenteroloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (45, '430', 'Gastroenteroloji Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (46, '435', 'Gelişimsel Pediatri', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (47, '440', 'Genel Cerrahi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (48, '450', 'Geriatri', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (49, '460', 'Göğüs Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (50, '470', 'Göğüs Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (51, '480', 'Göz Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (52, '490', 'Halk Sağlığı', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (53, '500', 'Harp Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (54, '510', 'Hava ve Uzay Hekimliği', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (55, '520', 'Hematoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (56, '530', 'Histoloji ve Embriyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (57, '540', 'İç Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (58, '550', 'İmmünoloji ve Alerji Hastalıkları ', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (59, '560', 'İş ve Meslek Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (60, '570', 'Jinekolojik Onkoloji Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (61, '580', 'Kadın Hastalıkları ve Doğum', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (62, '590', 'Kalp ve Damar Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (63, '600', 'Kardiyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (64, '610', 'Klinik Nörofizyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (65, '620', 'Kulak Burun Boğaz Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (66, '630', 'Nefroloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (67, '640', 'Neonatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (68, '650', 'Nöroloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (69, '660', 'Nükleer Tıp', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (70, '670', 'Ortodonti', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (71, '680', 'Ortopedi ve Travmatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (72, '690', 'Çocuk Diş Hekimliği', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (73, '700', 'Periferik Damar Cerrahisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (74, '710', 'Perinatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (75, '720', 'Periodontoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (76, '730', 'Plastik, Rekonstrüktif ve Estetik Cerrahi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (77, '740', 'Protetik Diş Tedavisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (78, '750', 'Radyasyon Onkolojisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (79, '760', 'Radyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (80, '765', 'Restoratif Diş Tedavisi', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (81, '770', 'Romatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (82, '780', 'Ruh Sağlığı ve Hastalıkları', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (83, '790', 'Sitopatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (84, '800', 'Spor Hekimliği', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (85, '810', 'Sualtı Hekimliği ve Hiperbarik Tıp', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (86, '820', 'Temel İmmünoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (87, '830', 'Tıbbi Biyokimya', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (88, '840', 'Tıbbi Ekoloji ve Hidroklimatoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (89, '850', 'Tıbbi Farmakoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (90, '860', 'Tıbbi Genetik', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (91, '870', 'Tıbbi Mikoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (92, '880', 'Tıbbi Mikrobiyoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (93, '890', 'Tıbbi Onkoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (94, '900', 'Tıbbi Parazitoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (95, '910', 'Tıbbi Patoloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (96, '920', 'Tıbbi Viroloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (97, '930', 'Üroloji', 0, 1);
+INSERT INTO `tb_uzmanlik_dallari` VALUES (98, '940', 'Yoğun Bakım', 0, 1);
 
 -- ----------------------------
 -- Table structure for tb_yetki

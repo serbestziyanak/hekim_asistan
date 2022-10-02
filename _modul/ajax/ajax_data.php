@@ -715,8 +715,8 @@ switch( $_POST[ 'islem' ] ) {
 		unset($_SESSION['donem_id']);
 	break;
 	case 'aktifFakulte':
-		$_SESSION[ 'program_id' ]	= $_REQUEST['id'];
-		unset($_SESSION['donem_id']);
+		$_SESSION[ 'uzmanlik_dali_id' ]	 = $_REQUEST['id'];
+		$_SESSION[ 'uzmanlik_dali_adi' ] = $_REQUEST['uzmanlik_adi'];
 	break;
 	case 'aktifDonem':
 		$_SESSION[ 'donem_id' ]		= $_REQUEST['id'];

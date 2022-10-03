@@ -160,7 +160,6 @@ $rotasyonlar		= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite
 														<span class='m-0 p-0'>
 															<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
-															<a href='#' id='$kategori[id]' class='btn btn-light float-right btn-xs ml-1 modalAc' data-mufredat_id='$kategori[id]'  data-kategori_ad='$kategori[adi]' data-modal='soru_ekle' data-ders_id='$kategori[ders_id]' >Soru Ekle</a>
 
 															<a href='#' id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs modalAc' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</a>
 														</span>
@@ -172,7 +171,6 @@ $rotasyonlar		= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite
 										$html .= "<li><div class='ders-kapsa bg-renk$renk'> $kategori[adi]
 										<span>
 											<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
-											<a href='#' id='$kategori[id]' class='btn btn-light float-right btn-xs ml-1 modalAc' data-mufredat_id='$kategori[id]'  data-kategori_ad='$kategori[adi]' data-modal='soru_ekle' data-ders_id='$kategori[ders_id]' >Soru Ekle</a>
 
 											<a href='#' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' class='btn btn-warning float-right btn-xs ml-1 modalAc' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
 

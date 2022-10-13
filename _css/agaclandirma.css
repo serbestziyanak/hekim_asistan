@@ -106,4 +106,8 @@ ul.tree:before {
   background-color: #eaac8b8e;
   color:white;
 }
+.tree .bg-renk7{
+  background-color: #dfdfdf;
+  color:rgb(0, 0, 0);
+}
 

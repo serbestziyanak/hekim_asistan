@@ -136,7 +136,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 			<div class="card-header">
 				<h3 class="card-title">Müfredat</h3>
 				<div class="form-group float-right mb-0">
-					<select class="form-control select2" name="ders_id" required  onchange="dersSecimi(this.value);">
+					<select class="form-control form-control-sm select2" name="ders_id" required  onchange="dersSecimi(this.value);">
 						<option value="">Rotasyon Seçiniz...</option>
 						<option value="-1" <?php echo -1 == @$rotasyon_id*1 ? 'selected' : null; ?>>
 							<?php echo $_SESSION[ 'uzmanlik_dali_adi' ];?>
@@ -169,8 +169,20 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 
 									if( $kategori['kategori'] == 0){
 										//$html .= '<li><div class="ders-kapsa bg-renk'.$renk.'"> '.$kategori[ "adi" ].$kategori[ "id" ].'</div></li>';
+										$duzeyler_badge = "";
+										$yontemler_badge = "";
+										foreach( explode(",", $kategori['duzey']) as $duzey )
+											$duzeyler_badge .= "<span class='badge badge-primary ' >$duzey</span> ";
+										foreach( explode(",", $kategori['yontem']) as $yontem )
+											$yontemler_badge .= "<span class='badge badge-success ' >$yontem</span> ";
 										$html .= "<li>
-													<div class='ders-kapsa bg-renk$renk '> $kategori[adi]
+													<div class='ders-kapsa bg-renk7 '> 
+														<span>
+															$kategori[adi]&nbsp;&nbsp;&nbsp;
+															$duzeyler_badge
+															&nbsp;&nbsp;&nbsp;<span class='badge badge-secondary ' >$kategori[kidem]</span>&nbsp;&nbsp;&nbsp;
+															$yontemler_badge
+														</span>
 														<span class='m-0 p-0'>
 															<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
@@ -182,13 +194,14 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 
 									}
 									if( $kategori['kategori'] == 1 ){
-										$html .= "<li><div class='ders-kapsa bg-renk$renk'> $kategori[adi]
+										$html .= "<li><div class='ders-kapsa bg-renk$renk' > $kategori[adi]
 										<span>
+										
 											<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
-											<a href='#' class='btn btn-warning float-right ml-1 btn-xs KategoriDuzenle' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
+											<a href='#' class='btn btn-warning float-right ml-1 btn-xs KategoriDuzenle' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='kategori_guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
 
-											<a href='#' class='btn btn-primary float-right ml-1 btn-xs YetkinlikEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='yetkinlik_ekle'>Yetkinlik Ekle</a> 
+											<a href='#' class='btn btn-primary float-right ml-1 btn-xs YetkinlikEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='yetkinlik_ekle' data-islem='yetkinlik_ekle'>Yetkinlik Ekle</a> 
 		
 											<a href='#' class='btn btn-dark float-right ml-1 btn-xs KategoriEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='kategori_ekle'>Kategori Ekle</a>
 										</span>
@@ -341,24 +354,45 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 				</div>
 				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
 					<div class="modal-body">
-						<input type="hidden" id="yetkinlik_kategori_ust_id"  name="ust_id">
+						<input type="hidden" id="islem2" name="islem">
+						<input type="hidden" id="ust_id2" name="ust_id">
 						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
 						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
 						<div class="form-group">
-							<label class="control-label">Üst Kategori</label>
-							<input required type="text" class="form-control" id="yetkinlik_kategori_ad"  autocomplete="off" disabled>
-						</div>
-
-						<div class="form-group">
 							<label class="control-label">Yetkinlik</label>
-							<input required type="text" class="form-control" name ="adi"  autocomplete="off">
+							<input required type="text" class="form-control" name ="adi"  autocomplete="off" >
 						</div>
+						<div class="form-group">
+							<label  class="control-label">Düzeyler</label>
+							<select class="form-control select2" name="duzey[]"  multiple="multiple" id="duzey_id2" required>
+								<option>Seçiniz...</option>
+								
+							</select>
+							<div id="duzeyler_aciklama2"></div>
 
-
+						</div>
+						<br>
+						<div class="form-group">
+							<label  class="control-label">Kıdem</label>
+							<select class="form-control select2" name="kidem"   id="kidem_id2" required>
+								<option>Seçiniz...</option>
+								
+							</select>
+							<div id="kidem_aciklama2"></div>
+						</div>
+						<br>
+						<div class="form-group">
+							<label  class="control-label">Yöntemler</label>
+							<select class="form-control select2" name="yontem[]"  multiple="multiple" id="yontem_id2" required>
+								<option>Seçiniz...</option>
+								
+							</select>
+							<div id="yontemler_aciklama2"></div>
+						</div>
 					</div>
 					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-success" data-dismiss="modal">İptal</button>
-						<button type="submit" class="btn btn-danger">Kaydet</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button>
+						<button type="submit" class="btn btn-success">Kaydet</button>
 					</div>
 				</form>
 			</div>
@@ -482,22 +516,56 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 	        var modal 		= $(this).data("modal");
 	        var islem 		= $(this).data("islem");
 
-	        //document.getElementById("kategori_ad_duzenle").value = kategori_ad;
-	        //document.getElementById("kategori_duzenle_islem").value = islem;
-			alert("dsfsdfsd");
+	        document.getElementById("kategori_duzenle_mufredat_id").value = id;
+	        document.getElementById("kategori_ad_duzenle").value = kategori_ad;
+	        document.getElementById("kategori_duzenle_islem").value = islem;
+
 	        $('#kategori_duzenle').modal( "show" );
 	    });
 
-	    $('.YetkinlikEkle').on("click", function(e) { 
-	        var ust_id      = $(this).data("id");
-	        var kategori_ad = $(this).data("kategori_ad");
-	        var modal 		= $(this).data("modal");
-
-	        document.getElementById("yetkinlik_kategori_ust_id").value 	 = ust_id;
-	        document.getElementById("yetkinlik_kategori_ad").value = kategori_ad;
-	        $('#'+ modal).modal( "show" );
-	    });
 		
+		$('.YetkinlikEkle').on("click", function(e) { 
+			var modal 						= $(this).data("modal");
+			var kategori_ad 				= $(this).data("kategori_ad");
+			var modal 						= $(this).data("modal");
+			var kategori 					= $(this).data("kategori");
+			var islem 						= $(this).data("islem");
+			var ust_id 						= $(this).data("id");
+			var duzeyler_aciklama 			= "";
+			var duzeyler_options 			= "";
+			var duzeyler_selected_option	= "";
+			var yontemler_aciklama 			= "";
+			var yontemler_options 			= "";
+			var yontemler_selected_option	= "";
+			var kidem_selected_option 		= "";
+			
+
+
+			document.getElementById("ust_id2").value = ust_id;
+			var duzeyler = <?php echo json_encode($duzeyler, JSON_UNESCAPED_UNICODE); ?>;// don't use quotes
+			$.each(duzeyler, function(key, value) {
+				duzeyler_options = duzeyler_options + "<option value="+ value.kodu +" >"+value.kodu+"</option>";
+				duzeyler_aciklama = duzeyler_aciklama + "<small><b>"+ value.kodu +"</b> : "+ value.aciklama +"</small><br>";
+			});
+			document.getElementById("duzey_id2").innerHTML = duzeyler_options;
+			document.getElementById("duzeyler_aciklama2").innerHTML = duzeyler_aciklama;
+
+			for( var i=1;i<=6;i++ ){
+				document.getElementById("kidem_id2").innerHTML += "<option value="+ i +" >"+i+"</option>";
+			}
+
+			var yontemler = <?php echo json_encode($yontemler, JSON_UNESCAPED_UNICODE); ?>;// don't use quotes
+			$.each(yontemler, function(key, value) {
+				yontemler_options = yontemler_options + "<option value="+ value.kodu +" >"+value.kodu+"</option>";
+				yontemler_aciklama = yontemler_aciklama + "<small><b>"+ value.kodu +"</b> : "+ value.aciklama +"</small><br>";
+			});
+			document.getElementById("yontem_id2").innerHTML = yontemler_options;
+			document.getElementById("yontemler_aciklama2").innerHTML = yontemler_aciklama;
+
+			document.getElementById("islem2").value 					= islem;
+		        
+		    $('#'+ modal).modal( "show" );
+	    });
 		$('.yetkinlikDuzenle').on("click", function(e) { 
 			var modal 		= $(this).data("modal");
 			var kategori_ad 				= $(this).data("kategori_ad_duzenle");

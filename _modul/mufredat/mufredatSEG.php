@@ -21,6 +21,20 @@ SET
 	kategori 			= ?
 SQL;
 
+$SQL_mufredat_yetkinlik_ekle = <<< SQL
+INSERT INTO 
+	tb_mufredat
+SET
+	 ust_id 			= ?
+	,adi 				= ?
+	,rotasyon_id 		= ?
+	,uzmanlik_dali_id	= ?
+	,duzey 				= ?
+	,kidem 				= ?
+	,yontem				= ?
+	,kategori 			= ?
+SQL;
+
 $SQL_mufredat_duzenle = <<< SQL
 UPDATE
 	tb_mufredat
@@ -29,6 +43,15 @@ SET
 	,duzey 	= ?
 	,kidem 	= ?
 	,yontem	= ?
+WHERE 
+	id 		= ? 
+SQL;
+
+$SQL_mufredat_kategori_duzenle = <<< SQL
+UPDATE
+	tb_mufredat
+SET
+	 adi 	= ?
 WHERE 
 	id 		= ? 
 SQL;
@@ -68,6 +91,33 @@ switch( $islem ) {
 		else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sonuc[ 2 ] ); 
 		$son_eklenen_id	= $sonuc[ 2 ]; 
 		$mufredat_id = $son_eklenen_id;
+	break;
+	case 'yetkinlik_ekle':
+		$kategori = $_REQUEST[ "kategori" ] == "on" ? 1 : 0;
+		$duzey = implode(",", $_REQUEST[ "duzey" ]);
+		$yontem = implode(",", $_REQUEST[ "yontem" ]);
+
+		$degerler[] = $_REQUEST[ "ust_id" ];
+		$degerler[] = $_REQUEST[ "adi" ];
+		$degerler[] = $_REQUEST[ "rotasyon_id" ];
+		$degerler[] = $_REQUEST[ "uzmanlik_dali_id" ];
+		$degerler[] = $duzey;
+		$degerler[] = $_REQUEST[ "kidem" ];
+		$degerler[] = $yontem;
+		$degerler[] = $kategori;
+
+		$sonuc = $vt->insert( $SQL_mufredat_yetkinlik_ekle, $degerler );
+		if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sonuc[ 1 ] );
+		else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sonuc[ 2 ] ); 
+		$son_eklenen_id	= $sonuc[ 2 ]; 
+		$mufredat_id = $son_eklenen_id;
+	break;
+	case 'kategori_guncelle':
+		$degerler[] = $_REQUEST[ "adi" ];
+		$degerler[] = $_REQUEST[ "mufredat_id" ];
+
+		$sonuc = $vt->update( $SQL_mufredat_kategori_duzenle, $degerler );
+		if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sonuc[ 1 ] );
 
 	break;
 	case 'guncelle':

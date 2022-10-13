@@ -7,6 +7,8 @@ $islem				= array_key_exists( 'islem', $_REQUEST )	? $_REQUEST[ 'islem' ]	: 'ekl
 $mufredat_id 		= array_key_exists( 'id', $_REQUEST ) 		? $_REQUEST[ 'id' ] 	: 0;
 $rotasyon_id 		= array_key_exists( 'rotasyon_id', $_REQUEST ) 	? $_REQUEST[ 'rotasyon_id' ] : 0;
 
+//print_r($_REQUEST);
+//exit;
 
 $SQL_mufredat_ekle = <<< SQL
 INSERT INTO 
@@ -14,8 +16,6 @@ INSERT INTO
 SET
 	ust_id 				= ?,
 	adi 				= ?,
-	ders_yili_donem_id 	= ?,
-	program_id 			= ?,
 	rotasyon_id 		= ?,
 	uzmanlik_dali_id	= ?,
 	kategori 			= ?
@@ -25,7 +25,10 @@ $SQL_mufredat_duzenle = <<< SQL
 UPDATE
 	tb_mufredat
 SET
-	adi 	= ?
+	 adi 	= ?
+	,duzey 	= ?
+	,kidem 	= ?
+	,yontem	= ?
 WHERE 
 	id 		= ? 
 SQL;
@@ -56,8 +59,6 @@ switch( $islem ) {
 
 		$degerler[] = $_REQUEST[ "ust_id" ];
 		$degerler[] = $_REQUEST[ "adi" ];
-		$degerler[] = $_SESSION[ "donem_id" ];
-		$degerler[] = $_SESSION[ "program_id" ];
 		$degerler[] = $_REQUEST[ "rotasyon_id" ];
 		$degerler[] = $_REQUEST[ "uzmanlik_dali_id" ];
 		$degerler[] = $kategori;
@@ -70,7 +71,13 @@ switch( $islem ) {
 
 	break;
 	case 'guncelle':
+		$duzey = implode(",", $_REQUEST[ "duzey" ]);
+		$yontem = implode(",", $_REQUEST[ "yontem" ]);
+
 		$degerler[] = $_REQUEST[ "adi" ];
+		$degerler[] = $duzey;
+		$degerler[] = $_REQUEST[ "kidem" ];
+		$degerler[] = $yontem;
 		$degerler[] = $_REQUEST[ "mufredat_id" ];
 
 		$sonuc = $vt->update( $SQL_mufredat_duzenle, $degerler );
@@ -115,5 +122,5 @@ switch( $islem ) {
 
 $_SESSION[ 'sonuclar' ] 		= $___islem_sonuc;
 $_SESSION[ 'sonuclar' ][ 'id' ] = $mufredat_id;
-header( "Location:../../index.php?modul=mufredat&ders_id=$ders_id");
+header( "Location:../../index.php?modul=mufredat&rotasyon_id=$rotasyon_id");
 ?>

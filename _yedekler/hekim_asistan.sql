@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100424 (10.4.24-MariaDB)
+ Source Server Version : 100422 (10.4.22-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100424 (10.4.24-MariaDB)
+ Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 03/10/2022 01:19:11
+ Date: 13/10/2022 23:24:15
 */
 
 SET NAMES utf8mb4;
@@ -497,6 +497,31 @@ INSERT INTO `tb_donemler` VALUES (3, 1, 1, 'Dönem III', 1);
 INSERT INTO `tb_donemler` VALUES (4, 1, 1, 'Dönem IV', 1);
 INSERT INTO `tb_donemler` VALUES (5, 1, 1, 'Dönem V', 1);
 INSERT INTO `tb_donemler` VALUES (6, 1, 1, 'Dönem VI', 1);
+
+-- ----------------------------
+-- Table structure for tb_duzeyler
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_duzeyler`;
+CREATE TABLE `tb_duzeyler`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `kodu` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `aciklama` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_duzeyler
+-- ----------------------------
+INSERT INTO `tb_duzeyler` VALUES (1, 'B', 'Hastalığa ön tanı koyma ve gerekli durumda hastaya zarar vermeyecek şekilde ve doğru zamanda, doğru yere sevk edebilecek bilgiye sahip olma düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (2, 'T', 'Hastaya tanı koyma ve sonrasında tedavi için yönlendirebilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (3, 'TT', 'Ekip çalışmasının gerektirdiği durumlar dışında herhangi bir desteğe gereksinim duymadan hastanın tanı ve tedavisinin tüm sürecini yönetebilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (4, 'ETT', 'Ekip çalışması yaparak hastanın tanı ve tedavisinin tüm sürecini yönetebilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (5, 'A', 'Hastanın acil durum tanısını koymak ve hastalığa özel acil tedavi girişimini uygulayabilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (6, 'K', 'Hastanın birincil, ikincil ve üçüncül korunma gereksinimlerini tanımlamayı ve gerekli koruyucu önlemleri alabilme düzeyini ifade eder. ');
+INSERT INTO `tb_duzeyler` VALUES (7, '1', 'Girişimin nasıl yapıldığı konusunda bilgi sahibi olma ve bu konuda gerektiğinde açıklama yapabilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (8, '2', 'Acil bir durumda, kılavuz veya yönerge eşliğinde veya gözetim ve denetim altında bu  girişimi yapabilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (9, '3', 'Karmaşık olmayan, sık görülen tipik olgularda girişimi uygulayabilme düzeyini ifade eder.');
+INSERT INTO `tb_duzeyler` VALUES (10, '4', 'Karmaşık olsun veya olmasın, her tür olguda girişimi uygulayabilme düzeyini ifade eder.');
 
 -- ----------------------------
 -- Table structure for tb_fakulteler
@@ -1015,35 +1040,100 @@ CREATE TABLE `tb_mufredat`  (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `ust_id` int NULL DEFAULT NULL,
   `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
-  `ders_yili_donem_id` int NULL DEFAULT NULL,
-  `program_id` int NULL DEFAULT NULL,
-  `ders_id` int NULL DEFAULT NULL,
-  `rotasyon_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
-  `ogretim_elemani_id` int NULL DEFAULT NULL,
+  `rotasyon_id` int NULL DEFAULT NULL,
+  `duzey` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `kidem` tinyint NULL DEFAULT NULL,
+  `yontem` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `ogrenim_hedefi_mi` tinyint NULL DEFAULT NULL,
   `kategori` tinyint NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_mufredat
 -- ----------------------------
-INSERT INTO `tb_mufredat` VALUES (37, 0, 'adasd', NULL, NULL, 0, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (38, 0, 'ghbfdghgfhgf', NULL, NULL, 0, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (39, 0, 'fghfghfg', NULL, NULL, -1, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (40, 0, 'nfgfdghfgh', NULL, NULL, NULL, -1, NULL, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (41, 0, '123123', NULL, NULL, NULL, -1, NULL, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (52, 0, 'Yöneticilik Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (53, 0, 'Ekip Üyeliği Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (54, 0, 'Sağlık Koruyuculuğu Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (55, 0, 'İletişim Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (56, 0, 'Değer ve Sorumluluk Sahibi Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (57, 0, 'Öğrenen ve Öğreten Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (58, 0, 'Hizmet Sunuculuğu Yetkinliği', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (59, 58, 'Klinik Yetkinlikler', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (60, 58, 'Girişimsel Yetkinlikler', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
-INSERT INTO `tb_mufredat` VALUES (61, 59, 'Hastalık Yönetimi', NULL, NULL, NULL, -1, 1, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (52, 0, 'Yöneticilik Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (53, 0, 'Ekip Üyeliği Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (54, 0, 'Sağlık Koruyuculuğu Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (55, 0, 'İletişim Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (56, 0, 'Değer ve Sorumluluk Sahibi Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (57, 0, 'Öğrenen ve Öğreten Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (58, 0, 'Hizmet Sunuculuğu Yetkinliği', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (59, 58, 'Klinik Yetkinlikler', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (60, 58, 'Girişimsel Yetkinlikler', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (61, 59, 'Hastalık Yönetimi', 1, -1, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_mufredat` VALUES (71, 61, 'AİLEVİ AKDENİZ ATEŞİ (FMF)', 1, -1, 'ETT', 3, 'YE,UE,BE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (72, 61, 'AKUT BATIN ', 1, -1, 'B', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (73, 61, 'AKUT ROMATİZMAL ATEŞ (ARA) ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (74, 61, 'AKUT SOLUNUM YETMEZLİĞİ ', 1, -1, 'K,T,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (75, 61, 'AKUT VE KRONİK BÖBREK YETMEZLİĞİ', 1, -1, 'K,T,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (76, 61, 'ALERJİSİ OLAN HASTA ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (77, 61, 'ALT SOLUNUM YOLU ENFEKSİYONU', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (78, 61, 'AMFİZEM ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (79, 61, 'ANEMİ', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (80, 61, 'ANKSİYETE BOZUKLUĞU', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (81, 61, 'ANORMAL VAJİNAL KANAMA', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (82, 61, 'ASİT', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (83, 61, 'ASTIM  ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (84, 61, 'BAĞ DOKUSU HASTALIKLARI', 1, -1, 'B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (85, 61, 'BENİGN PROSTAT HİPERTROFİSİ', 1, -1, 'T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (86, 61, 'BESLENME BOZUKLUĞU ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (87, 61, 'BRONŞİEKTAZİ ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (88, 61, 'ÇEVRE KAYNAKLI HASTALIKLAR', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (89, 61, 'DEMANS ', 1, -1, 'K,ETT', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (90, 61, 'DEPRESYON ', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (91, 61, 'DERİ VE YUMUŞAK DOKU ENFEKSİYONU', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (92, 61, 'DİĞER CİNSEL YOLLA BULAŞAN HASTALIK OLAN HASTA ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (93, 61, 'DİSK HERNİSİ (KOMPLİKASYONSUZ)', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (94, 61, 'DİSLİPİDEMİLER', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (95, 61, 'DİSMENORE', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (96, 61, 'DİYABET ', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (97, 61, 'DOĞUM VE DOĞUM SONRASI KOMPLİKASYONLARI', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (98, 61, 'DÖKÜNTÜLÜ HASTA', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (99, 61, 'ENSEFALİT', 1, -1, 'B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (100, 61, 'FİBROMİYALJİ ', 1, -1, 'K,ETT', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (101, 61, 'GASTRİT VE PEPTİK ÜLSER  ', 1, -1, 'K,ETT', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (102, 61, 'GASTROİNTESTİNAL SİSTEM ENFEKSİYONU', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (103, 61, 'GEBELİK KOMPLİKASYONLARI ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (104, 61, 'GIS KANAMASI  ', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (105, 61, 'HIV (+) HASTA ', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (106, 61, 'HİPERTANSİYON  ', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (107, 61, 'İDRAR YOLU ENFEKSİYONU', 1, -1, 'K,ETT', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (108, 61, 'İNFERTİLİTE', 1, -1, 'T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (109, 61, 'İNME ', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (110, 61, 'İSKEMİK KALP HASTALIĞI  ', 1, -1, 'K,ETT,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (111, 61, 'JİNEKOLOJİK ENFEKSİYONLAR ', 1, -1, 'K,ETT', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (112, 61, 'KALP KAPAK HASTALIKLARI ', 1, -1, 'K,B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (113, 61, 'KALP YETMEZLİĞİ  ', 1, -1, 'K,ETT,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (114, 61, 'KARACİĞER YAĞLANMASI', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (115, 61, 'KAZA, ZEHİRLENME VE YARALANMA ', 1, -1, 'K,B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (116, 61, 'KOAH ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (117, 61, 'KONJENİTAL ANOMALİLİ HASTA', 1, -1, 'K,B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (118, 61, 'LEİOMİYOMA UTERİ', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (119, 61, 'MALİGNİTE', 1, -1, 'K,B', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (120, 61, 'MENENJİT', 1, -1, 'K,B', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (121, 61, 'MESLEK HASTALIKLARI', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (122, 61, 'NEFRİT  ', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (123, 61, 'NEFROTİK SENDROM  ', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (124, 61, 'OBEZİTE', 1, -1, 'K,ETT', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (125, 61, 'OSTEOARTRİT', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (126, 61, 'OSTEOPOROZ ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (127, 61, 'PERİFERİK DAMAR HASTALIKLARI', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (128, 61, 'PERİNATAL ENFEKSİYONLAR', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (129, 61, 'PNÖMOTORAKS', 1, -1, 'K,B,', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (130, 61, 'PSİKOZ ', 1, -1, 'T,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (131, 61, 'RİTM BOZUKLUKLARI  ', 1, -1, 'K,ETT,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (132, 61, 'ROMATOİD ARTRİT', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (133, 61, 'SAFRA KESESİ HASTALIKLARI', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (134, 61, 'SOMATOFORM BOZUKLUK ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (135, 61, 'TALASSEMİ', 1, -1, 'K,T', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (136, 61, 'TİROİD HASTALIKLARI  ', 1, -1, 'K,ETT,A', 3, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (137, 61, 'TÜBERKÜLOZ ', 1, -1, 'K,ETT', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (138, 61, 'ÜST SOLUNUM YOLU ENFEKSİYONU', 1, -1, 'K,ETT,A', 1, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (139, 61, 'VİRAL HEPATİT ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (140, 61, 'YABANCI CİSİM ASPİRASYONU', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (141, 61, 'YEME BOZUKLUKLUĞU', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
 
 -- ----------------------------
 -- Table structure for tb_ogrenciler
@@ -1882,7 +1972,7 @@ CREATE TABLE `tb_rotasyonlar`  (
   `sure_ay` tinyint NULL DEFAULT NULL,
   `aktif` tinyint NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_rotasyonlar
@@ -2226,5 +2316,23 @@ INSERT INTO `tb_yetki_islem_turleri` VALUES (38, 'medya_sil', 'Medya Sil');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (39, 'ekstra_hizmet_bedeli_onayla', 'Ekstra Hizmet Bedelini Onayla');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (40, 'ekstra_hizmet_bedeli_onay_kaldir', 'Ekstra Hizmet Bedeli Onayını Kaldır');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (41, 'yayindan_kaldir', 'Yayından Kaldır');
+
+-- ----------------------------
+-- Table structure for tb_yontemler
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_yontemler`;
+CREATE TABLE `tb_yontemler`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `kodu` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `aciklama` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_yontemler
+-- ----------------------------
+INSERT INTO `tb_yontemler` VALUES (1, 'YE', 'Yapılandırılmış Eğitim Etkinlikleri');
+INSERT INTO `tb_yontemler` VALUES (2, 'UE', 'Uygulamalı Eğitim Etkinlikleri');
+INSERT INTO `tb_yontemler` VALUES (3, 'BE', 'Bağımsız ve Keşfederek Öğrenme Etkinlikleri');
 
 SET FOREIGN_KEY_CHECKS = 1;

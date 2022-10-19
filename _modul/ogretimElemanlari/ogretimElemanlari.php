@@ -28,11 +28,11 @@ SELECT
 	oe.id,
 	CONCAT( u.adi, ' ', oe.adi, ' ', oe.soyadi ) AS o_adi,
 	f.adi AS fakulte_adi,
-	abd.adi AS anabilim_dali_adi
+	ud.adi AS uzmanlik_dali_adi
 FROM 
 	tb_ogretim_elemanlari AS oe
 LEFT JOIN tb_fakulteler AS f ON f.id = oe.fakulte_id
-LEFT JOIN tb_anabilim_dallari AS abd ON abd.id = oe.anabilim_dali_id
+LEFT JOIN tb_uzmanlik_dallari AS ud ON ud.id = oe.uzmanlik_dali_id
 LEFT JOIN tb_unvanlar AS u ON u.id = oe.unvan_id
 WHERE
 	oe.universite_id 	= ? AND
@@ -51,19 +51,10 @@ WHERE
 	aktif 			= 1 
 SQL;
 
-/*Üniversiteye Ait Anabilim Dalını Listele*/
-$SQL_fakulteler = <<< SQL
-SELECT
-	*
-FROM
-	tb_fakulteler
-WHERE
-	universite_id   = ? AND
-	aktif 			= 1
-SQL;
 
 
-/*Üniversiteye Ait Anabilim Dalını Listele*/
+
+/*Üniversiteye Ait uzmanlik Dalını Listele*/
 $SQL_unvanlar = <<< SQL
 SELECT
 	*
@@ -73,22 +64,19 @@ SQL;
 
 
 
-/*Üniversiteye Ait Anabilim Dalını Listele*/
-$SQL_anabilim_dallari = <<< SQL
+/*Üniversiteye Ait uzmanlik Dalını Listele*/
+$SQL_uzmanlik_dallari = <<< SQL
 SELECT
-	abd.id,
-	abd.adi
+	*
 FROM
-	tb_anabilim_dallari AS abd
-LEFT JOIN tb_fakulteler AS f  ON f.id = abd.fakulte_id
+	tb_uzmanlik_dallari
 WHERE
-	f.universite_id   = ? AND
-	abd.aktif 		  = 1
+	aktif 		  	= 1
 SQL;
 
 
 $unvanlar							= $vt->select( $SQL_unvanlar, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
-$anabilim_dallari					= $vt->select( $SQL_anabilim_dallari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
+$uzmanlik_dallari					= $vt->select( $SQL_uzmanlik_dallari, array(  ) )[ 2 ];
 $fakulteler							= $vt->select( $SQL_fakulteler, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
 $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
 @$tek_ogretim_elemani				= $vt->select( $SQL_tek_ogretim_elemani_oku, array( $ogretim_elemani_id ) )[ 2 ][ 0 ];		
@@ -139,7 +127,7 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 								<tr>
 									<th style="width: 15px">#</th>
 									<th>Fakulte</th>
-									<th>Anabilim Dalı</th>
+									<th>Uzmanlık Dalı</th>
 									<th>Adı</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
@@ -150,7 +138,7 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 								<tr oncontextmenu="fun();" class ="ogretim_elemanlari-Tr <?php if( $ogretim_elemanlari[ 'id' ] == $ogretim_elemani_id ) echo $satir_renk; ?>" data-id="<?php echo $ogretim_elemanlari[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
 									<td><?php echo $ogretim_elemanlari[ 'fakulte_adi' ]; ?></td>
-									<td><?php echo $ogretim_elemanlari[ 'anabilim_dali_adi' ]; ?></td>
+									<td><?php echo $ogretim_elemanlari[ 'uzmanlik_dali_adi' ]; ?></td>
 									<td><?php echo $ogretim_elemanlari[ 'o_adi' ]; ?></td>
 									<td align = "center">
 										<a modul = 'ogretimElemanlari' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogretimElemanlari&islem=guncelle&ogretim_elemani_id=<?php echo $ogretim_elemanlari[ 'id' ]; ?>" >
@@ -189,24 +177,12 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 									<input type = "hidden" name = "ogretim_elemani_id" value = "<?php echo $ogretim_elemani_id; ?>">
 									<h3 class="profile-username text-center"><b> </b></h3>
 									<div class="form-group">
-										<label  class="control-label">Fakülte</label>
-										<select class="form-control select2" name = "fakulte_id" required>
+										<label  class="control-label">Uzmanlık Dalı</label>
+										<select class="form-control select2" name = "uzmanlik_dali_id" required>
 											<option>Seçiniz...</option>
 											<?php 
-												foreach( $fakulteler AS $fakulte ){
-													echo '<option value="'.$fakulte[ "id" ].'" '.( $tek_ogretim_elemani[ "fakulte_id" ] == $fakulte[ "id" ] ? "selected" : null) .'>'.$fakulte[ "adi" ].'</option>';
-												}
-
-											?>
-										</select>
-									</div>
-									<div class="form-group">
-										<label  class="control-label">Anabilim Dalı</label>
-										<select class="form-control select2" name = "anabilim_dali_id" required>
-											<option>Seçiniz...</option>
-											<?php 
-												foreach( $anabilim_dallari AS $anabilim_dali ){
-													echo '<option value="'.$anabilim_dali[ "id" ].'" '.( $tek_ogretim_elemani[ "anabilim_dali_id" ] == $anabilim_dali[ "id" ] ? "selected" : null) .'>'.$anabilim_dali[ "adi" ].'</option>';
+												foreach( $uzmanlik_dallari AS $uzmanlik_dali ){
+													echo '<option value="'.$uzmanlik_dali[ "id" ].'" '.( $tek_ogretim_elemani[ "uzmanlik_dali_id" ] == $uzmanlik_dali[ "id" ] ? "selected" : null) .'>'.$uzmanlik_dali[ "adi" ].'</option>';
 												}
 
 											?>

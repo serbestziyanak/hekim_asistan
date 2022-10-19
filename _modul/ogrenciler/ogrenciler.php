@@ -7,7 +7,7 @@ $vt = new VeriTabani();
 if( array_key_exists( 'sonuclar', $_SESSION ) ) {
 	$mesaj								= $_SESSION[ 'sonuclar' ][ 'mesaj' ];
 	$mesaj_turu							= $_SESSION[ 'sonuclar' ][ 'hata' ] ? 'kirmizi' 	: 'yesil';
-	$_REQUEST[ 'ogrenci_id' ]				= $_SESSION[ 'sonuclar' ][ 'id' ];
+	$_REQUEST[ 'ogrenci_id' ]			= $_SESSION[ 'sonuclar' ][ 'id' ];
 	unset( $_SESSION[ 'sonuclar' ] );
 	echo "<script>mesajVer('$mesaj', '$mesaj_turu')</script>";
 }
@@ -25,19 +25,15 @@ $kaydet_buton_cls		= $ogrenci_id > 0	? 'btn btn-warning btn-sm pull-right'	: 'bt
 
 $SQL_tum_ogrenciler = <<< SQL
 SELECT 
-	o.id,
-	o.tc_kimlik_no,
-	o.ogrenci_no,
-	o.kayit_yili,
-	CONCAT( o.adi, ' ', o.soyadi ) AS o_adi
+	o.*,
+	CONCAT( o.adi, ' ', o.soyadi ) AS o_adi,
+	u.adi as uzmanlik_dali_adi
 FROM 
 	tb_ogrenciler AS o
-LEFT JOIN tb_fakulteler AS f ON f.id = o.fakulte_id
-LEFT JOIN tb_bolumler AS b ON b.id = o.bolum_id
-LEFT JOIN tb_programlar AS p ON p.id = o.program_id
+LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
 WHERE
 	o.universite_id 	= ? AND
-	o.program_id 		= ? AND
+	o.uzmanlik_dali_id 		= ? AND
 	o.aktif 		  	= 1 
 ORDER BY o.adi ASC
 SQL;
@@ -53,46 +49,33 @@ WHERE
 	aktif 			= 1 
 SQL;
 
-/*Üniversiteye Ait Anabilim Dalını Listele*/
-$SQL_fakulteler = <<< SQL
+/*Üniversiteye Ait uzmanlik Dalını Listele*/
+$SQL_uzmanlik_dallari = <<< SQL
 SELECT
 	*
 FROM
-	tb_fakulteler
+	tb_uzmanlik_dallari
 WHERE
-	universite_id   = ? AND
-	aktif 			= 1
+	aktif 		  	= 1
 SQL;
 
-
-/*Üniversiteye Ait Anabilim Dalını Listele*/
-$SQL_unvanlar = <<< SQL
+$SQL_ogretim_elemanlari = <<< SQL
 SELECT
-	*
+	 oe.*
+	,concat( u.adi," ",oe.adi," ",oe.soyadi) as adi_soyadi
 FROM
-	tb_unvanlar
-SQL;
-
-
-
-/*Üniversiteye Ait Anabilim Dalını Listele*/
-$SQL_anabilim_dallari = <<< SQL
-SELECT
-	abd.id,
-	abd.adi
-FROM
-	tb_anabilim_dallari AS abd
-LEFT JOIN tb_fakulteler AS f  ON f.id = abd.fakulte_id
+	tb_ogretim_elemanlari AS oe
+LEFT JOIN tb_unvanlar AS u ON u.id = oe.unvan_id
 WHERE
-	f.universite_id   = ? AND
-	abd.aktif 		  = 1
+	oe.aktif 		  	= 1 AND
+	oe.universite_id	= ?
+ORDER BY oe.adi,oe.soyadi
 SQL;
 
 
-$unvanlar							= $vt->select( $SQL_unvanlar, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
-$anabilim_dallari					= $vt->select( $SQL_anabilim_dallari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
-$fakulteler							= $vt->select( $SQL_fakulteler, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
-$ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'program_id'] ) )[ 2 ];
+$ogrenciler					= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+$uzmanlik_dallari			= $vt->select( $SQL_uzmanlik_dallari, array(  ) )[ 2 ];
+$ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
 @$tek_ogrenci				= $vt->select( $SQL_tek_ogrenci_oku, array( $ogrenci_id ) )[ 2 ][ 0 ];		
 
 ?>
@@ -127,7 +110,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8">
-				<div class="card card-secondary" id = "card_ogrenciler">
+				<div class="card card-olive" id = "card_ogrenciler">
 					<div class="card-header">
 						<h3 class="card-title">Öğrenciler</h3>
 						<div class = "card-tools">
@@ -140,10 +123,11 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
-									<th>TC</th>
+									<th>TC No</th>
 									<th>Öğrenci No</th>
 									<th>Adı Soyadı</th>
-									<th>Kayıt Yılı</th>
+									<th>Başlama Tarihi</th>
+									<th>Uzmanlık Dalı</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
 								</tr>
@@ -155,7 +139,8 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 									<td><?php echo $ogrenci[ 'tc_kimlik_no' ]; ?></td>
 									<td><?php echo $ogrenci[ 'ogrenci_no' ]; ?></td>
 									<td><?php echo $ogrenci[ 'o_adi' ]; ?></td>
-									<td><?php echo $ogrenci[ 'kayit_yili' ]; ?></td>
+									<td><?php echo $fn->tarihVer($ogrenci[ 'baslama_tarihi' ]); ?></td>
+									<td><?php echo $ogrenci[ 'uzmanlik_dali_adi' ]; ?></td>
 									<td align = "center">
 										<a modul = 'ogrenciler' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciler&islem=guncelle&ogrenci_id=<?php echo $ogrenci[ 'id' ]; ?>" >
 											Düzenle
@@ -172,86 +157,204 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card <?php if( $ogrenci_id == 0 ) echo 'card-secondary' ?>">
-					<div class="card-header p-2">
-						<ul class="nav nav-pills tab-container">
+				<div class="card card-secondary">
+					<div class="card-header">
 							<?php if( $ogrenci_id > 0 ) { ?>
-								<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğrenci Düzenle</h6>
+								<h3 class="card-title">Öğrenci Düzenle</h3>
 							<?php } else {
-								echo "<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğrenci Ekle</h6>";
+								echo "<h3 class='card-title'>Öğrenci Ekle</h3>";
 								}
 							?>
 							
-						</ul>
 					</div>
-					<div class="card-body">
-						<div class="tab-content">
-							<!-- GENEL BİLGİLER -->
-							<div class="tab-pane active" id="_genel">
-								<form class="form-horizontal" action = "_modul/ogrenciler/ogrencilerSEG.php" method = "POST" enctype="multipart/form-data">
-									<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
-									<input type = "hidden" name = "ogrenci_id" value = "<?php echo $ogrenci_id; ?>">
-									<h3 class="profile-username text-center"><b> </b></h3>
-									<div class="alert alert-warning text-center"><b>Seçilmiş Olan Programa Kayıt Ekleniyor</b></div>
-									<div class="form-group">
-										<label class="control-label">TC Kimlik No</label>
-										<input required type="text" class="form-control" name ="tc_kimlik_no" value = "<?php echo $tek_ogrenci[ "tc_kimlik_no" ]; ?>"  autocomplete="off">
-									</div>
+					<form class="form-horizontal" action = "_modul/ogrenciler/ogrencilerSEG.php" method = "POST" enctype="multipart/form-data">
+						<div class="card-body">
+							<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
+							<input type = "hidden" name = "ogrenci_id" value = "<?php echo $ogrenci_id; ?>">
+							<input type = "hidden" name = "universite_id" value = "<?php echo $_SESSION['universite_id']; ?>">
+							<h3 class="profile-username text-center"><b> </b></h3>
+							<div class="form-group">
+								<label  class="control-label">Uzmanlık Dalı</label>
+								<select class="form-control select2" name = "uzmanlik_dali_id" required >
+									<option>Seçiniz...</option>
+									<?php 
+										foreach( $uzmanlik_dallari AS $uzmanlik_dali ){
+											echo '<option value="'.$uzmanlik_dali[ "id" ].'" '.( $tek_ogrenci[ "uzmanlik_dali_id" ] == $uzmanlik_dali[ "id" ] ? "selected" : null) .'>'.$uzmanlik_dali[ "adi" ].'</option>';
+										}
 
-									<div class="form-group">
-										<label class="control-label">Öğrenci No</label>
-										<input required type="text" class="form-control" name ="ogrenci_no" value = "<?php echo $tek_ogrenci[ "ogrenci_no" ]; ?>"  autocomplete="off">
-									</div>
+									?>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label">TC Kimlik No</label>
+								<input required type="text" class="form-control form-control-sm" name ="tc_kimlik_no" value = "<?php echo $tek_ogrenci[ "tc_kimlik_no" ]; ?>"  autocomplete="off">
+							</div>
 
-									<div class="form-group">
-										<label class="control-label">Adı</label>
-										<input required type="text" class="form-control" name ="adi" value = "<?php echo $tek_ogrenci[ "adi" ]; ?>"  autocomplete="off">
-									</div>
-									
+							<div class="form-group">
+								<label class="control-label">Öğrenci No</label>
+								<input required type="text" class="form-control form-control-sm" name ="ogrenci_no" value = "<?php echo $tek_ogrenci[ "ogrenci_no" ]; ?>"  autocomplete="off">
+							</div>
 
-									<div class="form-group">
-										<label class="control-label">Soyadı</label>
-										<input required type="text" class="form-control" name ="soyadi" value = "<?php echo $tek_ogrenci[ "soyadi" ]; ?>"  autocomplete="off">
+							<div class="form-group">
+								<label class="control-label">Adı</label>
+								<input required type="text" class="form-control form-control-sm" name ="adi" value = "<?php echo $tek_ogrenci[ "adi" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Soyadı</label>
+								<input required type="text" class="form-control form-control-sm" name ="soyadi" value = "<?php echo $tek_ogrenci[ "soyadi" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Doğum Tarihi</label>
+								<div class="input-group date" id="dogum_tarihi" data-target-input="nearest">
+									<div class="input-group-append" data-target="#dogum_tarihi" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
+									<input required type="text" data-target="#dogum_tarihi" data-toggle="datetimepicker" name="dogum_tarihi" value="<?php if( $tek_ogrenci[ 'dogum_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'dogum_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Doğum Yeri</label>
+								<input required type="text" class="form-control form-control-sm" name ="dogum_yeri" value = "<?php echo $tek_ogrenci[ "dogum_yeri" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Cep Telefonu</label>
+								<input required type="tel" class="form-control form-control-sm" name ="cep_tel" value = "<?php echo $tek_ogrenci[ "cep_tel" ]; ?>" pattern="[0-9]{10}" placeholder="5555555555" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">E Mail</label>
+								<input required type="email" class="form-control form-control-sm" name ="email" value = "<?php echo $tek_ogrenci[ "email" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Adres</label>
+								<textarea name="adres" class="form-control form-control-sm" ><?php echo $tek_ogrenci[ "adres" ]; ?></textarea>
+							</div>
+							<div class="form-group">
+								<label class="control-label">TUS Dönemi</label>
+								<input required type="text" class="form-control form-control-sm" name ="tus_donemi" value = "<?php echo $tek_ogrenci[ "tus_donemi" ]; ?>"  autocomplete="off">
+							</div>									<div class="form-group">
+								<label class="control-label">TUS Puanı</label>
+								<input required type="number" min="0.1" max="100.0" step="0.1" class="form-control form-control-sm" name ="tus_puani" value = "<?php echo $tek_ogrenci[ "tus_puani" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Başlama Tarihi</label>
+								<div class="input-group date" id="baslama_tarihi" data-target-input="nearest">
+									<div class="input-group-append" data-target="#baslama_tarihi" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+									<input required type="text" data-target="#baslama_tarihi" data-toggle="datetimepicker" name="baslama_tarihi" value="<?php if( $tek_ogrenci[ 'baslama_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'baslama_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Bitirme Tarihi</label>
+								<div class="input-group date" id="bitis_tarihi" data-target-input="nearest">
+									<div class="input-group-append" data-target="#bitis_tarihi" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+									<input required type="text" data-target="#bitis_tarihi" data-toggle="datetimepicker" name="bitis_tarihi" value="<?php if( $tek_ogrenci[ 'bitis_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'bitis_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Tez Teslim Tarihi</label>
+								<div class="input-group date" id="tez_tarihi" data-target-input="nearest">
+									<div class="input-group-append" data-target="#tez_tarihi" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+									<input required type="text" data-target="#tez_tarihi" data-toggle="datetimepicker" name="tez_tarihi" value="<?php if( $tek_ogrenci[ 'tez_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'tez_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label  class="control-label">Eğitim Danışmanı</label>
+								<select class="form-control form-control-sm select2" name = "egitim_danisman_id" required>
+									<option>Seçiniz...</option>
+									<?php 
+										foreach( $ogretim_elemanlari AS $ogretim_elemani ){
+											echo '<option value="'.$ogretim_elemani[ "id" ].'" '.( $tek_ogrenci[ "egitim_danisman_id" ] == $ogretim_elemani[ "id" ] ? "selected" : null) .'>'.$ogretim_elemani[ "adi_soyadi" ].'</option>';
+										}
 
-									<div class="form-group">
-										<label class="control-label">Sınıf</label>
-										<input required type="text" class="form-control" name ="sinif" value = "<?php echo $tek_ogrenci[ "sinif" ]; ?>"  autocomplete="off">
-									</div>
-									<div class="form-group">
-										<label class="control-label">Kayıt Yılı</label>
-										<input required type="text" class="form-control" name ="kayit_yili" value = "<?php echo $tek_ogrenci[ "kayit_yili" ]; ?>"  autocomplete="off">
-									</div>
+									?>
+								</select>
+							</div>
+							<div class="form-group">
+								<label  class="control-label">Tez Danışmanı</label>
+								<select class="form-control form-control-sm select2" name = "tez_danisman_id" required>
+									<option>Seçiniz...</option>
+									<?php 
+										foreach( $ogretim_elemanlari AS $ogretim_elemani ){
+											echo '<option value="'.$ogretim_elemani[ "id" ].'" '.( $tek_ogrenci[ "tez_danisman_id" ] == $ogretim_elemani[ "id" ] ? "selected" : null) .'>'.$ogretim_elemani[ "adi_soyadi" ].'</option>';
+										}
 
-									<div class="form-group">
-										<label class="control-label">E Mail</label>
-										<input required type="email" class="form-control" name ="email" value = "<?php echo $tek_ogrenci[ "email" ]; ?>"  autocomplete="off">
-									</div>
-									
-									<div class="form-group">
-										<label class="control-label">Cep Telefonu</label>
-										<input required type="tel" class="form-control" name ="cep_tel" value = "<?php echo $tek_ogrenci[ "cep_tel" ]; ?>" pattern="[0-9]{10}" placeholder="5555555555" autocomplete="off">
-									</div>
-
-									<div class="form-group">
-										<label class="control-label">Adres</label>
-										<textarea name="adres" class="form-control" ><?php echo $tek_ogrenci[ "adres" ]; ?></textarea>
-									</div>
-									
-									
-									
-									<div class="card-footer">
-										<button modul= 'ogrenciler' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
-									</div>
-								</form>
+									?>
+								</select>
 							</div>
 						</div>
-					</div>
+						<div class="card-footer">
+							<button modul= 'ogrenciler' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	var simdi = new Date(); 
+	//var simdi="11/25/2015 15:58";
+	$(function () {
+		$('#dogum_tarihi').datetimepicker({
+			//defaultDate: simdi,
+			format: 'DD.MM.yyyy',
+			icons: {
+			time: "far fa-clock",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
+			}
+		});
+	});
+	
+	$(function () {
+		$('#baslama_tarihi').datetimepicker({
+			//defaultDate: simdi,
+			format: 'DD.MM.yyyy',
+			icons: {
+			time: "far fa-clock",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
+			}
+		});
+	});
+	
+	$(function () {
+		$('#bitis_tarihi').datetimepicker({
+			//defaultDate: simdi,
+			format: 'DD.MM.yyyy',
+			icons: {
+			time: "far fa-clock",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
+			}
+		});
+	});
+	
+	$(function () {
+		$('#tez_tarihi').datetimepicker({
+			//defaultDate: simdi,
+			format: 'DD.MM.yyyy',
+			icons: {
+			time: "far fa-clock",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
+			}
+		});
+	});
+	
+
+	
+</script>
 <script type="text/javascript">
 
 // ESC tuşuna basınca formu temizle

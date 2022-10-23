@@ -22,29 +22,29 @@ $kaydet_buton_cls		= $id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-su
 
 
 
-$SQL_tum_uzmanlik_dallari = <<< SQL
+$SQL_tum_sinav_kategorileri = <<< SQL
 SELECT 
 	*
 FROM 
-	tb_uzmanlik_dallari
-WHERE 
+	tb_sinav_kategorileri
+WHERE
 	aktif = 1
 SQL;
 
 
-$SQL_tek_uzmanlik_dali_oku = <<< SQL
+$SQL_tek_sinav_oku = <<< SQL
 SELECT 
 	*
 FROM 
-	tb_uzmanlik_dallari
+	tb_sinav_kategorileri
 WHERE 
 	id 				= ? AND
-	aktif 			= 1 
+	aktif			= 1
 SQL;
 
 
-$uzmanlik_dallari		= $vt->select( $SQL_tum_uzmanlik_dallari, array( ) )[ 2 ];
-@$tek_uzmanlik_dali		= $vt->select( $SQL_tek_uzmanlik_dali_oku, array( $id ) )[ 2 ][ 0 ];
+$sinav_kategorileri		= $vt->select( $SQL_tum_sinav_kategorileri, array( ) )[ 2 ];
+@$tek_sinav				= $vt->select( $SQL_tek_sinav_oku, array( $id ) )[ 2 ][ 0 ];
 
 ?>
 
@@ -78,38 +78,36 @@ $uzmanlik_dallari		= $vt->select( $SQL_tum_uzmanlik_dallari, array( ) )[ 2 ];
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="card" id = "card_uzmanlik_dallari">
+				<div class="card" id = "card_sinav_kategorileri">
 					<div class="card-header bg-olive">
-						<h3 class="card-title">Uzmanlık Dalları</h3>
+						<h3 class="card-title">Sınav Kategorileri</h3>
 						<div class = "card-tools">
 							<button type="button" data-toggle = "tooltip" title = "Tam sayfa göster" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand fa-lg"></i></button>
-							<a id = "yeni_uzmanlik_dali" data-toggle = "tooltip" title = "Yeni Üviversite Ekle" href = "?modul=uzmanlikDallari&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
+							<a id = "yeni_sinav" data-toggle = "tooltip" title = "Yeni Üviversite Ekle" href = "?modul=sinavKategorileri&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
 						</div>
 					</div>
 					<div class="card-body">
-						<table id="tbl_uzmanlik_dallari" class="table table-bordered table-hover table-sm" width = "100%" >
+						<table id="tbl_sinav_kategorileri" class="table table-bordered table-hover table-sm" width = "100%" >
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
-									<th>Tukmos Kodu</th>
-									<th>Uzmanlık Dalı</th>
+									<th>Adı</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php $sayi = 1; foreach( $uzmanlik_dallari AS $uzmanlik_dali ) { ?>
-								<tr oncontextmenu="fun();" class ="uzmanlik_dali-Tr <?php if( $uzmanlik_dali[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $uzmanlik_dali[ 'id' ]; ?>">
+								<?php $sayi = 1; foreach( $sinav_kategorileri AS $sinav ) { ?>
+								<tr oncontextmenu="fun();" class ="sinav-Tr <?php if( $sinav[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $sinav[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
-									<td><?php echo $uzmanlik_dali[ 'tukmos_kodu' ]; ?></td>
-									<td><?php echo $uzmanlik_dali[ 'adi' ]; ?></td>
+									<td><?php echo $sinav[ 'adi' ]; ?></td>
 									<td align = "center">
-										<a modul = 'uzmanlikDallari' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=uzmanlikDallari&islem=guncelle&id=<?php echo $uzmanlik_dali[ 'id' ]; ?>&universite_id=<?php echo $uzmanlik_dali[ 'universite_id' ]; ?>" >
+										<a modul = 'sinavKategorileri' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=sinavKategorileri&islem=guncelle&id=<?php echo $sinav[ 'id' ]; ?>&universite_id=<?php echo $sinav[ 'universite_id' ]; ?>" >
 											Düzenle
 										</a>
 									</td>
 									<td align = "center">
-										<button modul= 'uzmanlikDallari' yetki_islem="sil" class="btn btn-xs btn-danger" data-href="_modul/uzmanlikDallari/uzmanlikDallariSEG.php?islem=sil&id=<?php echo $uzmanlik_dali[ 'id' ]; ?>" data-toggle="modal" data-target="#sil_onay">Sil</button>
+										<button modul= 'sinavKategorileri' yetki_islem="sil" class="btn btn-xs btn-danger" data-href="_modul/sinavKategorileri/sinavKategorileriSEG.php?islem=sil&id=<?php echo $sinav[ 'id' ]; ?>" data-toggle="modal" data-target="#sil_onay">Sil</button>
 									</td>
 								</tr>
 								<?php } ?>
@@ -122,27 +120,23 @@ $uzmanlik_dallari		= $vt->select( $SQL_tum_uzmanlik_dallari, array( ) )[ 2 ];
 				<div class="card card-orange">
 					<div class="card-header">
 						<?php if( $id > 0 ) { ?>
-							<h3 class="card-title text-white">Uzmanlık Dalı Düzenle</h3>
+							<h3 class="card-title text-white">Sınav Kategorisi Düzenle</h3>
 						<?php } else { ?>
-							<h3 class="card-title text-white">Uzmanlık Dalı Ekle</h3>
+							<h3 class="card-title text-white">Sınav Kategorisi Ekle</h3>
 						<?php } ?>
 					</div>
-					<form class="form-horizontal" action = "_modul/uzmanlikDallari/uzmanlikDallariSEG.php" method = "POST" enctype="multipart/form-data">
+					<form class="form-horizontal" action = "_modul/sinavKategorileri/sinavKategorileriSEG.php" method = "POST" enctype="multipart/form-data">
 						<div class="card-body">
 							<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
 							<input type = "hidden" name = "id" value = "<?php echo $id; ?>">
 							<h3 class="profile-username text-center"><b> </b></h3>
 							<div class="form-group">
-								<label class="control-label">Tukmos Kodu</label>
-								<input required type="text" class="form-control form-control-sm" name ="tukmos_kodu" value = "<?php echo $tek_uzmanlik_dali[ "tukmos_kodu" ]; ?>"  autocomplete="off">
-							</div>
-							<div class="form-group">
-								<label class="control-label">Uzmanlık Dalı Adı</label>
-								<input required type="text" class="form-control form-control-sm" name ="adi" value = "<?php echo $tek_uzmanlik_dali[ "adi" ]; ?>"  autocomplete="off">
+								<label class="control-label">Sınav Adı</label>
+								<input required type="text" class="form-control form-control-sm" name ="adi" value = "<?php echo $tek_sinav[ "adi" ]; ?>"  autocomplete="off">
 							</div>
 						</div>
 						<div class="card-footer">
-							<button modul= 'uzmanlikDallari' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+							<button modul= 'sinavKategorileri' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
 						</div>
 					</form>
 				</div>
@@ -155,11 +149,11 @@ $uzmanlik_dallari		= $vt->select( $SQL_tum_uzmanlik_dallari, array( ) )[ 2 ];
 // ESC tuşuna basınca formu temizle
 document.addEventListener( 'keydown', function( event ) {
 	if( event.key === "Escape" ) {
-		document.getElementById( 'yeni_uzmanlik_dali' ).click();
+		document.getElementById( 'yeni_sinav' ).click();
 	}
 });
 
-var tbl_uzmanlik_dallari = $( "#tbl_uzmanlik_dallari" ).DataTable( {
+var tbl_sinav_kategorileri = $( "#tbl_sinav_kategorileri" ).DataTable( {
 	"responsive": true, "lengthChange": true, "autoWidth": true,
 	"stateSave": true,
 	"pageLength" : 25,
@@ -212,23 +206,23 @@ var tbl_uzmanlik_dallari = $( "#tbl_uzmanlik_dallari" ).DataTable( {
 			"previous"	: "Önceki"
 		}
 	}
-} ).buttons().container().appendTo('#tbl_uzmanlik_dallari_wrapper .col-md-6:eq(0)');
+} ).buttons().container().appendTo('#tbl_sinav_kategorileri_wrapper .col-md-6:eq(0)');
 
 
 
-$('#card_uzmanlik_dallari').on('maximized.lte.cardwidget', function() {
-	var tbl_uzmanlik_dallari = $( "#tbl_uzmanlik_dallari" ).DataTable();
-	var column = tbl_uzmanlik_dallari.column(  tbl_uzmanlik_dallari.column.length - 1 );
+$('#card_sinav_kategorileri').on('maximized.lte.cardwidget', function() {
+	var tbl_sinav_kategorileri = $( "#tbl_sinav_kategorileri" ).DataTable();
+	var column = tbl_sinav_kategorileri.column(  tbl_sinav_kategorileri.column.length - 1 );
 	column.visible( ! column.visible() );
-	var column = tbl_uzmanlik_dallari.column(  tbl_uzmanlik_dallari.column.length - 2 );
+	var column = tbl_sinav_kategorileri.column(  tbl_sinav_kategorileri.column.length - 2 );
 	column.visible( ! column.visible() );
 });
 
-$('#card_uzmanlik_dallari').on('minimized.lte.cardwidget', function() {
-	var tbl_uzmanlik_dallari = $( "#tbl_uzmanlik_dallari" ).DataTable();
-	var column = tbl_uzmanlik_dallari.column(  tbl_uzmanlik_dallari.column.length - 1 );
+$('#card_sinav_kategorileri').on('minimized.lte.cardwidget', function() {
+	var tbl_sinav_kategorileri = $( "#tbl_sinav_kategorileri" ).DataTable();
+	var column = tbl_sinav_kategorileri.column(  tbl_sinav_kategorileri.column.length - 1 );
 	column.visible( ! column.visible() );
-	var column = tbl_uzmanlik_dallari.column(  tbl_uzmanlik_dallari.column.length - 2 );
+	var column = tbl_sinav_kategorileri.column(  tbl_sinav_kategorileri.column.length - 2 );
 	column.visible( ! column.visible() );
 } );
 

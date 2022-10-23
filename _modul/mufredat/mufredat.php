@@ -169,8 +169,8 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 
 									if( $kategori['kategori'] == 0){
 										//$html .= '<li><div class="ders-kapsa bg-renk'.$renk.'"> '.$kategori[ "adi" ].$kategori[ "id" ].'</div></li>';
-										$duzeyler_badge = "";
-										$yontemler_badge = "";
+										$duzeyler_badge = "<span class='badge badge-primary ' >Düzey</span> ";
+										$yontemler_badge = "<span class='badge badge-success ' >Yöntem</span> ";
 										foreach( explode(",", $kategori['duzey']) as $duzey )
 											$duzeyler_badge .= "<span class='badge badge-primary ' >$duzey</span> ";
 										foreach( explode(",", $kategori['yontem']) as $yontem )
@@ -180,7 +180,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 														<span>
 															$kategori[adi]&nbsp;&nbsp;&nbsp;
 															$duzeyler_badge
-															&nbsp;&nbsp;&nbsp;<span class='badge badge-secondary ' >$kategori[kidem]</span>&nbsp;&nbsp;&nbsp;
+															&nbsp;&nbsp;&nbsp;<span class='badge badge-secondary ' >Kıdem</span> <span class='badge badge-secondary ' >$kategori[kidem]</span>&nbsp;&nbsp;&nbsp;
 															$yontemler_badge
 														</span>
 														<span class='m-0 p-0'>

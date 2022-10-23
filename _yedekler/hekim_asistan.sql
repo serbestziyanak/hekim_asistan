@@ -11,7 +11,7 @@
  Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 19/10/2022 17:34:55
+ Date: 23/10/2022 20:38:48
 */
 
 SET NAMES utf8mb4;
@@ -713,7 +713,7 @@ CREATE TABLE `tb_modul`  (
   `harici_sayfa` tinyint NULL DEFAULT 0,
   `kategori_acik` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 139 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul
@@ -754,6 +754,9 @@ INSERT INTO `tb_modul` VALUES (135, 'Soru İşlemleri', NULL, NULL, 'fas fa-ques
 INSERT INTO `tb_modul` VALUES (136, 'Soru Türleri', 'soru_turleri', 'soru_turleri', 'fas fa-question text-warning', 1, 135, 0, 1, 0, 0);
 INSERT INTO `tb_modul` VALUES (137, 'Uzmanlık Dalları', 'uzmanlikDallari', 'uzmanlikDallari', 'fas fa-book-reader text-yellow', 1, 125, 0, 1, 0, 0);
 INSERT INTO `tb_modul` VALUES (138, 'Rotasyonlar', 'rotasyonlar', 'rotasyonlar', 'fas fa-tasks text-yellow', 1, 0, 0, 20, 0, 0);
+INSERT INTO `tb_modul` VALUES (139, 'Sınav Kategorileri', 'sinavKategorileri', 'sinavKategorileri', 'far fa-circle text-orange', 1, 0, 0, 31, 0, 0);
+INSERT INTO `tb_modul` VALUES (140, 'Makaleler', 'makaleler', 'makaleler', 'far fa-circle text-green', 1, 0, 0, 32, 0, 0);
+INSERT INTO `tb_modul` VALUES (141, 'Öğrenci Sınavları', 'ogrenciSinavlari', 'ogrenciSinavlari', 'far fa-circle text-green', 1, 0, 0, 7, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -1134,6 +1137,151 @@ INSERT INTO `tb_mufredat` VALUES (138, 61, 'ÜST SOLUNUM YOLU ENFEKSİYONU', 1, 
 INSERT INTO `tb_mufredat` VALUES (139, 61, 'VİRAL HEPATİT ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
 INSERT INTO `tb_mufredat` VALUES (140, 61, 'YABANCI CİSİM ASPİRASYONU', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
 INSERT INTO `tb_mufredat` VALUES (141, 61, 'YEME BOZUKLUKLUĞU', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_bilimsel_toplanti_sunulari
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_bilimsel_toplanti_sunulari`;
+CREATE TABLE `tb_ogrenci_bilimsel_toplanti_sunulari`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `ogrenci_bilimsel_toplanti_id` int NULL DEFAULT NULL,
+  `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_bilimsel_toplanti_sunulari
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_bilimsel_toplantilar
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_bilimsel_toplantilar`;
+CREATE TABLE `tb_ogrenci_bilimsel_toplantilar`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `yeri` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `tarih` date NULL DEFAULT NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_bilimsel_toplantilar
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_klinik_sunulari
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_klinik_sunulari`;
+CREATE TABLE `tb_ogrenci_klinik_sunulari`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `yeri` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `tarih` date NULL DEFAULT NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_klinik_sunulari
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_makaleleri
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_makaleleri`;
+CREATE TABLE `tb_ogrenci_makaleleri`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `dergi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_makaleleri
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_sinavlari
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_sinavlari`;
+CREATE TABLE `tb_ogrenci_sinavlari`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `sinav_tarihi` date NULL DEFAULT NULL,
+  `notu` double NULL DEFAULT NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_sinavlari
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_tez_izlemeleri
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_tez_izlemeleri`;
+CREATE TABLE `tb_ogrenci_tez_izlemeleri`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `ogrenci_tez_id` int NULL DEFAULT NULL,
+  `tarih` date NULL DEFAULT NULL,
+  `aciklamalar` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_tez_izlemeleri
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_tezleri
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_tezleri`;
+CREATE TABLE `tb_ogrenci_tezleri`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uzmanlik_dali_id` int NULL DEFAULT NULL,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `tez_konusu` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
+  `tez_konusu_verilme_tarihi` date NULL DEFAULT NULL,
+  `tez_konusu_akademik_kurul_onay_tarihi` date NULL DEFAULT NULL,
+  `onay` tinyint NULL DEFAULT NULL,
+  `onaylayan_id` int NULL DEFAULT NULL,
+  `onay_tarihi` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_tezleri
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_ogrenciler
@@ -2000,6 +2148,23 @@ INSERT INTO `tb_rotasyonlar` VALUES (10, 1, 1, 63, 1, 1);
 INSERT INTO `tb_rotasyonlar` VALUES (11, 1, 1, 68, 1, 1);
 INSERT INTO `tb_rotasyonlar` VALUES (12, 1, 1, 42, 1, 1);
 INSERT INTO `tb_rotasyonlar` VALUES (13, 1, 1, 47, 1, 1);
+
+-- ----------------------------
+-- Table structure for tb_sinav_kategorileri
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_sinav_kategorileri`;
+CREATE TABLE `tb_sinav_kategorileri`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `aktif` tinyint NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_sinav_kategorileri
+-- ----------------------------
+INSERT INTO `tb_sinav_kategorileri` VALUES (1, 'Formatif Sınav', 1);
+INSERT INTO `tb_sinav_kategorileri` VALUES (2, 'Summatif Sınav', 1);
 
 -- ----------------------------
 -- Table structure for tb_sistem_kullanici

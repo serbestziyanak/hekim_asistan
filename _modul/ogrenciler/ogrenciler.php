@@ -231,7 +231,8 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							<div class="form-group">
 								<label class="control-label">TUS Dönemi</label>
 								<input required type="text" class="form-control form-control-sm" name ="tus_donemi" value = "<?php echo $tek_ogrenci[ "tus_donemi" ]; ?>"  autocomplete="off">
-							</div>									<div class="form-group">
+							</div>									
+							<div class="form-group">
 								<label class="control-label">TUS Puanı</label>
 								<input required type="number" min="0.1" max="100.0" step="0.1" class="form-control form-control-sm" name ="tus_puani" value = "<?php echo $tek_ogrenci[ "tus_puani" ]; ?>"  autocomplete="off">
 							</div>

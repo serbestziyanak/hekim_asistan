@@ -21,7 +21,7 @@ $moduller = $vt->select( $SQL_modul );
 
 ?>
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar main-sidebar-custom sidebar-dark-olive elevation-4">
+<aside class="main-sidebar sidebar-dark-olive elevation-4">
 	<!-- Brand Logo -->
 	<a href="index.php" class="brand-link">
 	<img src="img/yyu_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -133,8 +133,9 @@ $moduller = $vt->select( $SQL_modul );
 		</ul>
 	</nav>
 	</div>
-	<div class="sidebar-custom" style="margin-top: -64px;">
+	<!--div class="sidebar-custom" style="margin-top: -64px;">
+	<a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
 	<a href="_modul/cikis.php" class="btn btn-sm btn-danger hide-on-collapse pos-right">Çıkış</a>
-	</div>
+	</div-->
 </aside>
 

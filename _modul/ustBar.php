@@ -34,8 +34,8 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="sagSidebar" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
+        <a href="_modul/cikis.php" class="nav-link">
+          <h6><i class="fas fa-sign-in-alt"></i></h6>
         </a>
       </li>
     </ul>

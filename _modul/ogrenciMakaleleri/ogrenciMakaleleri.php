@@ -121,7 +121,7 @@ $ogrenciler					= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universit
 									<td><?php echo $sayi++; ?></td>
 									<td><?php echo $ogrenci_makale[ 'ogrenci_adi_soyadi' ]; ?></td>
 									<td><?php echo $ogrenci_makale[ 'adi' ]; ?></td>
-									<td><?php echo $ogrenci_makale[ 'dergi' ]; ?></td>
+									<td><?php echo nl2br($ogrenci_makale[ 'dergi' ]); ?></td>
 									<td align = "center">
 										<a modul = 'ogrenciMakaleleri' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciMakaleleri&islem=guncelle&id=<?php echo $ogrenci_makale[ 'id' ]; ?>" >
 											Düzenle

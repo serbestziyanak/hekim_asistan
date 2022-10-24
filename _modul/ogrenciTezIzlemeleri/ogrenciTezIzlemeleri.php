@@ -126,7 +126,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 									<td><?php echo $ogrenci_tez_izleme[ 'ogrenci_adi_soyadi' ]; ?></td>
 									<td><?php echo $ogrenci_tez_izleme[ 'tez_konusu' ]; ?></td>
 									<td><?php echo $fn->tarihVer( $ogrenci_tez_izleme[ 'tarih' ] ); ?></td>
-									<td><?php echo $ogrenci_tez_izleme[ 'aciklama' ]; ?></td>
+									<td><?php echo nl2br($ogrenci_tez_izleme[ 'aciklama' ]); ?></td>
 									<td align = "center">
 										<a modul = 'ogrenciTezIzlemeleri' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciTezIzlemeleri&islem=guncelle&id=<?php echo $ogrenci_tez_izleme[ 'id' ]; ?>" >
 											Düzenle

@@ -189,7 +189,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<div class="form-group">
 								<label class="control-label">Yaptığı Sunu Konuları</label>
 								<textarea  class="form-control form-control-sm" name ="sunular" ><?php echo $tek_ogrenci_bilimsel_toplanti[ "sunular" ]; ?></textarea>
-								<div class="text-xs">
+								<div class="text-xs text-gray ml-2">
 									Birden fazla sunum yapılmışsa alt alta <br>
 									1)....<br>
 									2)....<br>

@@ -22,35 +22,28 @@ $kaydet_buton_cls		= $id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-su
 
 
 
-$SQL_tum_ogrenci_sinavlari = <<< SQL
+$SQL_tum_ogrenci_tezleri = <<< SQL
 SELECT 
 	os.*
-	,sk.adi AS sinav_kategori_adi
 	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
 FROM 
-	tb_ogrenci_sinavlari AS os
-LEFT JOIN tb_sinav_kategorileri AS sk ON sk.id = os.sinav_kategori_id
+	tb_ogrenci_tezleri AS os
 LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
 WHERE
 	os.uzmanlik_dali_id = ?
 SQL;
 
 
-$SQL_tek_sinav_oku = <<< SQL
+$SQL_tek_ogrenci_tez_oku = <<< SQL
 SELECT 
 	*
 FROM 
-	tb_ogrenci_sinavlari
+	tb_ogrenci_tezleri
 WHERE 
 	id 				= ?
 SQL;
 
-$SQL_sinav_kategorileri = <<< SQL
-SELECT 
-	*
-FROM 
-	tb_sinav_kategorileri
-SQL;
+
 
 $SQL_tum_ogrenciler = <<< SQL
 SELECT 
@@ -67,10 +60,9 @@ WHERE
 ORDER BY o.adi ASC
 SQL;
 
-$ogrenci_sinavlari		= $vt->select( $SQL_tum_ogrenci_sinavlari, array( $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
-$sinav_kategorileri		= $vt->select( $SQL_sinav_kategorileri, array( ) )[ 2 ];
-@$tek_sinav				= $vt->select( $SQL_tek_sinav_oku, array( $id ) )[ 2 ][ 0 ];
-$ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri, array( $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+@$tek_ogrenci_tez		= $vt->select( $SQL_tek_ogrenci_tez_oku, array( $id ) )[ 2 ][ 0 ];
+$ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 
 ?>
 
@@ -104,44 +96,42 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8">
-				<div class="card" id = "card_ogrenci_sinavlari">
+				<div class="card" id = "card_ogrenci_tezleri">
 					<div class="card-header bg-olive">
-						<h3 class="card-title">Sınavlar</h3>
+						<h3 class="card-title">Tezler</h3>
 						<div class = "card-tools">
 							<button type="button" data-toggle = "tooltip" title = "Tam sayfa göster" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand fa-lg"></i></button>
-							<a id = "yeni_sinav" data-toggle = "tooltip" title = "Yeni Üviversite Ekle" href = "?modul=ogrenciSinavlari&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
+							<a id = "yeni_sinav" data-toggle = "tooltip" title = "Yeni Üviversite Ekle" href = "?modul=ogrenciTezleri&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
 						</div>
 					</div>
 					<div class="card-body">
-						<table id="tbl_ogrenci_sinavlari" class="table table-bordered table-hover table-sm" width = "100%" >
+						<table id="tbl_ogrenci_tezleri" class="table table-bordered table-hover table-sm" width = "100%" >
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
 									<th>Öğrenci</th>
-									<th>Sınav Kategorisi</th>
-									<th>Sınav Adı</th>
-									<th>Sınav Tarihi</th>
-									<th>Notu</th>
+									<th>Tez Konusu</th>
+									<th>Tez Konusu V. Tarih</th>
+									<th>Tez Konusu Akademik Kurul Onay Tarih</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php $sayi = 1; foreach( $ogrenci_sinavlari AS $ogrenci_sinav ) { ?>
-								<tr oncontextmenu="fun();" class ="sinav-Tr <?php if( $ogrenci_sinav[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $ogrenci_sinav[ 'id' ]; ?>">
+								<?php $sayi = 1; foreach( $ogrenci_tezleri AS $ogrenci_tez ) { ?>
+								<tr oncontextmenu="fun();" class ="sinav-Tr <?php if( $ogrenci_tez[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $ogrenci_tez[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
-									<td><?php echo $ogrenci_sinav[ 'ogrenci_adi_soyadi' ]; ?></td>
-									<td><?php echo $ogrenci_sinav[ 'sinav_kategori_adi' ]; ?></td>
-									<td><?php echo $ogrenci_sinav[ 'adi' ]; ?></td>
-									<td><?php echo $fn->tarihVer( $ogrenci_sinav[ 'sinav_tarihi' ] ); ?></td>
-									<td><?php echo $ogrenci_sinav[ 'notu' ]; ?></td>
+									<td><?php echo $ogrenci_tez[ 'ogrenci_adi_soyadi' ]; ?></td>
+									<td><?php echo $ogrenci_tez[ 'tez_konusu' ]; ?></td>
+									<td><?php echo $fn->tarihVer( $ogrenci_tez[ 'tez_konusu_verilme_tarihi' ] ); ?></td>
+									<td><?php echo $fn->tarihVer( $ogrenci_tez[ 'tez_konusu_akademik_kurul_onay_tarihi' ] ); ?></td>
 									<td align = "center">
-										<a modul = 'ogrenciSinavlari' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciSinavlari&islem=guncelle&id=<?php echo $ogrenci_sinav[ 'id' ]; ?>" >
+										<a modul = 'ogrenciTezleri' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciTezleri&islem=guncelle&id=<?php echo $ogrenci_tez[ 'id' ]; ?>" >
 											Düzenle
 										</a>
 									</td>
 									<td align = "center">
-										<button modul= 'ogrenciSinavlari' yetki_islem="sil" class="btn btn-xs btn-danger" data-href="_modul/ogrenciSinavlari/ogrenciSinavlariSEG.php?islem=sil&id=<?php echo $ogrenci_sinav[ 'id' ]; ?>" data-toggle="modal" data-target="#sil_onay">Sil</button>
+										<button modul= 'ogrenciTezleri' yetki_islem="sil" class="btn btn-xs btn-danger" data-href="_modul/ogrenciTezleri/ogrenciTezleriSEG.php?islem=sil&id=<?php echo $ogrenci_tez[ 'id' ]; ?>" data-toggle="modal" data-target="#sil_onay">Sil</button>
 									</td>
 								</tr>
 								<?php } ?>
@@ -153,13 +143,13 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 			<div class="col-md-4">
 				<div class="card card-orange">
 					<div class="card-header">
-						<?php if( $id > 0 ) { ?>
-							<h3 class="card-title text-white">Sınav Düzenle</h3>
+						<?php if( $id > 0 ) { ?> 
+							<h3 class="card-title text-white">Tez Düzenle</h3>
 						<?php } else { ?>
-							<h3 class="card-title text-white">Sınav Ekle</h3>
+							<h3 class="card-title text-white">Tez Ekle</h3>
 						<?php } ?>
 					</div>
-					<form class="form-horizontal" action = "_modul/ogrenciSinavlari/ogrenciSinavlariSEG.php" method = "POST" enctype="multipart/form-data">
+					<form class="form-horizontal" action = "_modul/ogrenciTezleri/ogrenciTezleriSEG.php" method = "POST" enctype="multipart/form-data">
 						<div class="card-body">
 							<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
 							<input type = "hidden" name = "id" value = "<?php echo $id; ?>">
@@ -171,44 +161,39 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 									<option>Seçiniz...</option>
 									<?php 
 										foreach( $ogrenciler AS $ogrenci ){
-											echo '<option value="'.$ogrenci[ "id" ].'" '.( $tek_sinav[ "ogrenci_id" ] == $ogrenci[ "id" ] ? "selected" : null) .'>'.$ogrenci[ "ad_soyadi" ].'</option>';
+											echo '<option value="'.$ogrenci[ "id" ].'" '.( $tek_ogrenci_tez[ "ogrenci_id" ] == $ogrenci[ "id" ] ? "selected" : null) .'>'.$ogrenci[ "ad_soyadi" ].'</option>';
 										}
 
 									?>
 								</select>
 							</div>
 							<div class="form-group">
-								<label  class="control-label">Sınav Kategorisi</label>
-								<select class="form-control select2" name = "sinav_kategori_id" required >
-									<option>Seçiniz...</option>
-									<?php 
-										foreach( $sinav_kategorileri AS $sinav_kategori ){
-											echo '<option value="'.$sinav_kategori[ "id" ].'" '.( $tek_sinav[ "sinav_kategori_id" ] == $sinav_kategori[ "id" ] ? "selected" : null) .'>'.$sinav_kategori[ "adi" ].'</option>';
-										}
-
-									?>
-								</select>
+								<label class="control-label">Tez Konusu</label>
+								<input required type="text" class="form-control form-control-sm" name ="tez_konusu" value = "<?php echo $tek_ogrenci_tez[ "tez_konusu" ]; ?>"  autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label class="control-label">Sınav Tarihi</label>
-								<div class="input-group date" id="sinav_tarihi" data-target-input="nearest">
-									<div class="input-group-append" data-target="#sinav_tarihi" data-toggle="datetimepicker">
+								<label class="control-label">Tez Konusu Veriliş Tarihi</label>
+								<div class="input-group date" id="tarih" data-target-input="nearest">
+									<div class="input-group-append" data-target="#tarih" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
-									<input required type="text" data-target="#sinav_tarihi" data-toggle="datetimepicker" name="sinav_tarihi" value="<?php if( $tek_sinav[ 'sinav_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_sinav[ 'sinav_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#sinav_tarihi"/>
+									<input required type="text" data-target="#tarih" data-toggle="datetimepicker" name="tez_konusu_verilme_tarihi" value="<?php if( $tek_ogrenci_tez[ 'tez_konusu_verilme_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci_tez[ 'tez_konusu_verilme_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#tek_ogrenci_tez"/>
 								</div>
 							</div>
+
 							<div class="form-group">
-								<label class="control-label">Sınav Adı</label>
-								<input required type="text" class="form-control form-control-sm" name ="adi" value = "<?php echo $tek_sinav[ "adi" ]; ?>"  autocomplete="off">
+								<label class="control-label">Tez Konusu Akademik Kurul Onay Tarihi</label>
+								<div class="input-group date" id="tarih2" data-target-input="nearest">
+									<div class="input-group-append" data-target="#tarih2" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+									<input required type="text" data-target="#tarih2" data-toggle="datetimepicker" name="tez_konusu_akademik_kurul_onay_tarihi" value="<?php if( $tek_ogrenci_tez[ 'tez_konusu_akademik_kurul_onay_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci_tez[ 'tez_konusu_akademik_kurul_onay_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#tarih2"/>
+								</div>
 							</div>
-							<div class="form-group">
-								<label class="control-label">Sınav Notu</label>
-								<input required type="number" min="0.1" max="100.0" step="0.1" class="form-control form-control-sm" name ="notu" value = "<?php echo $tek_sinav[ "notu" ]; ?>"  autocomplete="off">
-							</div>
+
 						</div>
 						<div class="card-footer">
-							<button modul= 'ogrenciSinavlari' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+							<button modul= 'ogrenciTezleri' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
 						</div>
 					</form>
 				</div>
@@ -219,7 +204,20 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 <script type="text/javascript">
 
 	$(function () {
-		$('#sinav_tarihi').datetimepicker({
+		$('#tarih').datetimepicker({
+			//defaultDate: simdi,
+			format: 'DD.MM.yyyy',
+			icons: {
+			time: "far fa-clock",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
+			}
+		});
+	});
+
+	$(function () {
+		$('#tarih2').datetimepicker({
 			//defaultDate: simdi,
 			format: 'DD.MM.yyyy',
 			icons: {
@@ -238,7 +236,7 @@ document.addEventListener( 'keydown', function( event ) {
 	}
 });
 
-var tbl_ogrenci_sinavlari = $( "#tbl_ogrenci_sinavlari" ).DataTable( {
+var tbl_ogrenci_tezleri = $( "#tbl_ogrenci_tezleri" ).DataTable( {
 	"responsive": true, "lengthChange": true, "autoWidth": true,
 	"stateSave": true,
 	"pageLength" : 25,
@@ -291,23 +289,23 @@ var tbl_ogrenci_sinavlari = $( "#tbl_ogrenci_sinavlari" ).DataTable( {
 			"previous"	: "Önceki"
 		}
 	}
-} ).buttons().container().appendTo('#tbl_ogrenci_sinavlari_wrapper .col-md-6:eq(0)');
+} ).buttons().container().appendTo('#tbl_ogrenci_tezleri_wrapper .col-md-6:eq(0)');
 
 
 
-$('#card_ogrenci_sinavlari').on('maximized.lte.cardwidget', function() {
-	var tbl_ogrenci_sinavlari = $( "#tbl_ogrenci_sinavlari" ).DataTable();
-	var column = tbl_ogrenci_sinavlari.column(  tbl_ogrenci_sinavlari.column.length - 1 );
+$('#card_ogrenci_tezleri').on('maximized.lte.cardwidget', function() {
+	var tbl_ogrenci_tezleri = $( "#tbl_ogrenci_tezleri" ).DataTable();
+	var column = tbl_ogrenci_tezleri.column(  tbl_ogrenci_tezleri.column.length - 1 );
 	column.visible( ! column.visible() );
-	var column = tbl_ogrenci_sinavlari.column(  tbl_ogrenci_sinavlari.column.length - 2 );
+	var column = tbl_ogrenci_tezleri.column(  tbl_ogrenci_tezleri.column.length - 2 );
 	column.visible( ! column.visible() );
 });
 
-$('#card_ogrenci_sinavlari').on('minimized.lte.cardwidget', function() {
-	var tbl_ogrenci_sinavlari = $( "#tbl_ogrenci_sinavlari" ).DataTable();
-	var column = tbl_ogrenci_sinavlari.column(  tbl_ogrenci_sinavlari.column.length - 1 );
+$('#card_ogrenci_tezleri').on('minimized.lte.cardwidget', function() {
+	var tbl_ogrenci_tezleri = $( "#tbl_ogrenci_tezleri" ).DataTable();
+	var column = tbl_ogrenci_tezleri.column(  tbl_ogrenci_tezleri.column.length - 1 );
 	column.visible( ! column.visible() );
-	var column = tbl_ogrenci_sinavlari.column(  tbl_ogrenci_sinavlari.column.length - 2 );
+	var column = tbl_ogrenci_tezleri.column(  tbl_ogrenci_tezleri.column.length - 2 );
 	column.visible( ! column.visible() );
 } );
 

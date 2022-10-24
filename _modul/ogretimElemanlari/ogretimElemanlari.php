@@ -25,7 +25,7 @@ $kaydet_buton_cls		= $ogretim_elemani_id > 0	? 'btn btn-warning btn-sm pull-righ
 
 $SQL_tum_ogretimElemanlari = <<< SQL
 SELECT 
-	oe.id,
+	oe.*,
 	CONCAT( u.adi, ' ', oe.adi, ' ', oe.soyadi ) AS o_adi,
 	f.adi AS fakulte_adi,
 	ud.adi AS uzmanlik_dali_adi
@@ -126,9 +126,10 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
-									<th>Fakulte</th>
 									<th>Uzmanlık Dalı</th>
 									<th>Adı</th>
+									<th>Cep Telefonu</th>
+									<th>Email</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
 								</tr>
@@ -137,9 +138,10 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 								<?php $sayi = 1; foreach( $ogretimElemanlari AS $ogretim_elemanlari ) { ?>
 								<tr oncontextmenu="fun();" class ="ogretim_elemanlari-Tr <?php if( $ogretim_elemanlari[ 'id' ] == $ogretim_elemani_id ) echo $satir_renk; ?>" data-id="<?php echo $ogretim_elemanlari[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
-									<td><?php echo $ogretim_elemanlari[ 'fakulte_adi' ]; ?></td>
 									<td><?php echo $ogretim_elemanlari[ 'uzmanlik_dali_adi' ]; ?></td>
 									<td><?php echo $ogretim_elemanlari[ 'o_adi' ]; ?></td>
+									<td><?php echo $ogretim_elemanlari[ 'cep_tel' ]; ?></td>
+									<td><?php echo $ogretim_elemanlari[ 'email' ]; ?></td>
 									<td align = "center">
 										<a modul = 'ogretimElemanlari' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogretimElemanlari&islem=guncelle&ogretim_elemani_id=<?php echo $ogretim_elemanlari[ 'id' ]; ?>" >
 											Düzenle

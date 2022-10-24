@@ -333,9 +333,50 @@ WHERE
 	ogrenci_id  		= ?
 SQL;
 
+$SQL_tez_listesi_oku = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogrenci_tezleri 
+WHERE
+	ogrenci_id = ?
+
+SQL;
+
 $vt = new VeriTabani();
 
 switch( $_POST[ 'islem' ] ) {
+	case 'tezListesiGetir':
+		$tezler = $vt->select( $SQL_tez_listesi_oku, array( $_REQUEST['ogrenci_id'] ) )[ 2 ];
+		$option = '';
+		foreach( $tezler AS $tez ) {
+			$option .="
+				<option value='$tez[id]'>$tez[tez_konusu]</option>
+			";
+		}
+		$select = '<label  class="control-label">Ders Yılı</label>
+					<select class="form-control select2" name = "ders_yili_id" id="ders-yili-sec" data-url="./_modul/ajax/ajax_data.php" data-islem="donemListesi" required>
+						<option>Seçiniz...</option>
+						'.$option.'
+					</select>
+					<script>
+						$(".select2").select2();
+						$("#ders-yili-sec").on("change", function(e) { 
+					    var program_id 		= $("#program-sec").val();
+					    var ders_yili_id 	= $(this).val();
+					    var data_islem 		= $(this).data("islem");
+					    var data_url 		= $(this).data("url");
+					    var modul	 		= $("#program-sec").data("modul");
+					    $("#donemListesi").empty();
+					    $("#dersler").empty();
+					    $("#komiteler").empty();
+					    $.post(data_url, { islem : data_islem,ders_yili_id : ders_yili_id,program_id : program_id,modul : modul}, function (response) {
+					        $("#donemListesi").append(response);
+					    });
+					});
+					</script>';
+		echo $option;
+	break;
 	case 'dersYillariListe':
 		$ders_yillari = $vt->select( $SQL_ders_yillari_getir, array( $_SESSION['universite_id'] ) )[ 2 ];
 		$option = '';

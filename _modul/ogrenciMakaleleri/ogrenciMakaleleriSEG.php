@@ -11,33 +11,29 @@ else $sinav_tarihi = date( 'Y-m-d', strtotime( $_REQUEST[ 'sinav_tarihi' ] ) );
 
 $SQL_ekle = <<< SQL
 INSERT INTO
-	tb_ogrenci_sinavlari
+	tb_ogrenci_makaleleri
 SET
 	 uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
-	,sinav_kategori_id	 = ?
 	,adi				 = ?
-	,sinav_tarihi		 = ?
-	,notu				 = ?
+	,dergi				 = ?
 SQL;
 
 $SQL_guncelle = <<< SQL
 UPDATE
-	tb_ogrenci_sinavlari
+	tb_ogrenci_makaleleri
 SET
 	 uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
-	,sinav_kategori_id	 = ?
 	,adi				 = ?
-	,sinav_tarihi		 = ?
-	,notu				 = ?
+	,dergi				 = ?
 WHERE
 	id = ?
 SQL;
 
 $SQL_sil = <<< SQL
 DELETE FROM
-	tb_ogrenci_sinavlari
+	tb_ogrenci_makaleleri
 WHERE
 	id = ?
 SQL;
@@ -50,10 +46,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 			$sorgu_sonuc = $vt->insert( $SQL_ekle, array(
 				 $_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
-				,$_REQUEST['sinav_kategori_id']
 				,$fn->ilkHarfleriBuyut( $_REQUEST[ 'adi' ] )
-				,$sinav_tarihi
-				,$_REQUEST['notu']
+				,$_REQUEST['dergi']
 			) );
 			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
 		break;
@@ -61,10 +55,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 			$sorgu_sonuc = $vt->update( $SQL_guncelle, array(
 				 $_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
-				,$_REQUEST['sinav_kategori_id']
 				,$fn->ilkHarfleriBuyut( $_REQUEST[ 'adi' ] )
-				,$sinav_tarihi
-				,$_REQUEST['notu']
+				,$_REQUEST['dergi']
 				,$id
 			) );
 			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
@@ -80,7 +72,7 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 $vt->islemBitir();
 $___islem_sonuc[ 'id' ] = $id;
 $_SESSION[ 'sonuclar' ] = $___islem_sonuc;
-header( "Location: ../../index.php?modul=ogrenciSinavlari&id=$id&islem=guncelle" );
+header( "Location: ../../index.php?modul=ogrenciMakaleleri&id=$id&islem=guncelle" );
 
 
 ?>

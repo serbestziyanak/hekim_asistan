@@ -169,18 +169,17 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 
 									if( $kategori['kategori'] == 0){
 										//$html .= '<li><div class="ders-kapsa bg-renk'.$renk.'"> '.$kategori[ "adi" ].$kategori[ "id" ].'</div></li>';
-										$duzeyler_badge = "<span class='badge badge-primary ' >Düzey</span> ";
-										$yontemler_badge = "<span class='badge badge-success ' >Yöntem</span> ";
-										foreach( explode(",", $kategori['duzey']) as $duzey )
-											$duzeyler_badge .= "<span class='badge badge-primary ' >$duzey</span> ";
-										foreach( explode(",", $kategori['yontem']) as $yontem )
-											$yontemler_badge .= "<span class='badge badge-success ' >$yontem</span> ";
+										$duzeyler_badge = "<span class='badge badge-primary ' >Düzey : ".str_replace(',',' , ',$kategori['duzey'])."</span>";
+										$kidem_badge = "<span class='badge badge-secondary ' >Kıdem : ".$kategori['kidem']."</span>";
+										$yontemler_badge = "<span class='badge badge-success ' >Yöntem : ".str_replace(',',' , ',$kategori['yontem'])."</span>";
 										$html .= "<li>
 													<div class='ders-kapsa bg-renk7 '> 
 														<span>
 															$kategori[adi]&nbsp;&nbsp;&nbsp;
 															$duzeyler_badge
-															&nbsp;&nbsp;&nbsp;<span class='badge badge-secondary ' >Kıdem</span> <span class='badge badge-secondary ' >$kategori[kidem]</span>&nbsp;&nbsp;&nbsp;
+															&nbsp;&nbsp;&nbsp;
+															$kidem_badge
+															&nbsp;&nbsp;&nbsp;
 															$yontemler_badge
 														</span>
 														<span class='m-0 p-0'>

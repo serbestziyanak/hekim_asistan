@@ -130,6 +130,76 @@ $yontemler 	 			= $vt->select($SQL_yontemler, array(  ) )[ 2 ];
 $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 ?>
 
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Expandable Table Tree</h3>
+              </div>
+              <!-- ./card-header -->
+              <div class="card-body ">
+                <table class="table table-hover">
+                  <tbody>
+					<?php
+					//var_dump($mufredatlar);
+						function kategoriListele3( $kategoriler, $parent = 0, $class ="tree", $renk = 0){
+							$html = "<tr class='expandable-body'>
+											<td>
+												<div class='p-0'>
+												<table class='table table-hover'>
+													<tbody>";
+
+							foreach ($kategoriler as $kategori){
+								if( $kategori['ust_id'] == $parent ){
+									if( $parent == 0 ) {
+										$renk = 1;
+									} 
+
+									if( $kategori['kategori'] == 0){
+										$html .= "<tr>
+										<td class='border-0'>$kategori[adi]</td>
+										</tr>";									
+
+									}
+									if( $kategori['kategori'] == 1 ){
+
+											$html .= "
+													<tr data-widget='expandable-table' aria-expanded='true'>
+														<td>
+														$kategori[adi]
+														<i class='expandable-table-caret fas fa-caret-right fa-fw'></i>
+														</td>
+													</tr>
+												";								
+											$renk++;
+											$html .= kategoriListele3($kategoriler, $kategori['id'],"ders-ul",$renk);
+											
+											$renk--;
+										
+									}
+								}
+
+							}
+							$html .= '</tbody></table></div></td></tr>';
+							return $html;
+						}
+						if( count( $mufredatlar ) ) 
+							echo kategoriListele3($mufredatlar);
+						
+
+					?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="card card-dark ">
@@ -150,78 +220,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 				</div>	
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body ">
-		<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-flat" data-widget="treeview" role="menu" data-accordion="false">
-		<!-- Add icons to the links using the .nav-icon class
-			   with font-awesome or any other icon font library -->
-			<li class="nav-header">MENÜ</li>
-			
-			<?php foreach( $moduller[ 2 ] AS $modul ) { ?>
-				<?php if( $modul[ 'kategori' ] * 1 > 0 ) {
-						$altModuller = $vt->select( $SQL_alt_modul, array( $modul[ 'id' ] ) );
-						$mdl = array();
-
-						/* Bir Kategori altında en az bir mdüle yetkisi var mı kontrol et.*/
-						$yetki_kontrol = 0;
-						foreach( $altModuller[ 2 ] AS $altModul ) {
-							$mdl[] = $altModul[ 'modul' ];
-							if( $fn->yetkiKontrol( $_SESSION[ 'kullanici_id' ], $altModul[ 'modul' ], 'goruntule' ) ) $yetki_kontrol = 1;
-						}
-						/* Bir Kategori altında en az bir mdüle yetkisi varsa kategori görünsün*/
-						if( $yetki_kontrol ) {
-				?>
-							<li class="nav-item menu-open <?php if( in_array( $_REQUEST[ 'modul' ], $mdl ) or $modul[ 'kategori_acik' ] == 1 ) echo "menu-open"; ?>">
-								<a href="#" class="nav-link <?php if( in_array( $_REQUEST[ 'modul' ], $mdl ) ) echo "active"; ?>">
-									<i class="nav-icon <?php echo $modul[ 'simge' ]?> <?php if( in_array( $_REQUEST[ 'modul' ], $mdl ) ) echo "text-white"; ?>"></i>
-									<p>
-										<?php echo $modul[ 'adi' ]; ?>
-										<i class="right fas fa-angle-left"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<?php
-										foreach( $altModuller[ 2 ] AS $altModul ) {
-									?>
-										<li class = "nav-item">
-											<?php
-												if( !$fn->yetkiKontrol( $_SESSION[ 'kullanici_id' ], $altModul[ 'modul' ], 'goruntule' ) ) continue;
-												
-												if( $altModul[ 'harici_sayfa' ] ) {
-													$__url		= 'http://harezmitest.com/harezmi/_modul/' . $altModul[ 'modul' ] . ".php";
-													$yeni_sekme	=  'target = _blank';
-												} else {
-													$__url		= '?modul=' . $altModul[ 'modul' ];
-													$yeni_sekme	= '';
-												}
-											?>
-											<a class="nav-link <?php if( $url_modul == $altModul[ 'modul' ] ) echo "active"; ?>" modul='<?php echo $altModul[ 'modul' ];?>' yetki_islem='goruntule' href="<?php echo $__url; ?>" <?php echo $yeni_sekme; ?>>
-												<i class="nav-icon <?php echo $altModul[ 'simge' ]?>"></i> 
-												<p><?php echo $altModul[ 'adi' ]?></p>
-											</a>
-										</li>
-									<?php } ?>
-								</ul>
-							</li>
-							<?php 
-						}
-				} else {
-				if( !$fn->yetkiKontrol( $_SESSION[ 'kullanici_id' ], $modul[ 'modul' ], 'goruntule' ) ) continue;
-			?>
-				<li modul='<?php echo $modul[ 'modul' ];?>' yetki_islem='goruntule' class = "nav-item">
-					<a href="?modul=<?php echo $modul[ 'modul' ]?>" class="nav-link <?php if( $url_modul == $modul[ 'modul' ] ) echo "active"; ?>">
-						<i class="nav-icon <?php echo $modul[ 'simge' ]?> <?php if( $url_modul == $modul[ 'modul' ] ) echo "text-white"; ?>"></i> 
-						<p>
-							<?php echo $modul[ 'adi' ]?>
-						</p>
-					</a>
-				</li>
-			<?php }
-			}
-			?>
-		</ul>
-
-
-
+			<div class="card-body p-0">
 				<ul class="tree mr-5">
 					<li> <div class='ders-kapsa bg-renk5'> Ana Kategori 
 							<a href='#' class='btn btn-dark float-right btn-xs KategoriEkle' id='0' data-id='0' data-kategori_ad ='Ana Kategori' data-modal='yeni_ana_kategori_ekle'>Kategori Ekle</a>

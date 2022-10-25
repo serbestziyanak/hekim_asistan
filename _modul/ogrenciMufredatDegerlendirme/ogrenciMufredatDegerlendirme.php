@@ -4,6 +4,7 @@ $fn = new Fonksiyonlar();
 $islem          					= array_key_exists( 'islem', $_REQUEST )  		? $_REQUEST[ 'islem' ] 	    : 'ekle';
 $ders_yili_donem_id          		= array_key_exists( 'ders_yili_donem_id', $_REQUEST ) ? $_REQUEST[ 'ders_yili_donem_id' ] 	: 0;
 $rotasyon_id          				= array_key_exists( 'rotasyon_id', $_REQUEST ) 		? $_REQUEST[ 'rotasyon_id' ] 	: -1;
+$ogrenci_id          				= array_key_exists( 'ogrenci_id', $_REQUEST ) 		? $_REQUEST[ 'ogrenci_id' ] 	: 0;
 
 $kaydet_buton_yazi		= $islem == "guncelle"	? 'Güncelle'							: 'Kaydet';
 $kaydet_buton_cls		= $islem == "guncelle"	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
@@ -188,7 +189,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 							<option>Seçiniz...</option>
 							<?php 
 								foreach( $ogrenciler AS $ogrenci ){
-									echo '<option value="'.$ogrenci[ "id" ].'" '.( $_REQUEST[ "ogrenci_id" ] == $ogrenci[ "id" ] ? "selected" : null) .'>'.$ogrenci[ "ad_soyadi" ].'</option>';
+									echo '<option value="'.$ogrenci[ "id" ].'" '.( $ogrenci_id == $ogrenci[ "id" ] ? "selected" : null) .'>'.$ogrenci[ "ad_soyadi" ].'</option>';
 								}
 
 							?>
@@ -198,13 +199,13 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 					</div>
 				</form>
 				<?php
-				if( isset($_REQUEST['ogrenci_id']) and $_REQUEST['ogrenci_id']>0 ){
+				if( isset($ogrenci_id) and $ogrenci_id>0 ){
 				?>
-                <table class="table table-hover">
+                <table class="table table-hover ">
                   <tbody>
 					<?php
 					//var_dump($mufredatlar);
-						function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme){
+						function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id){
 							$html = "<tr class='expandable-body'>
 											<td>
 												<div class='p-0'>
@@ -218,12 +219,25 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 									} 
 
 									if( $kategori['kategori'] == 0){
-										$ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $_REQUEST[ 'ogrenci_id'], $kategori['id'] ) )[ 2 ];
+										$isaret = "";
+										$ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $ogrenci_id, $kategori['id'] ) )[ 2 ];
+										if( $ogrenci_mufredat_degerlendirme['ogrenci_id'] > 0 ){
+											$islem = "guncelle";
+											if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 1 )
+												//$isaret = "<i class='fas fa-check-circle text-success'></i>";
+												$isaret = "<h6><span class='badge badge-success'>Başarılı</span></h6>";
+											if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 0 )
+												//$isaret = "<i class='fas fa-times-circle text-danger'></i>";
+												$isaret = "<h6><span class='badge badge-danger'>Başarısız</span></h6>";
+
+										}else{
+											$islem="ekle";
+										}
 										$html .= "
-												<tr class='bg-renk$renk'>
-													<td class='degerlendirmeEkle' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]'  data-modal='degerlendirme_ekle'>
-														<a role='button' class='text-white degerlendirmeEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
-														$ogrenci_mufredat_degerlendirme[ogrenci_id]
+												<tr class='bg-renk7'>
+													<td class='degerlendirmeEkle' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>
+														<a role='button' class='text-dark degerlendirmeEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
+														$isaret
 													</td>
 												</tr>";									
 
@@ -239,7 +253,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 													</tr>
 												";								
 											$renk++;
-											$html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt, $SQL_ogrenci_mufredat_degerlendirme);
+											$html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
 											
 											$renk--;
 										
@@ -256,7 +270,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 							return $html;
 						}
 						if( count( $mufredatlar ) ) 
-							echo kategoriListele3($mufredatlar,0,0, $vt, $SQL_ogrenci_mufredat_degerlendirme);
+							echo kategoriListele3($mufredatlar,0,0, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
 						
 
 					?>
@@ -305,20 +319,21 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 	<div class="modal fade" id="degerlendirme_ekle">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Müfredat Değerlendirme</h4>
+				<div class="modal-header bg-olive text-white">
+					<h6 class="modal-title">Müfredat Değerlendirme</h6>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
+				<form class="form-horizontal" action = "_modul/ogrenciMufredatDegerlendirme/ogrenciMufredatDegerlendirmeSEG.php" method = "POST">
 					<div class="modal-body">
 						<input type="hidden" id="mufredat_id"  name="mufredat_id">
 						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
 						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
+						<input type="hidden" name="ogrenci_id" value="<?php echo $ogrenci_id;?>" >
+						<input type="hidden" name="islem" id="islem" value="ekle" >
 						<div class="form-group">
-							<label class="control-label">Yetkinlik</label>
-							<input required type="text" class="form-control" id="kategori_ad"  autocomplete="off" disabled>
+							<label class="control-label" id="kategori_ad"></label>
 						</div>
 						<div class="form-group clearfix">
 							<div class="icheck-success ">
@@ -370,20 +385,23 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 			document.getElementById("degerlendirme_basarisiz").checked = false;
 			document.getElementById("degerlendirme_basarili").checked = false;
 			document.getElementById("degerlendirme_degerlendirilmedi").checked = false;
+
 	        var mufredat_id		 = $(this).data("id");
 	        var kategori_ad		 = $(this).data("kategori_ad");
 	        var modal			 = $(this).data("modal");
-	        var degerlendirme	 = "degerlendirme"+$(this).data("degerlendirme");
-			alert(degerlendirme);
+	        var islem			 = $(this).data("islem");
+	        var degerlendirme	 = $(this).data("degerlendirme");
+
 	        document.getElementById("mufredat_id").value 	 = mufredat_id;
-	        document.getElementById("kategori_ad").value = kategori_ad;
-				if( degerlendirme == "degerlendirme0" ){
+	        document.getElementById("kategori_ad").innerHTML = kategori_ad;
+	        document.getElementById("islem").value = islem;
+				if( degerlendirme == "0" ){
 					document.getElementById("degerlendirme_basarisiz").checked = true;
 				}
-				if( degerlendirme == "degerlendirme1" ){
+				if( degerlendirme == "1" ){
 					document.getElementById("degerlendirme_basarili").checked = true;
 				}
-				if( degerlendirme == "degerlendirme-1" ){
+				if( degerlendirme == "-1" ){
 					document.getElementById("degerlendirme_degerlendirilmedi").checked = true;
 				}
 

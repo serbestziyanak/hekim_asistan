@@ -55,7 +55,7 @@ class VeriTabani {
 			$this->hataLocal		= true;
 			$this->hataTopluIslem	= true;
 		}
-		return array( $this->hataLocal, '"'. $hataMesaj . '"', $sonuc );
+		return array( $this->hataLocal, '"'. $hataMesaj . '"', $sonuc, count( $sonuc ) );
 	}
 
 	/* Kayıt ekleme */

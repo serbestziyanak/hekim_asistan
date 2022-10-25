@@ -8,9 +8,17 @@ $vt = new VeriTabani();
 $k	= trim( $_POST[ 'kulad' ] );
 $s	= trim( $_POST[ 'sifre' ] );
 
+
+
 $SQL_kontrol = <<< SQL
-SELECT
-	 k.*
+(SELECT
+	 k.id
+	,k.adi
+	,k.soyadi
+	,k.resim
+	,k.rol_id
+	,k.super
+	,k.universiteler as universite_id
 	,CASE k.super WHEN 1 THEN "Süper" ELSE r.adi END AS rol_adi
 FROM
 	tb_sistem_kullanici AS k
@@ -19,6 +27,25 @@ JOIN
 WHERE
 	k.email = ? AND
 	k.sifre = ?
+)
+UNION
+(SELECT
+	 o.id
+	,o.adi
+	,o.soyadi
+	,o.resim
+	,o.rol_id
+	,o.super
+	,o.universite_id
+	,CASE o.super WHEN 1 THEN "Süper" ELSE r.adi END AS rol_adi
+FROM
+	tb_ogrenciler AS o
+JOIN
+	tb_roller AS r ON o.rol_id = r.id
+WHERE
+	o.email = ? AND
+	o.sifre = ?
+)
 LIMIT 1
 SQL;
 
@@ -67,7 +94,7 @@ WHERE
 SQL;
 
 
-$sorguSonuc = $vt->selectSingle( $SQL_kontrol, array( $k, md5( $s ) ) );
+$sorguSonuc = $vt->selectSingle( $SQL_kontrol, array( $k, md5( $s ),$k, md5( $s ) ) );
 if( !$sorguSonuc[ 0 ] ) {
 	$kullaniciBilgileri	= $sorguSonuc[ 2 ];
 	if( $kullaniciBilgileri[ 'id' ] * 1 > 0 ) {
@@ -78,13 +105,11 @@ if( !$sorguSonuc[ 0 ] ) {
 		$_SESSION[ 'kullanici_resim' ]	= $kullaniciBilgileri[ 'resim' ];
 		$_SESSION[ 'rol_id' ]			= $kullaniciBilgileri[ 'rol_id' ];
 		$_SESSION[ 'rol_adi' ]			= $kullaniciBilgileri[ 'rol_adi' ];
-		$_SESSION[ 'sube_id' ]			= $kullaniciBilgileri[ 'sube_id' ];
-		$_SESSION[ 'subeler' ]			= $kullaniciBilgileri[ 'subeler' ];
 		$_SESSION[ 'giris' ]			= true;
 		$_SESSION[ 'giris_var' ]		= 'evet';
 		$_SESSION[ 'yil' ]				= date('Y');
 		$_SESSION[ 'super' ]			= $kullaniciBilgileri[ 'super' ];
-		$_SESSION[ 'universite_id' ]	= $kullaniciBilgileri[ 'universiteler' ];
+		$_SESSION[ 'universite_id' ]	= $kullaniciBilgileri[ 'universite_id' ];
 
 		//$aktif_yil 						= $vt->selectSingle( $SQL_aktif_yil, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
 		//$ders_yillari 					= $vt->select( $SQL_ders_yillari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];

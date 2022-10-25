@@ -187,7 +187,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 															<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
 
-															<a href='#' id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs yetkinlikDuzenle' data-yetkinlik_kidem='$kategori[kidem]' data-yetkinlik_yontemler='$kategori[yontem]' data-yetkinlik_duzeyler='$kategori[duzey]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='yetkinlik_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</a>
+															<button id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs yetkinlikDuzenle' data-yetkinlik_kidem='$kategori[kidem]' data-yetkinlik_yontemler='$kategori[yontem]' data-yetkinlik_duzeyler='$kategori[duzey]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='yetkinlik_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</button>
 														</span>
 													</div>
 												</li>";
@@ -588,8 +588,8 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 			document.getElementById("mufredat_id").value 		 	= mufredat_id;
 
 			document.getElementById("yetkinlik_ad_duzenle").value 	= kategori_ad;
-			const yetkinlik_duzeyler_dizi = yetkinlik_duzeyler.split(",");
-			const yetkinlik_yontemler_dizi = yetkinlik_yontemler.split(",");
+			const yetkinlik_duzeyler_dizi = yetkinlik_duzeyler.toString().split(",");
+			const yetkinlik_yontemler_dizi = yetkinlik_yontemler.toString().split(",");
 
 			var duzeyler = <?php echo json_encode($duzeyler, JSON_UNESCAPED_UNICODE); ?>;// don't use quotes
 			$.each(duzeyler, function(key, value) {

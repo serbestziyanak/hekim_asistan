@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100424 (10.4.24-MariaDB)
+ Source Server Version : 100422 (10.4.22-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100424 (10.4.24-MariaDB)
+ Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 24/10/2022 14:46:33
+ Date: 25/10/2022 21:28:01
 */
 
 SET NAMES utf8mb4;
@@ -713,7 +713,7 @@ CREATE TABLE `tb_modul`  (
   `harici_sayfa` tinyint NULL DEFAULT 0,
   `kategori_acik` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 151 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 152 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul
@@ -761,6 +761,7 @@ INSERT INTO `tb_modul` VALUES (145, 'Bilimsel Toplantılar', 'ogrenciBilimselTop
 INSERT INTO `tb_modul` VALUES (148, 'Klinik Sunuları', 'ogrenciKlinikSunulari', 'ogrenciKlinikSunulari', 'fas fa-file-powerpoint text-info', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (149, 'Tezler', 'ogrenciTezleri', 'ogrenciTezleri', 'fas fa-book text-orange', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (150, 'Tez İzlemeleri', 'ogrenciTezIzlemeleri', 'ogrenciTezIzlemeleri', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
+INSERT INTO `tb_modul` VALUES (151, 'Müfredat Değerlendirme', 'ogrenciMufredatDegerlendirme', 'ogrenciMufredatDegerlendirme', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -1055,7 +1056,7 @@ CREATE TABLE `tb_mufredat`  (
   `ogrenim_hedefi_mi` tinyint NULL DEFAULT NULL,
   `kategori` tinyint NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 143 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_mufredat
@@ -1141,6 +1142,7 @@ INSERT INTO `tb_mufredat` VALUES (138, 61, 'ÜST SOLUNUM YOLU ENFEKSİYONU', 1, 
 INSERT INTO `tb_mufredat` VALUES (139, 61, 'VİRAL HEPATİT ', 1, -1, 'K,ETT,A', 2, 'BE,UE,YE', NULL, 0);
 INSERT INTO `tb_mufredat` VALUES (140, 61, 'YABANCI CİSİM ASPİRASYONU', 1, -1, 'K,T,A', 2, 'BE,UE,YE', NULL, 0);
 INSERT INTO `tb_mufredat` VALUES (141, 61, 'YEME BOZUKLUKLUĞU', 1, -1, 'K,T', 2, 'BE,UE,YE', NULL, 0);
+INSERT INTO `tb_mufredat` VALUES (142, 52, 'dgdf', 1, -1, 'T', 2, 'UE', NULL, 0);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_bilimsel_toplanti_sunulari
@@ -1221,12 +1223,30 @@ CREATE TABLE `tb_ogrenci_makaleleri`  (
   `onaylayan_id` int NULL DEFAULT NULL,
   `onay_tarihi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_makaleleri
 -- ----------------------------
 INSERT INTO `tb_ogrenci_makaleleri` VALUES (2, 1, 117, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (3, 1, 128, 'Deneme', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi) Layık M. E. , Ekin M., Demirci A.		', NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for tb_ogrenci_mufredat_degerlendirme
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_ogrenci_mufredat_degerlendirme`;
+CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ogrenci_id` int NULL DEFAULT NULL,
+  `mufredat_id` int NULL DEFAULT NULL,
+  `degerlendirme` tinyint NULL DEFAULT -1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_ogrenci_mufredat_degerlendirme
+-- ----------------------------
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 110, 142, -1);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari

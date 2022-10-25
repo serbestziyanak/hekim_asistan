@@ -110,4 +110,32 @@ ul.tree:before {
   background-color: #dfdfdf;
   color:rgb(0, 0, 0);
 }
+ .bg-renk1{
+  background-color: #264653;
+  color:white;
+}
+ .bg-renk2{
+  background-color: #2a9d8f;
+  color:white;
+}
+ .bg-renk3{
+  background-color: #f4a261;
+  color:white;
+}
+ .bg-renk4{
+  background-color: #e76f51;
+  color:white;
+}
+ .bg-renk5{
+  background-color: #a5908af6;
+  color:white;
+}
+ .bg-renk6{
+  background-color: #eaac8b8e;
+  color:white;
+}
+ .bg-renk7{
+  background-color: #dfdfdf;
+  color:rgb(0, 0, 0);
+}
 

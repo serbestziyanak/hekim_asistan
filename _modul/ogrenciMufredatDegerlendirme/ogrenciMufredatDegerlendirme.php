@@ -119,6 +119,30 @@ WHERE
 	r.aktif 		  	= 1
 SQL;
 
+$SQL_tum_ogrenciler = <<< SQL
+SELECT 
+	o.*,
+	CONCAT( o.adi, ' ', o.soyadi ) AS ad_soyadi,
+	u.adi as uzmanlik_dali_adi
+FROM 
+	tb_ogrenciler AS o
+LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
+WHERE
+	o.universite_id 	= ? AND
+	o.uzmanlik_dali_id 	= ? AND
+	o.aktif 		  	= 1 
+ORDER BY o.adi ASC
+SQL;
+
+$SQL_ogrenci_mufredat_degerlendirme = <<< SQL
+SELECT
+	*
+FROM
+	tb_ogrenci_mufredat_degerlendirme
+WHERE
+	ogrenci_id 		= ? AND
+	mufredat_id 	= ?
+SQL;
 
 $donemler 	 			= $vt->select( $SQL_donemler_getir, array( $_SESSION[ "universite_id" ], $_SESSION[ "aktif_yil" ], $_SESSION[ "program_id" ] ) )[2];
 @$_SESSION[ "donem_id" ] = $_SESSION[ "donem_id" ] ? $_SESSION[ "donem_id" ]  : $donemler[ 0 ][ "id" ];
@@ -128,6 +152,9 @@ $soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universi
 $duzeyler 	 			= $vt->select($SQL_duzeyler, array(  ) )[ 2 ];
 $yontemler 	 			= $vt->select($SQL_yontemler, array(  ) )[ 2 ];
 $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+$ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+
+
 ?>
 
 <div class="row">
@@ -151,16 +178,38 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 				</div>	
 			</div>
 			<!-- /.card-header -->
-			<div class="card-body p-0">
-				<ul class="tree mr-5">
-					<li> <div class='ders-kapsa bg-renk5'> Ana Kategori 
-							<a href='#' class='btn btn-dark float-right btn-xs KategoriEkle' id='0' data-id='0' data-kategori_ad ='Ana Kategori' data-modal='yeni_ana_kategori_ekle'>Kategori Ekle</a>
-						</div>
+			<div class="card-body ">
 
+				<form class="form-horizontal" action = "index.php" method = "GET" >
+					<div class="form-group">
+						<input type="hidden" name="modul" value="ogrenciMufredatDegerlendirme">
+						<label  class="control-label">Öğrenci</label>
+						<select class="form-control select2" name = "ogrenci_id" required >
+							<option>Seçiniz...</option>
+							<?php 
+								foreach( $ogrenciler AS $ogrenci ){
+									echo '<option value="'.$ogrenci[ "id" ].'" '.( $_REQUEST[ "ogrenci_id" ] == $ogrenci[ "id" ] ? "selected" : null) .'>'.$ogrenci[ "ad_soyadi" ].'</option>';
+								}
+
+							?>
+						</select>
+						<br>
+						<button modul= 'ogrenciMufredatDegerlendirme' yetki_islem="ogrenci_sec" type="submit" class="btn btn-sm btn-primary"> Öğrenci Seç</button>
+					</div>
+				</form>
+				<?php
+				if( isset($_REQUEST['ogrenci_id']) and $_REQUEST['ogrenci_id']>0 ){
+				?>
+                <table class="table table-hover">
+                  <tbody>
 					<?php
 					//var_dump($mufredatlar);
-						function kategoriListele2( $kategoriler, $parent = 0, $class ="tree", $renk = 0){
-							$html = '<ul class="ders-ul">';
+						function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme){
+							$html = "<tr class='expandable-body'>
+											<td>
+												<div class='p-0'>
+													<table class='table table-hover'>
+														<tbody>";
 
 							foreach ($kategoriler as $kategori){
 								if( $kategori['ust_id'] == $parent ){
@@ -169,63 +218,54 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 									} 
 
 									if( $kategori['kategori'] == 0){
-										//$html .= '<li><div class="ders-kapsa bg-renk'.$renk.'"> '.$kategori[ "adi" ].$kategori[ "id" ].'</div></li>';
-										$duzeyler_badge = "<span class='badge badge-primary ' >Düzey : ".str_replace(',',' , ',$kategori['duzey'])."</span>";
-										$kidem_badge = "<span class='badge badge-secondary ' >Kıdem : ".$kategori['kidem']."</span>";
-										$yontemler_badge = "<span class='badge badge-success ' >Yöntem : ".str_replace(',',' , ',$kategori['yontem'])."</span>";
-										$html .= "<li>
-													<div class='ders-kapsa bg-renk7 '> 
-														<span>
-															$kategori[adi]&nbsp;&nbsp;&nbsp;
-															$duzeyler_badge
-															&nbsp;&nbsp;&nbsp;
-															$kidem_badge
-															&nbsp;&nbsp;&nbsp;
-															$yontemler_badge
-														</span>
-														<span class='m-0 p-0'>
-															<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
-
-
-															<a href='#' id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs yetkinlikDuzenle' data-yetkinlik_kidem='$kategori[kidem]' data-yetkinlik_yontemler='$kategori[yontem]' data-yetkinlik_duzeyler='$kategori[duzey]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='yetkinlik_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</a>
-														</span>
-													</div>
-												</li>";
+										$ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $_REQUEST[ 'ogrenci_id'], $kategori['id'] ) )[ 2 ];
+										$html .= "
+												<tr class='bg-renk$renk'>
+													<td class='degerlendirmeEkle' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]'  data-modal='degerlendirme_ekle'>
+														<a role='button' class='text-white degerlendirmeEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
+														$ogrenci_mufredat_degerlendirme[ogrenci_id]
+													</td>
+												</tr>";									
 
 									}
 									if( $kategori['kategori'] == 1 ){
-										$html .= "<li><div class='ders-kapsa bg-renk$renk' > $kategori[adi]
-										<span>
+
+											$html .= "
+													<tr data-widget='expandable-table' aria-expanded='true' class='bg-renk$renk border-0'>
+														<td>
+														$kategori[adi]
+														<i class='expandable-table-caret fas fa-caret-right fa-fw'></i>
+														</td>
+													</tr>
+												";								
+											$renk++;
+											$html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt, $SQL_ogrenci_mufredat_degerlendirme);
+											
+											$renk--;
 										
-											<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
-
-											<a href='#' class='btn btn-warning float-right ml-1 btn-xs KategoriDuzenle' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='kategori_guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
-
-											<a href='#' class='btn btn-primary float-right ml-1 btn-xs YetkinlikEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='yetkinlik_ekle' data-islem='yetkinlik_ekle'>Yetkinlik Ekle</a> 
-		
-											<a href='#' class='btn btn-dark float-right ml-1 btn-xs KategoriEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='kategori_ekle'>Kategori Ekle</a>
-										</span>
-										</div>";
-										$renk++;
-										$html .= kategoriListele2($kategoriler, $kategori['id'],"ders-ul",$renk);
-										$html .= '</li>';
-										$renk--;
 									}
 								}
 
 							}
-							$html .='</ul>';
+							$html .= '
+													</tbody>
+												</table>
+											</div>
+										</td>
+									</tr>';
 							return $html;
 						}
 						if( count( $mufredatlar ) ) 
-							echo kategoriListele2($mufredatlar);
+							echo kategoriListele3($mufredatlar,0,0, $vt, $SQL_ogrenci_mufredat_degerlendirme);
 						
 
 					?>
-					</li>
-				</ul>
-				<?php if ( count( $mufredatlar ) < 1) echo '<div class="alert alert-warning m-5">Bu uzmanlı dalı için müfredat eklenmemiş</div>'; ?>
-
+                  </tbody>
+                </table>
+				<?php if ( count( $mufredatlar ) < 1) echo '<div class="alert alert-warning m-5">Bu uzmanlık dalı için müfredat eklenmemiş</div>'; ?>
+				<?php
+				}
+				?>
 			</div>
 			<!-- /.card -->
 		</div>
@@ -259,225 +299,48 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 	</div>
 
 	<!--MUFREDAT EKLEME MODALI-->
-	<div class="modal fade" id="yeni_ana_kategori_ekle">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Yeni Ana Kategori Ekleme</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
-					<div class="modal-body">
-						<input type="hidden" id="ust_id"  name="ust_id" >
-						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
-						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
-						<div class="form-group">
-							<label class="control-label">Kategori Adı</label>
-							<input required type="text" class="form-control" name ="adi"  autocomplete="off">
-						</div>
-						<div class="form-group">
-							<label  class="control-label">Kategori Mi? </label>
-							<div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" >
-								<div class="bootstrap-switch-container" >
-									<input type="checkbox" name="kategori" checked data-bootstrap-switch="" data-off-color="danger" data-on-text="Evet" data-off-text="Hayır" data-on-color="success">
-								</div>
-							</div>
-						</div>
 
-					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-success" data-dismiss="modal">İptal</button>
-						<button type="submit" class="btn btn-danger ">Kaydet</button>
-					</div>
-				</form>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
 
 	<!--MUFREDAT EKLEME MODALI-->
-	<div class="modal fade" id="kategori_ekle">
+	<div class="modal fade" id="degerlendirme_ekle">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Yeni Kategori Ekle</h4>
+					<h4 class="modal-title">Müfredat Değerlendirme</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
 					<div class="modal-body">
-						<input type="hidden" id="yeni_kategori_ust_id"  name="ust_id">
+						<input type="hidden" id="mufredat_id"  name="mufredat_id">
 						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
 						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
 						<div class="form-group">
-							<label class="control-label">Ust Kategori</label>
+							<label class="control-label">Yetkinlik</label>
 							<input required type="text" class="form-control" id="kategori_ad"  autocomplete="off" disabled>
 						</div>
-
-						<div class="form-group">
-							<label class="control-label">Kategori Adı</label>
-							<input required type="text" class="form-control" name ="adi"  autocomplete="off">
-						</div>
-						<div class="form-group">
-							<label  class="control-label">Kategori Mi? </label>
-							<div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" >
-								<div class="bootstrap-switch-container" >
-									<input type="checkbox" name="kategori" checked data-bootstrap-switch="" data-off-color="danger" data-on-text="Kategori" data-off-text="Değil" data-on-color="success">
-								</div>
+						<div class="form-group clearfix">
+							<div class="icheck-success ">
+								<input type="radio" name="degerlendirme" value="1" id="degerlendirme_basarili">
+								<label for="degerlendirme_basarili">
+									Başarılı
+								</label>
+							</div>
+							<div class="icheck-danger ">
+								<input type="radio" name="degerlendirme" value="0" id="degerlendirme_basarisiz">
+								<label for="degerlendirme_basarisiz">
+									Başarısız
+								</label>
+							</div>
+							<div class="icheck-warning ">
+								<input type="radio" name="degerlendirme" value="-1" id="degerlendirme_degerlendirilmedi">
+								<label for="degerlendirme_degerlendirilmedi">
+									Değerlendirilmedi
+								</label>
 							</div>
 						</div>
 
-					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-success" data-dismiss="modal">İptal</button>
-						<button type="submit" class="btn btn-danger">Kaydet</button>
-					</div>
-				</form>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!--MUFREDAT EKLEME MODALI-->
-	<div class="modal fade" id="yetkinlik_ekle">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Yetkinlik Ekle</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
-					<div class="modal-body">
-						<input type="hidden" id="islem2" name="islem">
-						<input type="hidden" id="ust_id2" name="ust_id">
-						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
-						<input type="hidden" name="uzmanlik_dali_id" value="<?php echo $_SESSION[ 'uzmanlik_dali_id' ];?>" >
-						<div class="form-group">
-							<label class="control-label">Yetkinlik</label>
-							<input required type="text" class="form-control" name ="adi"  autocomplete="off" >
-						</div>
-						<div class="form-group">
-							<label  class="control-label">Düzeyler</label>
-							<select class="form-control select2" name="duzey[]"  multiple="multiple" id="duzey_id2" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="duzeyler_aciklama2"></div>
-
-						</div>
-						<br>
-						<div class="form-group">
-							<label  class="control-label">Kıdem</label>
-							<select class="form-control select2" name="kidem"   id="kidem_id2" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="kidem_aciklama2"></div>
-						</div>
-						<br>
-						<div class="form-group">
-							<label  class="control-label">Yöntemler</label>
-							<select class="form-control select2" name="yontem[]"  multiple="multiple" id="yontem_id2" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="yontemler_aciklama2"></div>
-						</div>
-					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button>
-						<button type="submit" class="btn btn-success">Kaydet</button>
-					</div>
-				</form>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-	<!--MUFREDAT -->
-	<div class="modal fade" id="yetkinlik_duzenle">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Yetkinlik Düzenle</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
-					<div class="modal-body">
-						<input type="hidden" id="islem" name="islem">
-						<input type="hidden" id="mufredat_id" name="mufredat_id">
-						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
-						<div class="form-group">
-							<label class="control-label">Yetkinlik</label>
-							<input required type="text" class="form-control" name ="adi"  autocomplete="off" id="yetkinlik_ad_duzenle">
-						</div>
-						<div class="form-group">
-							<label  class="control-label">Düzeyler</label>
-							<select class="form-control select2" name="duzey[]"  multiple="multiple" id="duzey_id" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="duzeyler_aciklama"></div>
-
-						</div>
-						<br>
-						<div class="form-group">
-							<label  class="control-label">Kıdem</label>
-							<select class="form-control select2" name="kidem"   id="kidem_id" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="kidem_aciklama"></div>
-						</div>
-						<br>
-						<div class="form-group">
-							<label  class="control-label">Yöntemler</label>
-							<select class="form-control select2" name="yontem[]"  multiple="multiple" id="yontem_id" required>
-								<option>Seçiniz...</option>
-								
-							</select>
-							<div id="yontemler_aciklama"></div>
-						</div>
-					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">İptal</button>
-						<button type="submit" class="btn btn-success">Kaydet</button>
-					</div>
-				</form>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-	<!--MUFREDAT -->
-	<div class="modal fade" id="kategori_duzenle">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Kategori Düzenle</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form class="form-horizontal" action = "_modul/mufredat/mufredatSEG.php" method = "POST">
-					<div class="modal-body">
-						<input type="hidden" id="kategori_duzenle_islem" name="islem">
-						<input type="hidden" id="kategori_duzenle_mufredat_id" name="mufredat_id">
-						<input type="hidden" name="rotasyon_id" value="<?php echo $rotasyon_id;?>" >
-						<div class="form-group">
-							<label class="control-label">Kategori Adı</label>
-							<input required type="text" class="form-control" name ="adi"  id="kategori_ad_duzenle">
-						</div>
 
 					</div>
 					<div class="modal-footer justify-content-between">
@@ -490,6 +353,9 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+
+
+
 
 
 	
@@ -500,13 +366,27 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 			$( this ).find( '.btn-evet' ).attr( 'href', $( e.relatedTarget ).data( 'href' ) );
 		} );
 		
-	    $('.KategoriEkle').on("click", function(e) { 
-	        var ust_id      = $(this).data("id");
-	        var kategori_ad = $(this).data("kategori_ad");
-	        var modal 		= $(this).data("modal");
-
-	        document.getElementById("yeni_kategori_ust_id").value 	 = ust_id;
+	    $('.degerlendirmeEkle').on("click", function(e) { 
+			document.getElementById("degerlendirme_basarisiz").checked = false;
+			document.getElementById("degerlendirme_basarili").checked = false;
+			document.getElementById("degerlendirme_degerlendirilmedi").checked = false;
+	        var mufredat_id		 = $(this).data("id");
+	        var kategori_ad		 = $(this).data("kategori_ad");
+	        var modal			 = $(this).data("modal");
+	        var degerlendirme	 = "degerlendirme"+$(this).data("degerlendirme");
+			alert(degerlendirme);
+	        document.getElementById("mufredat_id").value 	 = mufredat_id;
 	        document.getElementById("kategori_ad").value = kategori_ad;
+				if( degerlendirme == "degerlendirme0" ){
+					document.getElementById("degerlendirme_basarisiz").checked = true;
+				}
+				if( degerlendirme == "degerlendirme1" ){
+					document.getElementById("degerlendirme_basarili").checked = true;
+				}
+				if( degerlendirme == "degerlendirme-1" ){
+					document.getElementById("degerlendirme_degerlendirilmedi").checked = true;
+				}
+
 	        $('#'+ modal).modal( "show" );
 	    });
 

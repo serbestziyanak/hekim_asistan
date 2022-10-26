@@ -32,6 +32,7 @@ SET
 	,sinif					 = ?
 	,kayit_yili				 = ?
 	,email					 = ?
+	,sifre					 = ?
 	,cep_tel				 = ?
 	,adres					 = ?
 	,dogum_tarihi			 = ?
@@ -57,6 +58,7 @@ SET
 	,soyadi					 = ?
 	,sinif					 = ?
 	,email					 = ?
+	,sifre					 = ?
 	,cep_tel				 = ?
 	,adres					 = ?
 	,dogum_tarihi			 = ?
@@ -119,6 +121,7 @@ switch( $islem ) {
 				,$_REQUEST['soyadi']
 				,$_REQUEST['sinif']
 				,$_REQUEST['email']
+				,md5($_REQUEST['sifre'])
 				,$_REQUEST['cep_tel']
 				,$_REQUEST['adres']
 				,$dogum_tarihi
@@ -141,33 +144,36 @@ switch( $islem ) {
 			
 	break;
 	case 'guncelle':
-		//Güncellenecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise Güncellenecektir.
-		$tek_ogrenci_oku = $vt->select( $SQL_tek_ogrenci_id_oku, array( $ogrenci_id ) ) [ 2 ];
-		if (count( $tek_ogrenci_oku ) > 0) {
-			$sorgu_sonuc = $vt->insert( $SQL_guncelle, array(
-				 $_REQUEST['universite_id']
-				,$_REQUEST['uzmanlik_dali_id']
-				,$_REQUEST['tc_kimlik_no']
-				,$_REQUEST['ogrenci_no']
-				,$_REQUEST['adi']
-				,$_REQUEST['soyadi']
-				,$_REQUEST['sinif']
-				,$_REQUEST['email']
-				,$_REQUEST['cep_tel']
-				,$_REQUEST['adres']
-				,$dogum_tarihi
-				,$_REQUEST['dogum_yeri']
-				,$_REQUEST['tus_donemi']
-				,$_REQUEST['tus_puani']
-				,$baslama_tarihi
-				,$bitis_tarihi
-				,$tez_tarihi
-				,$_REQUEST['egitim_danisman_id']
-				,$_REQUEST['tez_danisman_id']
-				,$ogrenci_id
-			) );
-			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
-		}
+		$tek_ogrenci_oku = $vt->selectSingle( $SQL_tek_ogrenci_id_oku, array( $ogrenci_id ) ) [ 2 ];
+		if( $_REQUEST['sifre'] == $tek_ogrenci_oku['sifre'] ){
+			$sifre = $_REQUEST['sifre'];
+		}else{
+			$sifre = md5($_REQUEST['sifre']);
+		}		
+		$sorgu_sonuc = $vt->insert( $SQL_guncelle, array(
+				$_REQUEST['universite_id']
+			,$_REQUEST['uzmanlik_dali_id']
+			,$_REQUEST['tc_kimlik_no']
+			,$_REQUEST['ogrenci_no']
+			,$_REQUEST['adi']
+			,$_REQUEST['soyadi']
+			,$_REQUEST['sinif']
+			,$_REQUEST['email']
+			,$sifre
+			,$_REQUEST['cep_tel']
+			,$_REQUEST['adres']
+			,$dogum_tarihi
+			,$_REQUEST['dogum_yeri']
+			,$_REQUEST['tus_donemi']
+			,$_REQUEST['tus_puani']
+			,$baslama_tarihi
+			,$bitis_tarihi
+			,$tez_tarihi
+			,$_REQUEST['egitim_danisman_id']
+			,$_REQUEST['tez_danisman_id']
+			,$ogrenci_id
+		) );
+		if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
 	break;
 	case 'sil':
 		//Silinecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise silinecektir.

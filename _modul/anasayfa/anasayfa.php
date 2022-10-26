@@ -237,6 +237,49 @@
     </div>
 
 
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+      <div class="card text-white card-has-bg click-col card_menu_git" style="background-image:url('img/img7.jpg');" data-href="index.php?modul=ogrenciTezleri">
+        <img class="card-img d-none" src="img/img7.jpg" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+        <div class="card-img-overlay d-flex flex-column">
+          <div class="card-body">
+            <h4 class="card-title card-meta mt-0 ">Öğrencinin yürütmüş olduğu tezler ile ilgili bilgileri görebilirsiniz.</h4>
+            <h2>Tezler</h2>
+          </div>
+          <div class="card-footer">
+            <div class="media">
+              <img class="mr-3 rounded-circle" src="resimler/<?php echo $_SESSION[ 'kullanici_resim' ]; ?>" alt="Generic placeholder image" style="max-width:50px">
+              <div class="media-body">
+                <h6 class="my-0 text-white d-block"><?php echo $_SESSION['adi']." ".$fn->ilkHarfleriBuyut($_SESSION['soyadi']); ?></h6>
+                <small><?php echo $_SESSION[ 'uzmanlik_dali_adi' ]; ?></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+      <div class="card text-white card-has-bg click-col card_menu_git" style="background-image:url('img/img8.jpg');" data-href="index.php?modul=ogrenciler">
+        <img class="card-img d-none" src="img/img8.jpg" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+        <div class="card-img-overlay d-flex flex-column">
+          <div class="card-body">
+            <h4 class="card-title card-meta mt-0 ">Kişisel Bilgiler görülebilir ve düzenlenebilir.</h4>
+            <h2>Kişisel Bilgiler</h2>
+          </div>
+          <div class="card-footer">
+            <div class="media">
+              <img class="mr-3 rounded-circle" src="resimler/<?php echo $_SESSION[ 'kullanici_resim' ]; ?>" alt="Generic placeholder image" style="max-width:50px">
+              <div class="media-body">
+                <h6 class="my-0 text-white d-block"><?php echo $_SESSION['adi']." ".$fn->ilkHarfleriBuyut($_SESSION['soyadi']); ?></h6>
+                <small><?php echo $_SESSION[ 'uzmanlik_dali_adi' ]; ?></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 <!--div class="col-sm-12 col-md-6 col-lg-4 mb-4">
   <div class="card text-white card-has-bg click-col" style="background-image:url('img/img6.jpg');">

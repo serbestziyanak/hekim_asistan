@@ -176,6 +176,7 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 							<div class="tab-pane active" id="_genel">
 								<form class="form-horizontal" action = "_modul/ogretimElemanlari/ogretimElemanlariSEG.php" method = "POST" enctype="multipart/form-data">
 									<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
+									<input type = "hidden" name = "universite_id" value = "<?php echo $_SESSION['universite_id']; ?>">
 									<input type = "hidden" name = "ogretim_elemani_id" value = "<?php echo $ogretim_elemani_id; ?>">
 									<h3 class="profile-username text-center"><b> </b></h3>
 									<div class="form-group">
@@ -205,6 +206,10 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 									</div>
 									
 									<div class="form-group">
+										<label class="control-label">Tc Kimlik No</label>
+										<input required type="text" class="form-control" name ="tc_kimlik_no" value = "<?php echo $tek_ogretim_elemani[ "tc_kimlik_no" ]; ?>"  autocomplete="off">
+									</div>
+									<div class="form-group">
 										<label class="control-label">Adı</label>
 										<input required type="text" class="form-control" name ="adi" value = "<?php echo $tek_ogretim_elemani[ "adi" ]; ?>"  autocomplete="off">
 									</div>
@@ -222,6 +227,10 @@ $ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSI
 									<div class="form-group">
 										<label class="control-label">Cep Telefonu</label>
 										<input required type="text" class="form-control" name ="cep_tel" value = "<?php echo $tek_ogretim_elemani[ "cep_tel" ]; ?>"  autocomplete="off">
+									</div>
+									<div class="form-group">
+										<label class="control-label">Şifre</label>
+										<input required type="password" minlength="6" class="form-control" name ="sifre" value = "<?php echo $tek_ogretim_elemani[ "sifre" ]; ?>"  autocomplete="off">
 									</div>
 									
 									

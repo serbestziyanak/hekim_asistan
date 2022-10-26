@@ -16,10 +16,15 @@ if( array_key_exists( 'sonuclar', $_SESSION ) ) {
 $islem					= array_key_exists( 'islem'		         ,$_REQUEST ) ? $_REQUEST[ 'islem' ]				: 'ekle';
 $ogrenci_id				= array_key_exists( 'ogrenci_id' ,$_REQUEST ) ? $_REQUEST[ 'ogrenci_id' ]	: 0;
 
+if( $_SESSION[ 'kullanici_turu' ] == "ogrenci"  ){
+	if( $ogrenci_id != $_SESSION[ 'kullanici_id' ] )
+		$ogrenci_id		= "";
+}
 
-$satir_renk				= $ogrenci_id > 0	? 'table-warning'						: '';
-$kaydet_buton_yazi		= $ogrenci_id > 0	? 'Güncelle'							: 'Kaydet';
-$kaydet_buton_cls		= $ogrenci_id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
+$satir_renk					= $ogrenci_id > 0	? 'table-warning'						: '';
+$kaydet_buton_yazi			= $ogrenci_id > 0	? 'Güncelle'							: 'Kaydet';
+$kaydet_buton_cls			= $ogrenci_id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
+$kaydet_buton_yetki_islem	= $ogrenci_id > 0	? 'guncelle'									: 'kaydet';
 
 
 
@@ -34,6 +39,22 @@ LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
 WHERE
 	o.universite_id 	= ? AND
 	o.uzmanlik_dali_id 		= ? AND
+	o.aktif 		  	= 1 
+ORDER BY o.adi ASC
+SQL;
+
+$SQL_tum_ogrenciler2 = <<< SQL
+SELECT 
+	o.*,
+	CONCAT( o.adi, ' ', o.soyadi ) AS o_adi,
+	u.adi as uzmanlik_dali_adi
+FROM 
+	tb_ogrenciler AS o
+LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
+WHERE
+	o.universite_id 	= ? AND
+	o.uzmanlik_dali_id 		= ? AND
+	o.id 		= ? AND
 	o.aktif 		  	= 1 
 ORDER BY o.adi ASC
 SQL;
@@ -72,8 +93,12 @@ WHERE
 ORDER BY oe.adi,oe.soyadi
 SQL;
 
+if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+	$ogrenciler					= $vt->select( $SQL_tum_ogrenciler2, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $_SESSION[ 'kullanici_id'] ) )[ 2 ];
+}else{
+	$ogrenciler					= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+}
 
-$ogrenciler					= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 $uzmanlik_dallari			= $vt->select( $SQL_uzmanlik_dallari, array(  ) )[ 2 ];
 $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
 @$tek_ogrenci				= $vt->select( $SQL_tek_ogrenci_oku, array( $ogrenci_id ) )[ 2 ][ 0 ];		
@@ -225,6 +250,10 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 								<input required type="email" class="form-control form-control-sm" name ="email" value = "<?php echo $tek_ogrenci[ "email" ]; ?>"  autocomplete="off">
 							</div>
 							<div class="form-group">
+								<label class="control-label">Şifre</label>
+								<input required type="password" minlength="6" class="form-control form-control-sm" name ="sifre" value = "<?php echo $tek_ogrenci[ "sifre" ]; ?>"  autocomplete="off">
+							</div>
+							<div class="form-group">
 								<label class="control-label">Adres</label>
 								<textarea name="adres" class="form-control form-control-sm" ><?php echo $tek_ogrenci[ "adres" ]; ?></textarea>
 							</div>
@@ -289,7 +318,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							</div>
 						</div>
 						<div class="card-footer">
-							<button modul= 'ogrenciler' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+							<button modul= 'ogrenciler' yetki_islem="<?php echo $kaydet_buton_yetki_islem; ?>" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
 						</div>
 					</form>
 

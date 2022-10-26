@@ -8,26 +8,38 @@ $ogretim_elamani_id			= array_key_exists( 'ogretim_elemani_id', $_REQUEST )		? $
 $alanlar			= array();
 $degerler			= array();
 
-$SQL_ekle			= "INSERT INTO tb_ogretim_elemanlari SET ";
-$SQL_guncelle 		= "UPDATE tb_ogretim_elemanlari SET ";
 
-$alanlar[]		= "universite_id";
-$degerler[]		= $_SESSION['universite_id'];
+$SQL_ekle = <<< SQL
+INSERT INTO
+	tb_ogretim_elemanlari
+SET
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
+	,tc_kimlik_no		 = ?
+	,unvan_id			 = ?
+	,adi				 = ?
+	,soyadi				 = ?
+	,email				 = ?
+	,cep_tel			 = ?
+	,sifre				 = ?
+SQL;
 
-
-foreach( $_REQUEST as $alan => $deger ) {
-	if( $alan == 'islem' or  $alan == 'PHPSESSID' or  $alan == 'ogretim_elemani_id') continue;
-		$alanlar[]		= $alan;
-		$degerler[]		= $deger;
-}
-
-$SQL_ekle		.= implode( ' = ?, ', $alanlar ) . ' = ?';
-
-$SQL_guncelle 	.= implode( ' = ?, ', $alanlar ) . ' = ?';
-$SQL_guncelle	.= " WHERE id = ?";
-
-if( $islem == 'guncelle' ) $degerler[] = $ogretim_elamani_id;
-
+$SQL_guncelle = <<< SQL
+UPDATE
+	tb_ogretim_elemanlari
+SET
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
+	,tc_kimlik_no		 = ?
+	,unvan_id			 = ?
+	,adi				 = ?
+	,soyadi				 = ?
+	,email				 = ?
+	,cep_tel			 = ?
+	,sifre				 = ?
+WHERE
+	id = ?
+SQL;
 
 $SQL_tek_ogretim_elemani_oku = <<< SQL
 SELECT 
@@ -35,8 +47,17 @@ SELECT
 FROM 
 	tb_ogretim_elemanlari 
 WHERE 
-	id 			= ? AND
+	email 		= ? AND
 	aktif 		= 1 
+SQL;
+
+$SQL_tek_ogretim_elemani_oku_id = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogretim_elemanlari 
+WHERE 
+	id 		= ? 
 SQL;
 
 
@@ -53,19 +74,50 @@ $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerç
 
 switch( $islem ) {
 	case 'ekle':
-		$sonuc = $vt->insert( $SQL_ekle, $degerler );
-		if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sonuc[ 1 ] );
-		else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sonuc[ 2 ] ); 
-		$son_eklenen_id	= $sonuc[ 2 ]; 
-		$ogretim_elamani_id = $son_eklenen_id;
+		$ogretim_elemani_varmi = $vt->select( $SQL_tek_ogretim_elemani_oku, array( $_REQUEST[ "email" ] ) )[2];
+		if ( count( $ogretim_elemani_varmi ) < 1 ){
+			$sorgu_sonuc = $vt->insert( $SQL_ekle, array(
+				 $_REQUEST['universite_id']
+				,$_REQUEST['uzmanlik_dali_id']
+				,$_REQUEST['tc_kimlik_no']
+				,$_REQUEST['unvan_id']
+				,$_REQUEST['adi']
+				,$_REQUEST['soyadi']
+				,$_REQUEST['email']
+				,$_REQUEST['cep_tel']
+				,md5($_REQUEST['sifre'])
+			) );
+			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+			else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
+			$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
+			$ogretim_elamani_id = $son_eklenen_id;
+		}else{
+			$___islem_sonuc = array( 'hata' => true, 'mesaj' => 'Bu Email Önceden Eklenmiş', 'id' => $sonuc[ 2 ] );
+		}
 	break;
 	case 'guncelle':
-		//Güncellenecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise Güncellenecektir.
-		$tek_ogretim_elemani_oku = $vt->select( $SQL_tek_ogretim_elemani_oku, array( $ogretim_elamani_id ) ) [ 2 ];
-		if (count( $tek_ogretim_elemani_oku ) > 0) {
-			$sonuc = $vt->update( $SQL_guncelle, $degerler );
-			if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sonuc[ 1 ] );
+		$ogretim_elemani_varmi = $vt->selectSingle( $SQL_tek_ogretim_elemani_oku_id, array( $ogretim_elamani_id ) )[2];
+
+		if( $_REQUEST['sifre'] == $ogretim_elemani_varmi['sifre'] ){
+			$sifre = $_REQUEST['sifre'];
+		}else{
+			$sifre = md5($_REQUEST['sifre']);
 		}
+		
+		$sorgu_sonuc = $vt->update( $SQL_guncelle, array(
+			 $_REQUEST['universite_id']
+			,$_REQUEST['uzmanlik_dali_id']
+			,$_REQUEST['tc_kimlik_no']
+			,$_REQUEST['unvan_id']
+			,$_REQUEST['adi']
+			,$_REQUEST['soyadi']
+			,$_REQUEST['email']
+			,$_REQUEST['cep_tel']
+			,$sifre
+			,$ogretim_elamani_id
+		) );
+		if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+		else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
 	break;
 	case 'sil':
 		//Silinecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise silinecektir.

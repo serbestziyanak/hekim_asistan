@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100424 (10.4.24-MariaDB)
+ Source Server Version : 100422 (10.4.22-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100424 (10.4.24-MariaDB)
+ Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 26/10/2022 13:39:16
+ Date: 26/10/2022 19:13:56
 */
 
 SET NAMES utf8mb4;
@@ -725,33 +725,11 @@ INSERT INTO `tb_modul` VALUES (32, 'Modul Yetkileri', 'modulYetkileri', 'modulYe
 INSERT INTO `tb_modul` VALUES (68, 'Sistem İşlemleri', NULL, NULL, 'fas fa-sliders-h', 1, 0, 1, 100, 0, 0);
 INSERT INTO `tb_modul` VALUES (90, 'Ön Tanım', NULL, NULL, 'fas fa-sitemap', 1, 0, 1, 12, 0, 0);
 INSERT INTO `tb_modul` VALUES (109, 'Üniversiteler', 'universiteler', 'universiteler', 'fas fa-university text-green', 1, 125, 0, 1, 0, 0);
-INSERT INTO `tb_modul` VALUES (110, 'Bölümler', 'bolumler', 'bolumler', 'fas fa-school text-yellow', 0, 125, 0, 3, 0, 0);
-INSERT INTO `tb_modul` VALUES (111, 'Fakülteler', 'fakulteler', 'fakulteler', 'fas fa-building text-blue', 0, 125, 0, 2, 0, 0);
-INSERT INTO `tb_modul` VALUES (112, 'Programlar', 'programlar', 'programlar', 'fas fa-book-reader text-purple', 0, 125, 0, 4, 0, 0);
-INSERT INTO `tb_modul` VALUES (113, 'Ders Yılları', 'dersYillari', 'dersYillari', 'fas fa-calendar-alt text-blue', 1, 127, 0, 1, 0, 0);
-INSERT INTO `tb_modul` VALUES (114, 'Ders Kategorileri', 'dersKategorileri', 'dersKategorileri', 'far fa-circle text-green', 1, 129, 0, 1, 0, 0);
-INSERT INTO `tb_modul` VALUES (115, 'Dönem Tanımları', 'donemler', 'donemler', 'far fa-circle text-orange', 1, 129, 0, 2, 0, 0);
-INSERT INTO `tb_modul` VALUES (116, 'Dersler', 'dersler', 'dersler', 'fas fa-book text-orange', 0, 0, 0, 20, 0, 0);
 INSERT INTO `tb_modul` VALUES (117, 'Öğretim Elemanları', 'ogretimElemanlari', 'ogretimElemanlari', 'fas fa-user-md text-blue', 1, 0, 0, 25, 0, 0);
-INSERT INTO `tb_modul` VALUES (118, 'Dönem Dersleri', 'donemDersleri', 'donemDersleri', 'fas fa-book text-orange', 1, 127, 0, 3, 0, 0);
-INSERT INTO `tb_modul` VALUES (119, 'Komiteler', 'komiteler', 'komiteler', 'fas fa-calendar-plus text-blue', 1, 128, 0, 1, 0, 0);
-INSERT INTO `tb_modul` VALUES (120, 'Komite Dersleri', 'komiteDersleri', 'KomiteDersleri', 'fas fa-book text-green', 1, 128, 0, 2, 0, 0);
-INSERT INTO `tb_modul` VALUES (121, 'Görev Kategorileri', 'gorevKategorileri', 'gorevKategorileri', 'far fa-circle text-blue', 1, 129, 0, 3, 0, 0);
-INSERT INTO `tb_modul` VALUES (122, 'Dönem Görevlileri', 'donemGorevlileri', 'donemGorevlileri', 'fas fa-users text-purple', 1, 127, 0, 4, 0, 0);
-INSERT INTO `tb_modul` VALUES (123, 'Komite Görevlileri', 'komiteGorevlileri', 'komiteGorevlileri', 'fas fa-user text-orange', 1, 128, 0, 4, 0, 0);
-INSERT INTO `tb_modul` VALUES (124, 'Komite Öğretim Üyeleri', 'komiteDersOgretimUyeleri', 'komiteDersOgretimUyeleri', 'fas fa-users text-purple', 1, 128, 0, 3, 0, 0);
 INSERT INTO `tb_modul` VALUES (125, 'Organizasyon Şeması', NULL, NULL, 'fas fa-sitemap text-green', 1, 0, 1, 5, 0, 0);
-INSERT INTO `tb_modul` VALUES (126, 'Aktif Dönemler', 'dersYiliDonemler', 'dersYiliDonemler', 'fas fa-list-ol text-green', 1, 127, 0, 2, 0, 0);
-INSERT INTO `tb_modul` VALUES (127, 'Ders Yılı Dönem İşlemleri', NULL, NULL, 'fas fa-calendar-alt text-yellow', 0, 0, 1, 10, 0, 0);
-INSERT INTO `tb_modul` VALUES (128, 'Ders Kurulu İşlemleri', NULL, NULL, 'fas fa-calendar-plus text-purple', 0, 0, 1, 15, 0, 0);
-INSERT INTO `tb_modul` VALUES (129, 'Sabit Tanımlar', NULL, NULL, 'fas fa-table', 0, 0, 1, 35, 0, 0);
 INSERT INTO `tb_modul` VALUES (130, 'Öğrenci İşlemleri', NULL, NULL, 'fas fa-users text-danger', 1, 0, 1, 6, 0, 0);
 INSERT INTO `tb_modul` VALUES (131, 'Öğrenciler', 'ogrenciler', 'ogrenciler', 'fas fa-users text-info', 1, 130, 0, 6, 0, 0);
-INSERT INTO `tb_modul` VALUES (132, 'Dönem Öğrencileri', 'donemOgrencileri', 'donemOgrencileri', 'fas fa-users text-purple', 0, 130, 0, 2, 0, 0);
 INSERT INTO `tb_modul` VALUES (133, 'Müfredat', 'mufredat', 'mufredat', 'fas fa-list-alt', 1, 0, 0, 21, 0, 0);
-INSERT INTO `tb_modul` VALUES (134, 'Komite Öğrencileri', 'komiteOgrencileri', 'komiteOgrencileri', 'fas fa-users text-pink', 0, 130, 0, 3, 0, 0);
-INSERT INTO `tb_modul` VALUES (135, 'Soru İşlemleri', NULL, NULL, 'fas fa-question-circle text-purple', 1, 0, 1, 40, 0, 0);
-INSERT INTO `tb_modul` VALUES (136, 'Soru Türleri', 'soru_turleri', 'soru_turleri', 'fas fa-question text-warning', 0, 135, 0, 1, 0, 0);
 INSERT INTO `tb_modul` VALUES (137, 'Uzmanlık Dalları', 'uzmanlikDallari', 'uzmanlikDallari', 'fas fa-book-reader text-yellow', 1, 125, 0, 1, 0, 0);
 INSERT INTO `tb_modul` VALUES (138, 'Rotasyonlar', 'rotasyonlar', 'rotasyonlar', 'fas fa-tasks text-yellow', 1, 0, 0, 20, 0, 0);
 INSERT INTO `tb_modul` VALUES (139, 'Sınav Kategorileri', 'sinavKategorileri', 'sinavKategorileri', 'far fa-circle text-orange', 1, 0, 0, 31, 0, 0);
@@ -761,7 +739,7 @@ INSERT INTO `tb_modul` VALUES (145, 'Bilimsel Toplantılar', 'ogrenciBilimselTop
 INSERT INTO `tb_modul` VALUES (148, 'Klinik Sunuları', 'ogrenciKlinikSunulari', 'ogrenciKlinikSunulari', 'fas fa-file-powerpoint text-info', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (149, 'Tezler', 'ogrenciTezleri', 'ogrenciTezleri', 'fas fa-book text-orange', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (150, 'Tez İzlemeleri', 'ogrenciTezIzlemeleri', 'ogrenciTezIzlemeleri', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
-INSERT INTO `tb_modul` VALUES (151, 'Müfredat Değerlendirme', 'ogrenciMufredatDegerlendirme', 'ogrenciMufredatDegerlendirme', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
+INSERT INTO `tb_modul` VALUES (151, 'Müfredat Değerlendirme', 'ogrenciMufredatDegerlendirme', 'ogrenciMufredatDegerlendirme', 'fas fa-clipboard-list ', 1, 130, 0, 8, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -772,7 +750,7 @@ CREATE TABLE `tb_modul_yetki_islemler`  (
   `modul_id` int NULL DEFAULT NULL,
   `yetki_islem_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 857 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 863 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul_yetki_islemler
@@ -1089,11 +1067,6 @@ INSERT INTO `tb_modul_yetki_islemler` VALUES (832, 137, 2);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (833, 137, 3);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (834, 137, 4);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (835, 137, 5);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (836, 131, 1);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (837, 131, 2);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (838, 131, 3);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (839, 131, 4);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (840, 131, 5);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (841, 109, 1);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (842, 109, 2);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (843, 109, 3);
@@ -1110,6 +1083,12 @@ INSERT INTO `tb_modul_yetki_islemler` VALUES (853, 149, 2);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (854, 149, 3);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (855, 149, 4);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (856, 149, 5);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (857, 131, 1);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (858, 131, 2);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (859, 131, 3);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (860, 131, 4);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (861, 131, 5);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (862, 131, 6);
 
 -- ----------------------------
 -- Table structure for tb_mufredat
@@ -1375,7 +1354,7 @@ CREATE TABLE `tb_ogrenci_klinik_sunulari`  (
 -- ----------------------------
 -- Records of tb_ogrenci_klinik_sunulari
 -- ----------------------------
-INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 117, 'Örnek Sunu Konusu', 'Örnek Sunu Yeri', '2022-10-12', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 110, 'Örnek Sunu Konusu', 'Örnek Sunu Yeri', '2022-10-12', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_makaleleri
@@ -1520,7 +1499,7 @@ CREATE TABLE `tb_ogrenciler`  (
   `sifre` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `rol_id` int NULL DEFAULT 19,
   `super` tinyint NULL DEFAULT 0,
-  `resim` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `resim` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'resim_yok.png',
   `kullanici_turu` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'ogrenci',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
@@ -1528,136 +1507,136 @@ CREATE TABLE `tb_ogrenciler`  (
 -- ----------------------------
 -- Records of tb_ogrenciler
 -- ----------------------------
-INSERT INTO `tb_ogrenciler` VALUES (1, 1, 1, '', '17060001008', 'Şeyma Nur', 'ERÇİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (2, 1, 1, '', '17060001009', 'Oğulcan', 'AKÇAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (3, 1, 1, '', '17060001010', 'Azad', 'ZENGİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (4, 1, 1, '', '17060001011', 'Ferhat', 'BUCAĞA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (5, 1, 1, '', '17060001012', 'Ayşenur', 'ALMA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (6, 1, 1, '', '17060001013', 'Erkan', 'BAĞTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (7, 1, 1, '', '17060001014', 'Berçem Fatma', 'YILDIZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (8, 1, 1, '', '17060001015', 'Musa', 'İNCEER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (9, 1, 1, '', '17060001016', 'Fatma Betül', 'UĞURLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (10, 1, 1, '', '17060001017', 'Elif Sümeyya', 'AKSÖZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (11, 1, 1, '', '17060001018', 'Hasan', 'SÖNMEZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (12, 1, 1, '', '17060001019', 'Sözdar', 'CİHAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (13, 1, 1, '', '17060001020', 'Muhammed', 'ERTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (14, 1, 1, '', '17060001022', 'Ömer', 'BEKİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (15, 1, 1, '', '17060001023', 'Onur', 'DEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (16, 1, 1, '', '17060001024', 'Neslihan', 'DİZMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (17, 1, 1, '', '17060001025', 'Taha Miraç', 'GÜNEŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (18, 1, 1, '', '17060001026', 'Cevdet', 'ŞEYLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (19, 1, 1, '', '17060001027', 'Tekin', 'TÜRKER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (20, 1, 1, '', '17060001028', 'Meryem', 'ERŞEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (21, 1, 1, '', '17060001029', 'Dudu', 'ÇEKİCİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (22, 1, 1, '', '17060001031', 'Şehnaz', 'DOĞAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (23, 1, 1, '', '17060001035', 'Mehmet', 'ALTUN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (24, 1, 1, '', '17060001036', 'Elif Berfin', 'KÖKLİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (25, 1, 1, '', '17060001037', 'Kadir', 'KALAÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (26, 1, 1, '', '17060001038', 'Yunus', 'KAYA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (27, 1, 1, '', '17060001039', 'Zelal', 'YAYLA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (28, 1, 1, '', '17060001040', 'Veysel Karani', 'ŞAHİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (29, 1, 1, '', '17060001041', 'Burhan', 'KIZILTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (30, 1, 1, '', '17060001043', 'İbrahim', 'ÇOBANOĞLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (31, 1, 1, '', '17060001047', 'Özcan', 'DAYAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (32, 1, 1, '', '17060001048', 'Vedat', 'KAVAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (33, 1, 1, '', '17060001051', 'Mert', 'KARTAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (34, 1, 1, '', '17060001053', 'Evin', 'BÖLER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (35, 1, 1, '', '17060001054', 'Beyza', 'TUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (36, 1, 1, '', '17060001055', 'Mizgin', 'BOZKURT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (37, 1, 1, '', '17060001057', 'Naz Neval', 'ERTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (38, 1, 1, '', '17060001058', 'Yasin', 'DENİZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (39, 1, 1, '', '17060001060', 'Ahmet', 'KOÇAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (40, 1, 1, '', '17060001062', 'Emine', 'KIZILDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (41, 1, 1, '', '17060001063', 'Arif', 'GÖKDERE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (42, 1, 1, '', '17060001065', 'Hüseyin Harun', 'KADIRHAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (43, 1, 1, '', '17060001066', 'Diyar', 'VARIŞLI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (44, 1, 1, '', '17060001067', 'Yüksel', 'METİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (45, 1, 1, '', '17060001069', 'Fatma', 'YUTAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (46, 1, 1, '', '17060001072', 'İbrahim Halil', 'ERZEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (47, 1, 1, '', '17060001073', 'Mehmet Barsim', 'BOĞATEKİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (48, 1, 1, '', '17060001074', 'Tuğba', 'ATLAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (49, 1, 1, '', '17060001075', 'Adem', 'KARAMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (50, 1, 1, '', '17060001078', 'Bedirhan', 'ERDAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (51, 1, 1, '', '17060001079', 'Cihat', 'SEVİNÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (52, 1, 1, '', '17060001080', 'Nurşen', 'CENGİZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (53, 1, 1, '', '17060001081', 'Ahmet Alperen', 'BAYRAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (54, 1, 1, '', '17060001082', 'Yasemin', 'TUNÇAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (55, 1, 1, '', '17060001087', 'İsmail', 'ERDOĞAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (56, 1, 1, '', '17060001088', 'Afşin', 'DUMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (57, 1, 1, '', '17060001090', 'Cennet', 'ÖZTÜRK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (58, 1, 1, '', '17060001091', 'Mesut', 'GÜLER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (59, 1, 1, '', '17060001093', 'Mustafa', 'GÜVEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (60, 1, 1, '', '17060001094', 'Veysel', 'GÜR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (61, 1, 1, '', '17060001095', 'Zafer', 'KATAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (62, 1, 1, '', '17060001096', 'Gamze', 'AĞCA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (63, 1, 1, '', '17060001098', 'Saliha Nihan', 'ÜRKMEZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (64, 1, 1, '', '17060001099', 'Eda', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (65, 1, 1, '', '17060001101', 'Murat', 'AKSOY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (66, 1, 1, '', '17060001102', 'Pelin', 'UNUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (67, 1, 1, '', '17060001109', 'Ezgi', 'CESUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (68, 1, 1, '', '17060001111', 'Batuhan', 'BAYKUŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (69, 1, 1, '', '17060001112', 'Serhat', 'UYGUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (70, 1, 1, '', '17060001113', 'Muhammed', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (71, 1, 1, '', '17060001116', 'Nefise', 'AYDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (72, 1, 1, '', '17060001118', 'Fatmanur', 'MİRBEY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (73, 1, 1, '', '17060001119', 'Gönül Aslı', 'CAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (74, 1, 1, '', '17060001120', 'Ömer Faruk', 'YUNAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (75, 1, 1, '', '17060001121', 'Zehra', 'HANBABA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (76, 1, 1, '', '17060001124', 'Ümmügülsüm', 'GÜRAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (77, 1, 1, '', '17060001125', 'Betül', 'AYÇİÇEK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (78, 1, 1, '', '17060001127', 'Çağdaş', 'DİLEKCİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (79, 1, 1, '', '17060001130', 'Arzu', 'DEMİRTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (80, 1, 1, '', '17060001131', 'Sümeyye Nur', 'ÖNER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (81, 1, 1, '', '17060001134', 'Hasret', 'BULUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (82, 1, 1, '', '17060001135', 'Esra', 'DEĞER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (83, 1, 1, '', '17060001137', 'Melike', 'KARA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (84, 1, 1, '', '17060001138', 'Mücahit', 'ÇALIŞKAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (85, 1, 1, '', '17060001139', 'Fehime', 'KURT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (86, 1, 1, '', '17060001143', 'Ümran', 'YAZAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (87, 1, 1, '', '17060001144', 'Saruhan Fikri', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (88, 1, 1, '', '17060001147', 'Nursena', 'KARABULUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (89, 1, 1, '', '17060001148', 'Gurbet', 'KARABAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (90, 1, 1, '', '17060001149', 'Melek', 'DEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (91, 1, 1, '', '17060001150', 'Beyza', 'ÖZDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (92, 1, 1, '', '17060001129', 'Beyzanur', 'EYVAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (93, 1, 1, '', '17060001151', 'Emine Şevval', 'YILMAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (94, 1, 1, '', '17060001153', 'Muhammed Hamza', 'YAZÇİÇEK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (95, 1, 1, '', '17060001162', 'Ahmet Sait', 'AĞIRTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (96, 1, 1, '', '17060001165', 'Ahmed.M.Y.', 'SAIDAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (97, 1, 1, '', '17060001171', 'Serkan', 'CEYLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (98, 1, 1, '', '16060001006', 'Deniz', 'YAŞAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (99, 1, 1, '', '16060001011', 'Şahin', 'YAŞAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (100, 1, 1, '', '16060001021', 'Mehmet Emin', 'ÇAKIR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (101, 1, 1, '', '16060001024', 'Rojin', 'KIZILAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (102, 1, 1, '', '16060001028', 'Melek', 'KAYA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (103, 1, 1, '', '16060001045', 'Baran', 'DAKMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (104, 1, 1, '', '16060001060', 'Mehmet Ali', 'SEÇMEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (105, 1, 1, '', '16060001071', 'Berivan İdil', 'ABİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (106, 1, 1, '', '16060001088', 'Dilek', 'AFERİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (107, 1, 1, '', '16060001104', 'Ali', 'EROĞULLARI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (108, 1, 1, '', '16060001129', 'Mevlüt Özgür', 'ACAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (109, 1, 1, '', '16060001151', 'Mohamad', 'ALHAMDO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (110, 1, 1, '45985696652', '15060001133', 'Abdulsamet', 'BEŞKARDEŞ', NULL, NULL, 'a@a.com', '5425655654', 'İskele mah. 2134 sk. İpekyolu/VAN', '1989-01-20', 'Van', '2021 Güz Dönemi', 85.3, '2022-10-05', '2022-10-02', '2022-10-03', 4, 4, 1, 'bc000ebca4a5687a014d9c9f94da86e8', 19, 0, '19.jpg', 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (111, 1, 1, '', '14060001069', 'İbrahim', 'GÜLTEKİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (112, 1, 1, '', '14060001135', 'Nail', 'BEYAZIT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (113, 1, 1, '', '19060001152', 'Elif', 'AVA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (114, 1, 1, '', '19060001153', 'Barış', 'TUNÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (115, 1, 1, '', '19060001162', 'Neslihan', 'ARSLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (116, 1, 1, '', '20060001152', 'Yasemin', 'ÖZMEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (117, 1, 1, '', '20060001153', 'Abdullah Harun', 'YILMAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (118, 1, 1, '', '21060001170', 'Hakan', 'BAYRAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (119, 1, 1, '', '16060001061', 'Fulya', 'ŞAHİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (120, 1, 1, '', '16060001080', 'Ramazan', 'YALMAÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (121, 1, 1, '', '15060001059', 'Dıjvar', 'DENLİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (122, 1, 1, '', '14060001130', 'Gülezgi', 'KAYAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (123, 1, 1, '', '13060001135', 'Muhammed', 'FATİH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (124, 1, 1, '', '16060001121', 'Furkan Kağan', 'DALDABAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (125, 1, 1, '', '20060001007', 'Muhammed Enes', 'UÇAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (126, 1, 1, '', '20060001002', 'Dilara', 'AVCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (127, 1, 1, '', '16060001119', 'Ömer', 'KUTLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (128, 1, 1, '', '16060001013', 'Abdullah', 'SEVAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (129, 1, 1, '', '14060001140', 'M.Kasım', 'ÇAKILLIKOYAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (130, 1, 1, '', '15060001168', 'Mehmet', 'YAZAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, NULL, 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (1, 1, 1, '', '17060001008', 'Şeyma Nur', 'ERÇİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (2, 1, 1, '', '17060001009', 'Oğulcan', 'AKÇAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (3, 1, 1, '', '17060001010', 'Azad', 'ZENGİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (4, 1, 1, '', '17060001011', 'Ferhat', 'BUCAĞA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (5, 1, 1, '', '17060001012', 'Ayşenur', 'ALMA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (6, 1, 1, '', '17060001013', 'Erkan', 'BAĞTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (7, 1, 1, '', '17060001014', 'Berçem Fatma', 'YILDIZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (8, 1, 1, '', '17060001015', 'Musa', 'İNCEER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (9, 1, 1, '', '17060001016', 'Fatma Betül', 'UĞURLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (10, 1, 1, '', '17060001017', 'Elif Sümeyya', 'AKSÖZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (11, 1, 1, '', '17060001018', 'Hasan', 'SÖNMEZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (12, 1, 1, '', '17060001019', 'Sözdar', 'CİHAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (13, 1, 1, '', '17060001020', 'Muhammed', 'ERTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (14, 1, 1, '', '17060001022', 'Ömer', 'BEKİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (15, 1, 1, '', '17060001023', 'Onur', 'DEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (16, 1, 1, '', '17060001024', 'Neslihan', 'DİZMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (17, 1, 1, '', '17060001025', 'Taha Miraç', 'GÜNEŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (18, 1, 1, '', '17060001026', 'Cevdet', 'ŞEYLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (19, 1, 1, '', '17060001027', 'Tekin', 'TÜRKER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (20, 1, 1, '', '17060001028', 'Meryem', 'ERŞEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (21, 1, 1, '', '17060001029', 'Dudu', 'ÇEKİCİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (22, 1, 1, '', '17060001031', 'Şehnaz', 'DOĞAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (23, 1, 1, '', '17060001035', 'Mehmet', 'ALTUN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (24, 1, 1, '', '17060001036', 'Elif Berfin', 'KÖKLİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (25, 1, 1, '', '17060001037', 'Kadir', 'KALAÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (26, 1, 1, '', '17060001038', 'Yunus', 'KAYA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (27, 1, 1, '', '17060001039', 'Zelal', 'YAYLA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (28, 1, 1, '', '17060001040', 'Veysel Karani', 'ŞAHİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (29, 1, 1, '', '17060001041', 'Burhan', 'KIZILTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (30, 1, 1, '', '17060001043', 'İbrahim', 'ÇOBANOĞLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (31, 1, 1, '', '17060001047', 'Özcan', 'DAYAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (32, 1, 1, '', '17060001048', 'Vedat', 'KAVAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (33, 1, 1, '', '17060001051', 'Mert', 'KARTAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (34, 1, 1, '', '17060001053', 'Evin', 'BÖLER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (35, 1, 1, '', '17060001054', 'Beyza', 'TUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (36, 1, 1, '', '17060001055', 'Mizgin', 'BOZKURT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (37, 1, 1, '', '17060001057', 'Naz Neval', 'ERTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (38, 1, 1, '', '17060001058', 'Yasin', 'DENİZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (39, 1, 1, '', '17060001060', 'Ahmet', 'KOÇAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (40, 1, 1, '', '17060001062', 'Emine', 'KIZILDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (41, 1, 1, '', '17060001063', 'Arif', 'GÖKDERE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (42, 1, 1, '', '17060001065', 'Hüseyin Harun', 'KADIRHAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (43, 1, 1, '', '17060001066', 'Diyar', 'VARIŞLI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (44, 1, 1, '', '17060001067', 'Yüksel', 'METİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (45, 1, 1, '', '17060001069', 'Fatma', 'YUTAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (46, 1, 1, '', '17060001072', 'İbrahim Halil', 'ERZEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (47, 1, 1, '', '17060001073', 'Mehmet Barsim', 'BOĞATEKİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (48, 1, 1, '', '17060001074', 'Tuğba', 'ATLAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (49, 1, 1, '', '17060001075', 'Adem', 'KARAMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (50, 1, 1, '', '17060001078', 'Bedirhan', 'ERDAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (51, 1, 1, '', '17060001079', 'Cihat', 'SEVİNÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (52, 1, 1, '', '17060001080', 'Nurşen', 'CENGİZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (53, 1, 1, '', '17060001081', 'Ahmet Alperen', 'BAYRAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (54, 1, 1, '', '17060001082', 'Yasemin', 'TUNÇAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (55, 1, 1, '', '17060001087', 'İsmail', 'ERDOĞAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (56, 1, 1, '', '17060001088', 'Afşin', 'DUMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (57, 1, 1, '', '17060001090', 'Cennet', 'ÖZTÜRK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (58, 1, 1, '', '17060001091', 'Mesut', 'GÜLER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (59, 1, 1, '', '17060001093', 'Mustafa', 'GÜVEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (60, 1, 1, '', '17060001094', 'Veysel', 'GÜR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (61, 1, 1, '', '17060001095', 'Zafer', 'KATAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (62, 1, 1, '', '17060001096', 'Gamze', 'AĞCA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (63, 1, 1, '', '17060001098', 'Saliha Nihan', 'ÜRKMEZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (64, 1, 1, '', '17060001099', 'Eda', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (65, 1, 1, '', '17060001101', 'Murat', 'AKSOY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (66, 1, 1, '', '17060001102', 'Pelin', 'UNUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (67, 1, 1, '', '17060001109', 'Ezgi', 'CESUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (68, 1, 1, '', '17060001111', 'Batuhan', 'BAYKUŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (69, 1, 1, '', '17060001112', 'Serhat', 'UYGUR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (70, 1, 1, '', '17060001113', 'Muhammed', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (71, 1, 1, '', '17060001116', 'Nefise', 'AYDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (72, 1, 1, '', '17060001118', 'Fatmanur', 'MİRBEY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (73, 1, 1, '', '17060001119', 'Gönül Aslı', 'CAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (74, 1, 1, '', '17060001120', 'Ömer Faruk', 'YUNAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (75, 1, 1, '', '17060001121', 'Zehra', 'HANBABA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (76, 1, 1, '', '17060001124', 'Ümmügülsüm', 'GÜRAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (77, 1, 1, '', '17060001125', 'Betül', 'AYÇİÇEK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (78, 1, 1, '', '17060001127', 'Çağdaş', 'DİLEKCİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (79, 1, 1, '', '17060001130', 'Arzu', 'DEMİRTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (80, 1, 1, '', '17060001131', 'Sümeyye Nur', 'ÖNER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (81, 1, 1, '', '17060001134', 'Hasret', 'BULUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (82, 1, 1, '', '17060001135', 'Esra', 'DEĞER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (83, 1, 1, '', '17060001137', 'Melike', 'KARA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (84, 1, 1, '', '17060001138', 'Mücahit', 'ÇALIŞKAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (85, 1, 1, '', '17060001139', 'Fehime', 'KURT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (86, 1, 1, '', '17060001143', 'Ümran', 'YAZAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (87, 1, 1, '', '17060001144', 'Saruhan Fikri', 'AYDIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (88, 1, 1, '', '17060001147', 'Nursena', 'KARABULUT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (89, 1, 1, '', '17060001148', 'Gurbet', 'KARABAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (90, 1, 1, '', '17060001149', 'Melek', 'DEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (91, 1, 1, '', '17060001150', 'Beyza', 'ÖZDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (92, 1, 1, '', '17060001129', 'Beyzanur', 'EYVAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (93, 1, 1, '', '17060001151', 'Emine Şevval', 'YILMAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (94, 1, 1, '', '17060001153', 'Muhammed Hamza', 'YAZÇİÇEK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (95, 1, 1, '', '17060001162', 'Ahmet Sait', 'AĞIRTAŞ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (96, 1, 1, '', '17060001165', 'Ahmed.M.Y.', 'SAIDAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (97, 1, 1, '', '17060001171', 'Serkan', 'CEYLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (98, 1, 1, '', '16060001006', 'Deniz', 'YAŞAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (99, 1, 1, '', '16060001011', 'Şahin', 'YAŞAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (100, 1, 1, '', '16060001021', 'Mehmet Emin', 'ÇAKIR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (101, 1, 1, '', '16060001024', 'Rojin', 'KIZILAY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (102, 1, 1, '', '16060001028', 'Melek', 'KAYA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (103, 1, 1, '', '16060001045', 'Baran', 'DAKMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (104, 1, 1, '', '16060001060', 'Mehmet Ali', 'SEÇMEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (105, 1, 1, '', '16060001071', 'Berivan İdil', 'ABİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (106, 1, 1, '', '16060001088', 'Dilek', 'AFERİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (107, 1, 1, '', '16060001104', 'Ali', 'EROĞULLARI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (108, 1, 1, '', '16060001129', 'Mevlüt Özgür', 'ACAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (109, 1, 1, '', '16060001151', 'Mohamad', 'ALHAMDO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (110, 1, 1, '45985696652', '15060001133', 'Abdulsamet', 'BEŞKARDEŞ', NULL, NULL, 'a@a.com', '5425655654', 'İskele mah. 2134 sk. İpekyolu/VAN', '1989-01-20', 'Van', '2021 Güz Dönemi', 85.3, '2022-10-05', '2022-10-02', '2022-10-03', 4, 4, 1, 'e10adc3949ba59abbe56e057f20f883e', 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (111, 1, 1, '', '14060001069', 'İbrahim', 'GÜLTEKİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (112, 1, 1, '', '14060001135', 'Nail', 'BEYAZIT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (113, 1, 1, '', '19060001152', 'Elif', 'AVA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (114, 1, 1, '', '19060001153', 'Barış', 'TUNÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (115, 1, 1, '', '19060001162', 'Neslihan', 'ARSLAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (116, 1, 1, '', '20060001152', 'Yasemin', 'ÖZMEN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (117, 1, 1, '', '20060001153', 'Abdullah Harun', 'YILMAZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (118, 1, 1, '', '21060001170', 'Hakan', 'BAYRAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (119, 1, 1, '', '16060001061', 'Fulya', 'ŞAHİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (120, 1, 1, '', '16060001080', 'Ramazan', 'YALMAÇ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (121, 1, 1, '', '15060001059', 'Dıjvar', 'DENLİ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (122, 1, 1, '', '14060001130', 'Gülezgi', 'KAYAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (123, 1, 1, '', '13060001135', 'Muhammed', 'FATİH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (124, 1, 1, '', '16060001121', 'Furkan Kağan', 'DALDABAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (125, 1, 1, '', '20060001007', 'Muhammed Enes', 'UÇAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (126, 1, 1, '', '20060001002', 'Dilara', 'AVCI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (127, 1, 1, '', '16060001119', 'Ömer', 'KUTLU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (128, 1, 1, '', '16060001013', 'Abdullah', 'SEVAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (129, 1, 1, '', '14060001140', 'M.Kasım', 'ÇAKILLIKOYAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (130, 1, 1, '', '15060001168', 'Mehmet', 'YAZAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 
 -- ----------------------------
 -- Table structure for tb_ogretim_elemanlari
@@ -1679,36 +1658,38 @@ CREATE TABLE `tb_ogretim_elemanlari`  (
   `sifre` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `rol_id` int NULL DEFAULT NULL,
   `super` tinyint NULL DEFAULT 0,
-  `resim` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
+  `resim` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'resim_yok.png',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogretim_elemanlari
 -- ----------------------------
-INSERT INTO `tb_ogretim_elemanlari` VALUES (1, 1, 1, 1, NULL, 1, 'Sıddık', 'KESKİN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (2, 1, 1, 1, NULL, 3, 'Şükran', 'SEVİMLİ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (3, 1, 1, 1, NULL, 3, 'Sinemis', 'ÇETİN DAĞLI', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (4, 1, 1, 1, NULL, 3, 'Mehmet Emin', 'LAYIK', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (5, 1, 1, 1, NULL, 5, 'Duygu', 'KORKMAZ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (6, 1, 1, 1, NULL, 5, 'Tuncay', 'ULU', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (7, 1, 1, 1, NULL, 5, 'Ahmet', 'SALTIK', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (8, 1, 1, 1, NULL, 5, 'Zülkaf', 'AKBALIK', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (9, 1, 1, 1, NULL, 5, 'Zeynep', 'ŞAHİN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (10, 1, 1, 1, NULL, 5, 'Hale Mükerrem', 'KAYA', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (11, 1, 1, 1, NULL, 5, 'Rukiye', 'TOKUŞ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (12, 1, 1, 1, NULL, 5, 'İslam', 'KÖSE', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (14, 1, 1, 1, NULL, 3, 'Hava', 'BEKTAŞ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (15, 1, 1, 1, NULL, 4, 'Nuray', 'KAYA', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (16, 1, 1, 1, NULL, 3, 'İzzet', 'ÇELEĞEN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (18, 1, 1, 1, NULL, 2, 'Özlem Ergül', 'ERKEÇ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (20, 1, 1, 1, NULL, 3, 'Mustafa', 'BİLİCİ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (21, 1, 1, 3, NULL, 1, 'Resül', 'EVİS', 'resul.evis@yyu.edu.tr', '05366373523', 0, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (22, 1, 1, 1, '', 2, 'Tahir', 'ÇAKIR', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (23, 1, 1, 1, NULL, 2, 'Hamit Hakan', 'ALP', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (25, 1, 1, 1, NULL, 1, 'Halil', 'ÖZKOL', 'mail@mail.com', '5555555555', 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (26, 1, 1, 1, NULL, 2, 'Zübeyir', 'HUYUT', 'mail@mail.com', '555 555 5555', 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
-INSERT INTO `tb_ogretim_elemanlari` VALUES (27, 1, NULL, 1, NULL, 1, 'Deneme', 'Deneme', 'deneme@yyu.edu.tr', '5444961144', 1, 'ogretim_elemani', NULL, NULL, 0, NULL);
+INSERT INTO `tb_ogretim_elemanlari` VALUES (1, 1, 1, 1, NULL, 1, 'Sıddık', 'KESKİN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (2, 1, 1, 1, NULL, 3, 'Şükran', 'SEVİMLİ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (3, 1, 1, 1, NULL, 3, 'Sinemis', 'ÇETİN DAĞLI', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (4, 1, 1, 1, '45985698965', 3, 'Mehmet Emin', 'LAYIK', 'melayik@yyu.edu.tr', '05333992652', 1, 'ogretim_elemani', 'e10adc3949ba59abbe56e057f20f883e', NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (5, 1, 1, 1, NULL, 5, 'Duygu', 'KORKMAZ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (6, 1, 1, 1, NULL, 5, 'Tuncay', 'ULU', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (7, 1, 1, 1, NULL, 5, 'Ahmet', 'SALTIK', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (8, 1, 1, 1, NULL, 5, 'Zülkaf', 'AKBALIK', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (9, 1, 1, 1, NULL, 5, 'Zeynep', 'ŞAHİN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (10, 1, 1, 1, NULL, 5, 'Hale Mükerrem', 'KAYA', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (11, 1, 1, 1, NULL, 5, 'Rukiye', 'TOKUŞ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (12, 1, 1, 1, NULL, 5, 'İslam', 'KÖSE', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (14, 1, 1, 1, NULL, 3, 'Hava', 'BEKTAŞ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (15, 1, 1, 1, NULL, 4, 'Nuray', 'KAYA', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (16, 1, 1, 1, NULL, 3, 'İzzet', 'ÇELEĞEN', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (18, 1, 1, 1, NULL, 2, 'Özlem Ergül', 'ERKEÇ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (20, 1, 1, 1, NULL, 3, 'Mustafa', 'BİLİCİ', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (21, 1, 1, 3, NULL, 1, 'Resül', 'EVİS', 'resul.evis@yyu.edu.tr', '05366373523', 0, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (22, 1, 1, 1, '', 2, 'Tahir', 'ÇAKIR', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (23, 1, 1, 1, NULL, 2, 'Hamit Hakan', 'ALP', NULL, NULL, 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (25, 1, 1, 1, NULL, 1, 'Halil', 'ÖZKOL', 'mail@mail.com', '5555555555', 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (26, 1, 1, 1, NULL, 2, 'Zübeyir', 'HUYUT', 'mail@mail.com', '555 555 5555', 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (27, 1, NULL, 1, NULL, 1, 'Deneme', 'Deneme', 'deneme@yyu.edu.tr', '5444961144', 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (28, 1, NULL, 1, '123456987', 1, 'Deneme', 'Deneme', 'deneme@deneme.com', '444965588', 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (29, 1, NULL, 1, '345345345', 1, 'dfgdfg', 'dfgdfg', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 1, 'ogretim_elemani', NULL, NULL, 0, 'resim_yok.png');
 
 -- ----------------------------
 -- Table structure for tb_programlar
@@ -1738,7 +1719,7 @@ CREATE TABLE `tb_rol_yetkiler`  (
   `modul_id` int NULL DEFAULT NULL,
   `islem_turu_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_rol_yetkiler
@@ -1770,6 +1751,9 @@ INSERT INTO `tb_rol_yetkiler` VALUES (34, 19, 141, 3);
 INSERT INTO `tb_rol_yetkiler` VALUES (35, 19, 141, 4);
 INSERT INTO `tb_rol_yetkiler` VALUES (36, 19, 141, 5);
 INSERT INTO `tb_rol_yetkiler` VALUES (38, 19, 149, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (39, 19, 131, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (40, 19, 131, 4);
+INSERT INTO `tb_rol_yetkiler` VALUES (41, 19, 131, 6);
 
 -- ----------------------------
 -- Table structure for tb_rol_yetkili_firmalar
@@ -1818,18 +1802,14 @@ CREATE TABLE `tb_roller`  (
   `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `varsayilan` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_roller
 -- ----------------------------
 INSERT INTO `tb_roller` VALUES (1, 'Varsayılan', 1);
-INSERT INTO `tb_roller` VALUES (14, 'Şube Yetkisi', 0);
-INSERT INTO `tb_roller` VALUES (15, 'Şube Personeli̇', 0);
-INSERT INTO `tb_roller` VALUES (16, 'Merkez Yetkilisi', 0);
-INSERT INTO `tb_roller` VALUES (17, 'Supervi̇sor', 0);
-INSERT INTO `tb_roller` VALUES (18, 'Soru Yönetimi', 0);
 INSERT INTO `tb_roller` VALUES (19, 'Öğrenci', 0);
+INSERT INTO `tb_roller` VALUES (20, 'Öğretim Elemanı', 0);
 
 -- ----------------------------
 -- Table structure for tb_rotasyonlar
@@ -1904,8 +1884,8 @@ CREATE TABLE `tb_sistem_kullanici`  (
 -- ----------------------------
 -- Records of tb_sistem_kullanici
 -- ----------------------------
-INSERT INTO `tb_sistem_kullanici` VALUES (19, 'Serbest', 'ZİYANAK', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 'bc000ebca4a5687a014d9c9f94da86e8', 14, 1, '19.jpg', '45982964018', '1989-01-20 00:00:00', '1', 'admin', NULL);
-INSERT INTO `tb_sistem_kullanici` VALUES (28, 'Fırat', 'KAPAR', 'frtkpr@gmail.com', '0(542) 220-5037', '8be2809a53bb3dd3638f9e5b82cd4902', 14, 1, '28.png', '11111111111', '1970-01-01 00:00:00', '1', 'admin', NULL);
+INSERT INTO `tb_sistem_kullanici` VALUES (19, 'Serbest', 'ZİYANAK', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 'bc000ebca4a5687a014d9c9f94da86e8', 1, 1, '19.jpg', '45982964018', '1989-01-20 00:00:00', '1', 'admin', NULL);
+INSERT INTO `tb_sistem_kullanici` VALUES (28, 'Fırat', 'KAPAR', 'frtkpr@gmail.com', '0(542) 220-5037', '8be2809a53bb3dd3638f9e5b82cd4902', 1, 1, '28.png', '11111111111', '1970-01-01 00:00:00', '1', 'admin', NULL);
 INSERT INTO `tb_sistem_kullanici` VALUES (30, 'Resul', 'EVİS', 'resulevis60@gmail.com', '0(555) 555-5555', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, 'resim_yok.jpg', '12345678910', '1988-11-11 00:00:00', '1', 'admin', NULL);
 
 -- ----------------------------
@@ -2182,7 +2162,7 @@ INSERT INTO `tb_yetki_islem_turleri` VALUES (2, 'ekle', 'Ekle');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (3, 'sil', 'Sil');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (4, 'duzenle', 'Düzenle');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (5, 'kaydet', 'Kaydet');
-INSERT INTO `tb_yetki_islem_turleri` VALUES (6, 'rapor', 'Rapor Al');
+INSERT INTO `tb_yetki_islem_turleri` VALUES (6, 'guncelle', 'Güncelle');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (10, 'super', 'Super Yetki Ataması');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (11, 'rol-degistir', 'Kullanıcı Rol Değiştir');
 INSERT INTO `tb_yetki_islem_turleri` VALUES (12, 'birim-ata', 'Birim Yetkisi Ver');
@@ -2262,6 +2242,6 @@ UNION
 	,uzmanlik_dali_id
 FROM
 	tb_ogretim_elemanlari
-) ;
+) ; ;
 
 SET FOREIGN_KEY_CHECKS = 1;

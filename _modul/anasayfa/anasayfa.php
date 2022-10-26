@@ -110,9 +110,6 @@
   <section class="wrapper">
   <div class="container">
   <div class="row">
-    <?php 
-    var_dump($_SESSION);
-    ?>
     <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
       <div class="card text-white card-has-bg click-col card_menu_git" style="background-image:url('img/img1.jpg');" data-href="index.php?modul=ogrenciMufredatDegerlendirme">
         <img class="card-img d-none" src="img/img1.jpg" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">

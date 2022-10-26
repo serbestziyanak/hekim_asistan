@@ -11,41 +11,16 @@ $s	= trim( $_POST[ 'sifre' ] );
 
 
 $SQL_kontrol = <<< SQL
-(SELECT
-	 k.id
-	,k.adi
-	,k.soyadi
-	,k.resim
-	,k.rol_id
-	,k.super
-	,k.universiteler as universite_id
+SELECT
+	 k.*
 	,CASE k.super WHEN 1 THEN "Süper" ELSE r.adi END AS rol_adi
 FROM
-	tb_sistem_kullanici AS k
+	view_sistem_kullanici AS k
 JOIN
 	tb_roller AS r ON k.rol_id = r.id
 WHERE
 	k.email = ? AND
 	k.sifre = ?
-)
-UNION
-(SELECT
-	 o.id
-	,o.adi
-	,o.soyadi
-	,o.resim
-	,o.rol_id
-	,o.super
-	,o.universite_id
-	,CASE o.super WHEN 1 THEN "Süper" ELSE r.adi END AS rol_adi
-FROM
-	tb_ogrenciler AS o
-JOIN
-	tb_roller AS r ON o.rol_id = r.id
-WHERE
-	o.email = ? AND
-	o.sifre = ?
-)
 LIMIT 1
 SQL;
 
@@ -72,6 +47,16 @@ WHERE
 LIMIT 1
 SQL;
 
+$SQL_aktif_uzmanlik_dali2 = <<< SQL
+SELECT
+	*
+FROM
+	tb_uzmanlik_dallari
+WHERE
+	id = ?
+LIMIT 1
+SQL;
+
 $SQL_ders_yillari = <<< SQL
 SELECT
 	*
@@ -94,7 +79,7 @@ WHERE
 SQL;
 
 
-$sorguSonuc = $vt->selectSingle( $SQL_kontrol, array( $k, md5( $s ),$k, md5( $s ) ) );
+$sorguSonuc = $vt->selectSingle( $SQL_kontrol, array( $k, md5( $s ) ) );
 if( !$sorguSonuc[ 0 ] ) {
 	$kullaniciBilgileri	= $sorguSonuc[ 2 ];
 	if( $kullaniciBilgileri[ 'id' ] * 1 > 0 ) {
@@ -110,13 +95,17 @@ if( !$sorguSonuc[ 0 ] ) {
 		$_SESSION[ 'yil' ]				= date('Y');
 		$_SESSION[ 'super' ]			= $kullaniciBilgileri[ 'super' ];
 		$_SESSION[ 'universite_id' ]	= $kullaniciBilgileri[ 'universite_id' ];
+		$_SESSION[ 'kullanici_turu' ]	= $kullaniciBilgileri[ 'kullanici_turu' ];
 
 		//$aktif_yil 						= $vt->selectSingle( $SQL_aktif_yil, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
 		//$ders_yillari 					= $vt->select( $SQL_ders_yillari, array( $kullaniciBilgileri[ 'universiteler' ] ) )[ 2 ];
 		//$_SESSION[ 'aktif_yil' ]		= $aktif_yil[ "id" ];
 		//$_SESSION[ 'ders_yillari' ]		= $ders_yillari;
-
+		
 		$aktif_uzmanlik_dali_id				= $vt->selectSingle( $SQL_aktif_uzmanlik_dali, array(  ) )[ 2 ];
+		if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+			$aktif_uzmanlik_dali_id				= $vt->selectSingle( $SQL_aktif_uzmanlik_dali2, array( $kullaniciBilgileri[ 'uzmanlik_dali_id' ] ) )[ 2 ];
+		}
 		$_SESSION[ 'uzmanlik_dali_id' ]		= $aktif_uzmanlik_dali_id[ "id" ];
 		$_SESSION[ 'uzmanlik_dali_adi' ]	= $aktif_uzmanlik_dali_id[ "adi" ];
 

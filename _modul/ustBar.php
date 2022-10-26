@@ -6,13 +6,20 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item ">
         <a href="index.php" class="nav-link">AnaSayfa</a>
       </li>
       <li class="nav-item ">
         <form class="form-inline"  method="POST">
           <div class="input-group input-group-sm">
-            <select class="form-control select2 aktifYilSec"  data-url="./_modul/ajax/ajax_data.php" data-islem="aktifFakulte" data-uzmanlik_adi = "<?php echo $_SESSION[ 'uzmanlik_dali_adi' ]; ?>" class="form-control">
+                <?php
+                if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+                  $pasif = "disabled";
+                }else{
+                  $pasif = "";
+                }
+                ?>
+            <select <?php echo $pasif; ?> class="form-control select2 aktifYilSec"  data-url="./_modul/ajax/ajax_data.php" data-islem="aktifFakulte" data-uzmanlik_adi = "<?php echo $_SESSION[ 'uzmanlik_dali_adi' ]; ?>" class="form-control">
               <?php 
                 foreach ( $_SESSION[ 'uzmanlik_dallari' ] as $uzmanlik_dallari) {
                   echo '<option value="'.$uzmanlik_dallari[ "uzmanlik_dali_id" ].'" '.( $uzmanlik_dallari[ "uzmanlik_dali_id" ] == $_SESSION[ "uzmanlik_dali_id" ] ? "selected" : null ).'>

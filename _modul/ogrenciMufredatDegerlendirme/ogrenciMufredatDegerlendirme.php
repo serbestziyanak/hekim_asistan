@@ -6,6 +6,10 @@ $ders_yili_donem_id          		= array_key_exists( 'ders_yili_donem_id', $_REQUE
 $rotasyon_id          				= array_key_exists( 'rotasyon_id', $_REQUEST ) 		? $_REQUEST[ 'rotasyon_id' ] 	: -1;
 $ogrenci_id          				= array_key_exists( 'ogrenci_id', $_REQUEST ) 		? $_REQUEST[ 'ogrenci_id' ] 	: 0;
 
+if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){ 
+	$ogrenci_id = $_SESSION['kullanici_id'];
+}
+
 $kaydet_buton_yazi		= $islem == "guncelle"	? 'Güncelle'							: 'Kaydet';
 $kaydet_buton_cls		= $islem == "guncelle"	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
 
@@ -180,7 +184,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 			</div>
 			<!-- /.card-header -->
 			<div class="card-body ">
-
+				<?php if( $_SESSION[ 'kullanici_turu' ] != "ogrenci" ){ ?>
 				<form class="form-horizontal" action = "index.php" method = "GET" >
 					<div class="form-group">
 						<input type="hidden" name="modul" value="ogrenciMufredatDegerlendirme">
@@ -198,6 +202,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 						<button modul= 'ogrenciMufredatDegerlendirme' yetki_islem="ogrenci_sec" type="submit" class="btn btn-sm btn-primary"> Öğrenci Seç</button>
 					</div>
 				</form>
+				<?php } ?>
 				<?php
 				if( isset($ogrenci_id) and $ogrenci_id>0 ){
 				?>
@@ -206,6 +211,11 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 					<?php
 					//var_dump($mufredatlar);
 						function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id){
+							if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+								$degerlendirme_ekle_class = "";
+							}else{
+								$degerlendirme_ekle_class = "degerlendirmeEkle";
+							}
 							$html = "<tr class='expandable-body'>
 											<td>
 												<div class='p-0'>
@@ -233,10 +243,11 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 										}else{
 											$islem="ekle";
 										}
+
 										$html .= "
 												<tr class='bg-renk7'>
-													<td class='degerlendirmeEkle' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>
-														<a role='button' class='text-dark degerlendirmeEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
+													<td class='$degerlendirme_ekle_class' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>
+														<a role='button' class='text-dark $degerlendirme_ekle_class' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
 														$isaret
 													</td>
 												</tr>";									

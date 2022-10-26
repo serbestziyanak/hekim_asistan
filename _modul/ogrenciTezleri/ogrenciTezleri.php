@@ -33,6 +33,17 @@ WHERE
 	os.uzmanlik_dali_id = ?
 SQL;
 
+$SQL_tum_ogrenci_tezleri2 = <<< SQL
+SELECT 
+	os.*
+	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
+FROM 
+	tb_ogrenci_tezleri AS os
+LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
+WHERE
+	os.uzmanlik_dali_id = ? AND o.id = ?
+SQL;
+
 
 $SQL_tek_ogrenci_tez_oku = <<< SQL
 SELECT 
@@ -60,7 +71,12 @@ WHERE
 ORDER BY o.adi ASC
 SQL;
 
-$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri, array( $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+	$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri2, array( $_SESSION[ 'uzmanlik_dali_id'], $_SESSION[ 'kullanici_id'] ) )[ 2 ];
+}else{
+	$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri, array( $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+}
+
 @$tek_ogrenci_tez		= $vt->select( $SQL_tek_ogrenci_tez_oku, array( $id ) )[ 2 ][ 0 ];
 $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 
@@ -109,7 +125,9 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<thead>
 								<tr>
 									<th style="width: 15px">#</th>
+									<?php if( $_SESSION[ 'kullanici_turu' ] != "ogrenci" ){ ?>
 									<th>Öğrenci</th>
+									<?php } ?>
 									<th>Tez Konusu</th>
 									<th>Tez Konusu V. Tarih</th>
 									<th>Tez Konusu Akademik Kurul Onay Tarih</th>
@@ -121,7 +139,9 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 								<?php $sayi = 1; foreach( $ogrenci_tezleri AS $ogrenci_tez ) { ?>
 								<tr oncontextmenu="fun();" class ="sinav-Tr <?php if( $ogrenci_tez[ 'id' ] == $id ) echo $satir_renk; ?>" data-id="<?php echo $ogrenci_tez[ 'id' ]; ?>">
 									<td><?php echo $sayi++; ?></td>
+									<?php if( $_SESSION[ 'kullanici_turu' ] != "ogrenci" ){ ?>
 									<td><?php echo $ogrenci_tez[ 'ogrenci_adi_soyadi' ]; ?></td>
+									<?php } ?>
 									<td><?php echo $ogrenci_tez[ 'tez_konusu' ]; ?></td>
 									<td><?php echo $fn->tarihVer( $ogrenci_tez[ 'tez_konusu_verilme_tarihi' ] ); ?></td>
 									<td><?php echo $fn->tarihVer( $ogrenci_tez[ 'tez_konusu_akademik_kurul_onay_tarihi' ] ); ?></td>
@@ -155,6 +175,9 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<input type = "hidden" name = "id" value = "<?php echo $id; ?>">
 							<input type = "hidden" name = "uzmanlik_dali_id" value = "<?php echo $_SESSION['uzmanlik_dali_id']; ?>">
 							<h3 class="profile-username text-center"><b> </b></h3>
+							<?php if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){ ?>
+							<input type = "hidden" name = "ogrenci_id" value = "<?php echo $_SESSION['kullanici_id']; ?>">
+							<?php }else{ ?>
 							<div class="form-group">
 								<label  class="control-label">Öğrenci</label>
 								<select class="form-control select2" name = "ogrenci_id" required >
@@ -167,6 +190,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 									?>
 								</select>
 							</div>
+							<?php } ?>
 							<div class="form-group">
 								<label class="control-label">Tez Konusu</label>
 								<input required type="text" class="form-control form-control-sm" name ="tez_konusu" value = "<?php echo $tek_ogrenci_tez[ "tez_konusu" ]; ?>"  autocomplete="off">

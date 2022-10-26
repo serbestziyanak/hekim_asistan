@@ -19,6 +19,7 @@ SET
 	,ogrenci_id 		= ?
 	,mufredat_id		= ?
 	,degerlendirme 		= ?
+	,ogretim_elemani_id	= ?
 SQL;
 
 
@@ -31,6 +32,7 @@ SET
 	,ogrenci_id 		= ?
 	,mufredat_id		= ?
 	,degerlendirme 		= ?
+	,ogretim_elemani_id	= ?
 WHERE 
 	ogrenci_id 		= ? AND
 	mufredat_id 	= ?
@@ -74,6 +76,7 @@ switch( $islem ) {
 		$degerler[] = $_REQUEST[ "ogrenci_id" ];
 		$degerler[] = $_REQUEST[ "mufredat_id" ];
 		$degerler[] = $_REQUEST[ "degerlendirme" ];
+		$degerler[] = $_SESSION[ 'kullanici_id' ];
 
 		$sonuc = $vt->insert( $SQL_ogrenci_mufredat_degerlendirme_ekle, $degerler );
 		if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sonuc[ 1 ] );
@@ -90,6 +93,7 @@ switch( $islem ) {
 		$degerler[] = $_REQUEST[ "ogrenci_id" ];
 		$degerler[] = $_REQUEST[ "mufredat_id" ];
 		$degerler[] = $_REQUEST[ "degerlendirme" ];
+		$degerler[] = $_SESSION[ 'kullanici_id' ];
 		$degerler[] = $_REQUEST[ "ogrenci_id" ];
 		$degerler[] = $_REQUEST[ "mufredat_id" ];
 

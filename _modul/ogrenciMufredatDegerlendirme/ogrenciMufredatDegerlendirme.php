@@ -141,12 +141,14 @@ SQL;
 
 $SQL_ogrenci_mufredat_degerlendirme = <<< SQL
 SELECT
-	*
+	omd.*
+	,concat(oe.adi," ",oe.soyadi) as ogretim_elemani_adi
 FROM
-	tb_ogrenci_mufredat_degerlendirme
+	tb_ogrenci_mufredat_degerlendirme as omd
+LEFT JOIN tb_ogretim_elemanlari AS oe ON oe.id = omd.ogretim_elemani_id
 WHERE
-	ogrenci_id 		= ? AND
-	mufredat_id 	= ?
+	omd.ogrenci_id 		= ? AND
+	omd.mufredat_id 	= ?
 SQL;
 
 $donemler 	 			= $vt->select( $SQL_donemler_getir, array( $_SESSION[ "universite_id" ], $_SESSION[ "aktif_yil" ], $_SESSION[ "program_id" ] ) )[2];
@@ -235,10 +237,10 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 											$islem = "guncelle";
 											if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 1 )
 												//$isaret = "<i class='fas fa-check-circle text-success'></i>";
-												$isaret = "<h6><span class='badge badge-success'>Başarılı</span></h6>";
+												$isaret = "<h6><span class='badge badge-success'>Başarılı</span> <span class='badge badge-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
 											if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 0 )
 												//$isaret = "<i class='fas fa-times-circle text-danger'></i>";
-												$isaret = "<h6><span class='badge badge-danger'>Başarısız</span></h6>";
+												$isaret = "<h6><span class='badge badge-danger'>Başarısız</span> <span class='badge badge-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
 
 										}else{
 											$islem="ekle";

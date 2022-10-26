@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100422 (10.4.22-MariaDB)
+ Source Server Version : 100424 (10.4.24-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100422 (10.4.22-MariaDB)
+ Target Server Version : 100424 (10.4.24-MariaDB)
  File Encoding         : 65001
 
- Date: 26/10/2022 19:13:56
+ Date: 26/10/2022 19:34:53
 */
 
 SET NAMES utf8mb4;
@@ -750,7 +750,7 @@ CREATE TABLE `tb_modul_yetki_islemler`  (
   `modul_id` int NULL DEFAULT NULL,
   `yetki_islem_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 863 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 869 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul_yetki_islemler
@@ -1052,11 +1052,6 @@ INSERT INTO `tb_modul_yetki_islemler` VALUES (817, 138, 2);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (818, 138, 3);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (819, 138, 4);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (820, 138, 5);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (821, 117, 1);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (822, 117, 2);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (823, 117, 3);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (824, 117, 4);
-INSERT INTO `tb_modul_yetki_islemler` VALUES (825, 117, 5);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (826, 139, 1);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (827, 139, 2);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (828, 139, 3);
@@ -1089,6 +1084,12 @@ INSERT INTO `tb_modul_yetki_islemler` VALUES (859, 131, 3);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (860, 131, 4);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (861, 131, 5);
 INSERT INTO `tb_modul_yetki_islemler` VALUES (862, 131, 6);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (863, 117, 1);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (864, 117, 2);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (865, 117, 3);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (866, 117, 4);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (867, 117, 5);
+INSERT INTO `tb_modul_yetki_islemler` VALUES (868, 117, 6);
 
 -- ----------------------------
 -- Table structure for tb_mufredat
@@ -1390,16 +1391,17 @@ CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
   `ogrenci_id` int NULL DEFAULT NULL,
   `mufredat_id` int NULL DEFAULT NULL,
   `degerlendirme` tinyint NULL DEFAULT -1,
+  `ogretim_elemani_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_mufredat_degerlendirme
 -- ----------------------------
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 110, 142, 0);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 110, 71, 1);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 110, 73, 0);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 110, 72, -1);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 110, 142, 0, 4);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 110, 71, 1, 4);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 110, 73, 0, 4);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 110, 72, -1, 4);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari
@@ -1719,7 +1721,7 @@ CREATE TABLE `tb_rol_yetkiler`  (
   `modul_id` int NULL DEFAULT NULL,
   `islem_turu_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_rol_yetkiler
@@ -1754,6 +1756,25 @@ INSERT INTO `tb_rol_yetkiler` VALUES (38, 19, 149, 1);
 INSERT INTO `tb_rol_yetkiler` VALUES (39, 19, 131, 1);
 INSERT INTO `tb_rol_yetkiler` VALUES (40, 19, 131, 4);
 INSERT INTO `tb_rol_yetkiler` VALUES (41, 19, 131, 6);
+INSERT INTO `tb_rol_yetkiler` VALUES (42, 20, 1, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (43, 20, 1, 32);
+INSERT INTO `tb_rol_yetkiler` VALUES (44, 20, 117, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (45, 20, 117, 4);
+INSERT INTO `tb_rol_yetkiler` VALUES (46, 20, 117, 6);
+INSERT INTO `tb_rol_yetkiler` VALUES (47, 20, 133, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (48, 20, 131, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (49, 20, 137, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (50, 20, 138, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (51, 20, 142, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (52, 20, 145, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (53, 20, 148, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (54, 20, 149, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (55, 20, 151, 1);
+INSERT INTO `tb_rol_yetkiler` VALUES (56, 20, 151, 2);
+INSERT INTO `tb_rol_yetkiler` VALUES (57, 20, 151, 3);
+INSERT INTO `tb_rol_yetkiler` VALUES (58, 20, 151, 4);
+INSERT INTO `tb_rol_yetkiler` VALUES (59, 20, 151, 5);
+INSERT INTO `tb_rol_yetkiler` VALUES (60, 20, 151, 42);
 
 -- ----------------------------
 -- Table structure for tb_rol_yetkili_firmalar

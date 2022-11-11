@@ -143,9 +143,13 @@ $SQL_ogrenci_mufredat_degerlendirme = <<< SQL
 SELECT
 	omd.*
 	,concat(oe.adi," ",oe.soyadi) as ogretim_elemani_adi
+	,m.duzey
+	,m.yontem
+	,m.kidem
 FROM
 	tb_ogrenci_mufredat_degerlendirme as omd
 LEFT JOIN tb_ogretim_elemanlari AS oe ON oe.id = omd.ogretim_elemani_id
+LEFT JOIN tb_mufredat AS m ON m.id = omd.mufredat_id
 WHERE
 	omd.ogrenci_id 		= ? AND
 	omd.mufredat_id 	= ?
@@ -161,6 +165,11 @@ $yontemler 	 			= $vt->select($SQL_yontemler, array(  ) )[ 2 ];
 $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 
+foreach( $yontemler as $yontem )
+	$yontemler_dizi[$yontem['kodu']] = $yontem['aciklama'];
+
+foreach( $duzeyler as $duzey )
+	$duzeyler_dizi[$duzey['kodu']] = $duzey['aciklama'];
 
 ?>
 
@@ -248,8 +257,8 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 
 										$html .= "
 												<tr class='bg-renk7'>
-													<td class='$degerlendirme_ekle_class' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>
-														<a role='button' class='text-dark $degerlendirme_ekle_class' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
+													<td class='$degerlendirme_ekle_class' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>
+														<a role='button' class='text-dark $degerlendirme_ekle_class' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
 														$isaret
 													</td>
 												</tr>";									
@@ -258,7 +267,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 									if( $kategori['kategori'] == 1 ){
 
 											$html .= "
-													<tr data-widget='expandable-table' aria-expanded='true' class='bg-renk$renk border-0'>
+													<tr data-widget='expandable-table' aria-expanded='false' class='bg-renk$renk border-0'>
 														<td>
 														$kategori[adi]
 														<i class='expandable-table-caret fas fa-caret-right fa-fw'></i>
@@ -347,6 +356,7 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 						<input type="hidden" name="islem" id="islem" value="ekle" >
 						<div class="form-group">
 							<label class="control-label" id="kategori_ad"></label>
+							<div id="duzey_ve_yontem"></div>
 						</div>
 						<div class="form-group clearfix">
 							<div class="icheck-success ">
@@ -368,7 +378,12 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 								</label>
 							</div>
 						</div>
-
+						<hr>
+						<h6>Yöntemler</h6>
+						<div id="yontemler_aciklama2"></div>
+						<hr>
+						<h6>Düzeyler</h6>
+						<div id="duzeyler_aciklama2"></div>
 
 					</div>
 					<div class="modal-footer justify-content-between">
@@ -404,9 +419,15 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 	        var modal			 = $(this).data("modal");
 	        var islem			 = $(this).data("islem");
 	        var degerlendirme	 = $(this).data("degerlendirme");
+	        var duzey			 = $(this).data("duzey");
+	        var yontem			 = $(this).data("yontem");
+	        var kidem			 = $(this).data("kidem");
+			var yontemler_aciklama 			= "";
+			var duzeyler_aciklama 			= "";
 
 	        document.getElementById("mufredat_id").value 	 = mufredat_id;
 	        document.getElementById("kategori_ad").innerHTML = kategori_ad;
+	        document.getElementById("duzey_ve_yontem").innerHTML = "<span class='badge badge-primary'>Düzey : "+duzey.toString()+"</span> " + "<span class='badge badge-secondary'>Kıdem : "+kidem.toString()+"</span> " + "<span class='badge badge-success'>Yöntem : "+yontem.toString()+"</span> ";
 	        document.getElementById("islem").value = islem;
 				if( degerlendirme == "0" ){
 					document.getElementById("degerlendirme_basarisiz").checked = true;
@@ -417,6 +438,17 @@ $ogrenciler				= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite
 				if( degerlendirme == "-1" ){
 					document.getElementById("degerlendirme_degerlendirilmedi").checked = true;
 				}
+				var yontemler = <?php echo json_encode($yontemler, JSON_UNESCAPED_UNICODE); ?>;// don't use quotes
+				$.each(yontemler, function(key, value) {
+					yontemler_aciklama = yontemler_aciklama + "<small><b>"+ value.kodu +"</b> : "+ value.aciklama +"</small><br>";
+				});
+				document.getElementById("yontemler_aciklama2").innerHTML = yontemler_aciklama;
+
+				var duzeyler = <?php echo json_encode($duzeyler, JSON_UNESCAPED_UNICODE); ?>;// don't use quotes
+				$.each(duzeyler, function(key, value) {
+					duzeyler_aciklama = duzeyler_aciklama + "<small><b>"+ value.kodu +"</b> : "+ value.aciklama +"</small><br>";
+				});
+				document.getElementById("duzeyler_aciklama2").innerHTML = duzeyler_aciklama;
 
 	        $('#'+ modal).modal( "show" );
 	    });

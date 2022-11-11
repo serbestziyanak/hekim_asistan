@@ -103,7 +103,7 @@ switch( $islem ) {
 		}else{
 			$sifre = md5($_REQUEST['sifre']);
 		}
-		
+
 		$sorgu_sonuc = $vt->update( $SQL_guncelle, array(
 			 $_REQUEST['universite_id']
 			,$_REQUEST['uzmanlik_dali_id']
@@ -121,11 +121,8 @@ switch( $islem ) {
 	break;
 	case 'sil':
 		//Silinecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise silinecektir.
-		$tek_ogretim_elemani_oku = $vt->select( $SQL_tek_ogretim_elemani_oku, array( $ogretim_elamani_id ) ) [ 2 ];
-		if (count( $tek_ogretim_elemani_oku ) > 0) {
 			$sonuc = $vt->delete( $SQL_sil, array( $ogretim_elamani_id ) );
 			if( $sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sonuc[ 0 ], 'mesaj' => 'Kayıt silinrken bir hata oluştu ' . $sonuc[ 1 ] );
-		}
 	break;
 }
 $_SESSION[ 'sonuclar' ] 		= $___islem_sonuc;

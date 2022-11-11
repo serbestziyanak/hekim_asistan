@@ -154,7 +154,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 			<div class="card-body p-0">
 				<ul class="tree mr-5">
 					<li> <div class='ders-kapsa bg-renk5'> Ana Kategori 
-							<a href='#' class='btn btn-dark float-right btn-xs KategoriEkle' id='0' data-id='0' data-kategori_ad ='Ana Kategori' data-modal='yeni_ana_kategori_ekle'>Kategori Ekle</a>
+							<a  modul= 'mufredat' yetki_islem='kategori_ekle' href='#' class='btn btn-dark float-right btn-xs KategoriEkle' id='0' data-id='0' data-kategori_ad ='Ana Kategori' data-modal='yeni_ana_kategori_ekle'>Kategori Ekle</a>
 						</div>
 
 					<?php
@@ -187,7 +187,7 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 															<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
 
-															<button id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs yetkinlikDuzenle' data-yetkinlik_kidem='$kategori[kidem]' data-yetkinlik_yontemler='$kategori[yontem]' data-yetkinlik_duzeyler='$kategori[duzey]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='yetkinlik_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</button>
+															<button modul= 'mufredat' yetki_islem='duzenle' id='$kategori[id]' data-id='$kategori[id]' class='btn btn-warning float-right btn-xs yetkinlikDuzenle' data-yetkinlik_kidem='$kategori[kidem]' data-yetkinlik_yontemler='$kategori[yontem]' data-yetkinlik_duzeyler='$kategori[duzey]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='yetkinlik_duzenle' data-islem='guncelle' data-kategori='$kategori[kategori]'>Düzenle</button>
 														</span>
 													</div>
 												</li>";
@@ -199,11 +199,11 @@ $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universit
 										
 											<button modul= 'mufredat' yetki_islem='sil' class='btn btn-xs ml-1 btn-danger float-right' data-href='_modul/mufredat/mufredatSEG.php?islem=sil&id=$kategori[id]&rotasyon_id=$kategori[rotasyon_id]' data-toggle='modal' data-target='#sil_onay'>Sil</button>
 
-											<a href='#' class='btn btn-warning float-right ml-1 btn-xs KategoriDuzenle' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='kategori_guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
+											<a modul= 'mufredat' yetki_islem='duzenle' href='#' class='btn btn-warning float-right ml-1 btn-xs KategoriDuzenle' id='$kategori[id]' data-id='$kategori[id]' data-ders_id='$kategori[ders_id]' data-kategori_ad_duzenle='$kategori[adi]' data-modal='kategori_duzenle' data-islem='kategori_guncelle' data-kategori ='$kategori[kategori]' >Düzenle</a>
 
-											<a href='#' class='btn btn-primary float-right ml-1 btn-xs YetkinlikEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='yetkinlik_ekle' data-islem='yetkinlik_ekle'>Yetkinlik Ekle</a> 
+											<a modul= 'mufredat' yetki_islem='yetkinlik_ekle' href='#' class='btn btn-primary float-right ml-1 btn-xs YetkinlikEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='yetkinlik_ekle' data-islem='yetkinlik_ekle'>Yetkinlik Ekle</a> 
 		
-											<a href='#' class='btn btn-dark float-right ml-1 btn-xs KategoriEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='kategori_ekle'>Kategori Ekle</a>
+											<a modul= 'mufredat' yetki_islem='kategori_ekle' href='#' class='btn btn-dark float-right ml-1 btn-xs KategoriEkle' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-ders_id='$kategori[ders_id]' data-modal='kategori_ekle'>Kategori Ekle</a>
 										</span>
 										</div>";
 										$renk++;

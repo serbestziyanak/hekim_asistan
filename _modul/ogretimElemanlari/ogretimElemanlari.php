@@ -40,6 +40,24 @@ WHERE
 ORDER BY u.sira ASC, oe.adi ASC
 SQL;
 
+$SQL_tum_ogretimElemanlari2 = <<< SQL
+SELECT 
+	oe.*,
+	CONCAT( u.adi, ' ', oe.adi, ' ', oe.soyadi ) AS o_adi,
+	f.adi AS fakulte_adi,
+	ud.adi AS uzmanlik_dali_adi
+FROM 
+	tb_ogretim_elemanlari AS oe
+LEFT JOIN tb_fakulteler AS f ON f.id = oe.fakulte_id
+LEFT JOIN tb_uzmanlik_dallari AS ud ON ud.id = oe.uzmanlik_dali_id
+LEFT JOIN tb_unvanlar AS u ON u.id = oe.unvan_id
+WHERE
+	oe.universite_id 	= ? AND
+	oe.id			 	= ? AND
+	oe.aktif 		  	= 1 
+ORDER BY u.sira ASC, oe.adi ASC
+SQL;
+
 
 $SQL_tek_ogretim_elemani_oku = <<< SQL
 SELECT 
@@ -78,7 +96,11 @@ SQL;
 $unvanlar							= $vt->select( $SQL_unvanlar, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
 $uzmanlik_dallari					= $vt->select( $SQL_uzmanlik_dallari, array(  ) )[ 2 ];
 $fakulteler							= $vt->select( $SQL_fakulteler, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
-$ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
+if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
+	$ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari2, array( $_SESSION[ 'universite_id'], $_SESSION[ 'kullanici_id']  ) )[ 2 ];
+}else{
+	$ogretimElemanlari					= $vt->select( $SQL_tum_ogretimElemanlari, array( $_SESSION[ 'universite_id'] ) )[ 2 ];
+}
 @$tek_ogretim_elemani				= $vt->select( $SQL_tek_ogretim_elemani_oku, array( $ogretim_elemani_id ) )[ 2 ][ 0 ];		
 
 ?>

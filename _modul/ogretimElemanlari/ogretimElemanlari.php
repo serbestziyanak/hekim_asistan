@@ -180,23 +180,23 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card card-orange ?>">
-					<div class="card-header p-2">
-						<ul class="nav nav-pills tab-container">
-							<?php if( $ogretim_elemani_id > 0 ) { ?>
-								<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğretim Elemanı Düzenle</h6>
-							<?php } else {
-								echo "<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğretim Elemanı Ekle</h6>";
-								}
-							?>
-							
-						</ul>
-					</div>
-					<div class="card-body">
-						<div class="tab-content">
-							<!-- GENEL BİLGİLER -->
-							<div class="tab-pane active" id="_genel">
-								<form class="form-horizontal" action = "_modul/ogretimElemanlari/ogretimElemanlariSEG.php" method = "POST" enctype="multipart/form-data">
+				<form class="form-horizontal" action = "_modul/ogretimElemanlari/ogretimElemanlariSEG.php" method = "POST" enctype="multipart/form-data">
+					<div class="card card-orange ?>">
+						<div class="card-header p-2">
+							<ul class="nav nav-pills tab-container">
+								<?php if( $ogretim_elemani_id > 0 ) { ?>
+									<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğretim Elemanı Düzenle</h6>
+								<?php } else {
+									echo "<h6 style = 'font-size: 1rem;'> &nbsp;&nbsp;&nbsp; Öğretim Elemanı Ekle</h6>";
+									}
+								?>
+								
+							</ul>
+						</div>
+						<div class="card-body">
+							<div class="tab-content">
+								<!-- GENEL BİLGİLER -->
+								<div class="tab-pane active" id="_genel">	
 									<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
 									<input type = "hidden" name = "universite_id" value = "<?php echo $_SESSION['universite_id']; ?>">
 									<input type = "hidden" name = "ogretim_elemani_id" value = "<?php echo $ogretim_elemani_id; ?>">
@@ -254,17 +254,14 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 										<label class="control-label">Şifre</label>
 										<input required type="password" minlength="6" class="form-control" name ="sifre" value = "<?php echo $tek_ogretim_elemani[ "sifre" ]; ?>"  autocomplete="off">
 									</div>
-									
-									
-									
-									<div class="card-footer">
-										<button modul= 'ogretimElemanlari' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
+						<div class="card-footer">
+							<button modul= 'ogretimElemanlari' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

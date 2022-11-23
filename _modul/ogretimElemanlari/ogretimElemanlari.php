@@ -140,7 +140,7 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 						<h3 class="card-title">Öğretim Elemanları</h3>
 						<div class = "card-tools">
 							<button type="button" data-toggle = "tooltip" title = "Tam sayfa göster" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand fa-lg"></i></button>
-							<a id = "yeni_ogretim_elemanlari" data-toggle = "tooltip" title = "Yeni Öğretim Elemanı Ekle" href = "?modul=ogretimElemanlari&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
+							<a modul = 'ogretimElemanlari' yetki_islem="ekle" id = "yeni_ogretim_elemanlari" data-toggle = "tooltip" title = "Yeni Öğretim Elemanı Ekle" href = "?modul=ogretimElemanlari&islem=ekle" class="btn btn-tool" ><i class="fas fa-plus fa-lg"></i></a>
 						</div>
 					</div>
 					<div class="card-body">

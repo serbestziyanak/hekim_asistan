@@ -258,7 +258,7 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 							</div>
 						</div>
 						<div class="card-footer">
-							<button modul= 'ogretimElemanlari' yetki_islem="kaydet" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
+							<button modul= 'ogretimElemanlari' yetki_islem="<?php echo $islem; ?>" type="submit" class="<?php echo $kaydet_buton_cls; ?>"><span class="fa fa-save"></span> <?php echo $kaydet_buton_yazi; ?></button>
 						</div>
 					</div>
 				</form>

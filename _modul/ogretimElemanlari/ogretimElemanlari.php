@@ -135,7 +135,7 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8">
-				<div class="card card-secondary" id = "card_ogretimElemanlari">
+				<div class="card card-olive" id = "card_ogretimElemanlari">
 					<div class="card-header">
 						<h3 class="card-title">Öğretim Elemanları</h3>
 						<div class = "card-tools">
@@ -180,7 +180,7 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card <?php if( $ogretim_elemani_id == 0 ) echo 'card-secondary' ?>">
+				<div class="card card-orange ?>">
 					<div class="card-header p-2">
 						<ul class="nav nav-pills tab-container">
 							<?php if( $ogretim_elemani_id > 0 ) { ?>

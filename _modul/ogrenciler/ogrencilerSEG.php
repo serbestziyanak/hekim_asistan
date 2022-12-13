@@ -30,7 +30,6 @@ SET
 	,adi					 = ?
 	,soyadi					 = ?
 	,sinif					 = ?
-	,kayit_yili				 = ?
 	,email					 = ?
 	,sifre					 = ?
 	,cep_tel				 = ?
@@ -74,6 +73,14 @@ WHERE
 	id = ?
 SQL;
 
+$SQL_resim_guncelle = <<<SQL
+UPDATE
+	tb_ogrenciler
+SET
+	resim = ?
+WHERE
+	id = ?
+SQL;
 
 $SQL_tek_ogrenci_id_oku = <<< SQL
 SELECT 
@@ -134,10 +141,18 @@ switch( $islem ) {
 				,$_REQUEST['egitim_danisman_id']
 				,$_REQUEST['tez_danisman_id']
 			) );
-			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
-			else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
-			$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
-			$ogrenci_id = $son_eklenen_id;
+			if( $sorgu_sonuc[ 0 ] ){
+				$___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+			}else{
+				$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
+				$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
+				$ogrenci_id = $son_eklenen_id;
+				$resim_adi = "ogrenci_".$son_eklenen_id;
+				$resim_sonuc = $fn->resimYukle( 'input_ogrenci_resim', $resim_adi );
+				if( $resim_sonuc[ 0 ] ) {
+					$sorgu_sonuc = $vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $son_eklenen_id ) );
+				}
+			}
 		}else{
 			$___islem_sonuc = array( 'hata' => true, 'mesaj' => 'Öğrenci Önceden Eklenmiş', 'id' => $sonuc[ 2 ] );
 		}
@@ -173,7 +188,17 @@ switch( $islem ) {
 			,$_REQUEST['tez_danisman_id']
 			,$ogrenci_id
 		) );
-		if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+
+		if( $sorgu_sonuc[ 0 ] ){
+			$___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+		}else{
+			$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] );
+			$resim_adi = "ogrenci_".$ogrenci_id;
+			$resim_sonuc = $fn->resimYukle( 'input_ogrenci_resim', $resim_adi );
+			if( $resim_sonuc[ 0 ] ) {
+				$vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $ogrenci_id ) );
+			}
+		}
 	break;
 	case 'sil':
 		//Silinecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise silinecektir.

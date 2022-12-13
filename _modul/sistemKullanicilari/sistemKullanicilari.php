@@ -62,28 +62,28 @@ $roller								= $vt->select( $SQL_roller, array( $_SESSION[ 'rol_id' ] ) );
 $universiteler				= $vt->select( $SQL_universiteler, array(  ) );
 $sistem_kullanici			= $vt->selectSingle( $SQL_sistem_kullanici, array( $sistem_kullanici_id ) );
 $sistem_kullanicilari	= $vt->select( $SQL_sistem_kullanicilari, array( $_SESSION[ 'super' ] , $_SESSION[ 'kullanici_id' ]) );
-$kullaniciBilgileri		= array( "resim"=>'resimler/resim_yok.jpg', "ad_soyad" => '<h6 align = "center">Resim eklemek için fotoğrafa tıklayınız</h6>' );
+$kullaniciBilgileri		= array( "resim"=>'resimler/resim_yok.png', "ad_soyad" => '<h6 align = "center">Resim eklemek için fotoğrafa tıklayınız</h6>' );
 $islem								= array_key_exists( 'islem', $_REQUEST ) ? $_REQUEST[ 'islem' ] : 'ekle';
 
-if( $islem == 'guncelle' )
-$kullaniciBilgileri = array(
-	 'id'						=> $sistem_kullanici[ 2 ][ 'id' ]
-	,'universite_id'=> $sistem_kullanici[ 2 ][ 'universite_id' ]
-	,'universiteler'=> $sistem_kullanici[ 2 ][ 'universiteler' ]
-	,'adi'					=> $sistem_kullanici[ 2 ][ 'adi' ]
-	,'soyadi'				=> $sistem_kullanici[ 2 ][ 'soyadi' ]
-	,'email'				=> $sistem_kullanici[ 2 ][ 'email' ]
-	,'sifre'				=> $sistem_kullanici[ 2 ][ 'sifre' ]
-	,'telefon'			=> $sistem_kullanici[ 2 ][ 'telefon' ]
-	,'tc_no'				=> $sistem_kullanici[ 2 ][ 'tc_no' ]
-	,'dogum_tarihi'	=> explode( ' ', $sistem_kullanici[ 2 ][ 'dogum_tarihi' ] )[ 0 ]
-	,'rol_id'				=> $sistem_kullanici[ 2 ][ 'rol_id' ]
-	,'rol_adi'			=> $sistem_kullanici[ 2 ][ 'rol_adi' ]
-	,'super'				=> $sistem_kullanici[ 2 ][ 'super' ]
-	,'resim'				=> 'resimler/' . $sistem_kullanici[ 2 ][ 'resim' ]
-	,'ad_soyad'			=> $sistem_kullanici[ 2 ][ 'adi' ] . " " . $sistem_kullanici[ 2 ][ 'soyadi' ]
-);
-
+if( $islem == 'guncelle' ){
+	$kullaniciBilgileri = array(
+		'id'						=> $sistem_kullanici[ 2 ][ 'id' ]
+		,'universite_id'=> $sistem_kullanici[ 2 ][ 'universite_id' ]
+		,'universiteler'=> $sistem_kullanici[ 2 ][ 'universiteler' ]
+		,'adi'					=> $sistem_kullanici[ 2 ][ 'adi' ]
+		,'soyadi'				=> $sistem_kullanici[ 2 ][ 'soyadi' ]
+		,'email'				=> $sistem_kullanici[ 2 ][ 'email' ]
+		,'sifre'				=> $sistem_kullanici[ 2 ][ 'sifre' ]
+		,'telefon'			=> $sistem_kullanici[ 2 ][ 'telefon' ]
+		,'tc_no'				=> $sistem_kullanici[ 2 ][ 'tc_no' ]
+		,'dogum_tarihi'	=> explode( ' ', $sistem_kullanici[ 2 ][ 'dogum_tarihi' ] )[ 0 ]
+		,'rol_id'				=> $sistem_kullanici[ 2 ][ 'rol_id' ]
+		,'rol_adi'			=> $sistem_kullanici[ 2 ][ 'rol_adi' ]
+		,'super'				=> $sistem_kullanici[ 2 ][ 'super' ]
+		,'resim'				=> 'resimler/' . $sistem_kullanici[ 2 ][ 'resim' ]
+		,'ad_soyad'			=> $sistem_kullanici[ 2 ][ 'adi' ] . " " . $sistem_kullanici[ 2 ][ 'soyadi' ]
+	);
+}
 
 
 $satir_renk				= $sistem_kullanici_id > 0	? 'table-warning'						: '';
@@ -186,7 +186,7 @@ $kaydet_buton_cls		= $sistem_kullanici_id > 0	? 'btn btn-warning btn-sm pull-rig
 					<div class="card-body">
 					<div class="text-center">
 					  <img class="img-fluid img-circle img-thumbnail mw-100"
-						   style="width:120px;"
+						   style="width:120px; cursor:pointer;"
 						   src="<?php echo $kullaniciBilgileri[ 'resim' ]; ?>" id = "sistem_kullanici_resim" 
 						   alt="User profile picture"
 						   id = "sistem_kullanici_resim">

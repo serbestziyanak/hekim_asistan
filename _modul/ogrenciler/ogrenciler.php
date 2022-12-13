@@ -197,7 +197,24 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
 							<input type = "hidden" name = "ogrenci_id" value = "<?php echo $ogrenci_id; ?>">
 							<input type = "hidden" name = "universite_id" value = "<?php echo $_SESSION['universite_id']; ?>">
-							<h3 class="profile-username text-center"><b> </b></h3>
+							<?php
+								if( $islem == "guncelle" ){
+									$resim_src = "resimler/".$tek_ogrenci[ "resim" ];
+								}else{
+									$resim_src = "resimler/resim_yok.png";
+								}
+							?>
+							<div class="text-center">
+								<img class="img-fluid img-circle img-thumbnail mw-100"
+									style="width:120px; cursor:pointer;"
+									src="<?php echo $resim_src; ?>" 
+									alt="User profile picture"
+									id = "ogrenci_kullanici_resim">
+							</div>
+							<p class="text-muted text-center">Fotoğraf değiştirmek için fotoğrafa tıklayınız</p>	
+							<h3 class="profile-username text-center"><?php echo $tek_ogrenci[ "adi" ]." ".$tek_ogrenci[ "soyadi" ]; ?></h3>
+							<input type="file" id="gizli_input_file" name = "input_ogrenci_resim" style = "display:none;" name = "resim" accept="image/gif, image/jpeg, image/png"  onchange="resimOnizle(this)"; />
+
 							<div class="form-group">
 								<label  class="control-label">Uzmanlık Dalı</label>
 								<select class="form-control select2" name = "uzmanlik_dali_id" required >
@@ -263,7 +280,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							</div>									
 							<div class="form-group">
 								<label class="control-label">TUS Puanı</label>
-								<input required type="number" min="0.1" max="100.0" step="0.1" class="form-control form-control-sm" name ="tus_puani" value = "<?php echo $tek_ogrenci[ "tus_puani" ]; ?>"  autocomplete="off">
+								<input required type="number" min="0.01" max="100.0" step="0.01" class="form-control form-control-sm" name ="tus_puani" value = "<?php echo $tek_ogrenci[ "tus_puani" ]; ?>"  autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Başlama Tarihi</label>
@@ -327,6 +344,25 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 		</div>
 	</div>
 </section>
+<script>
+/* Kullanıcı resmine tıklayınca file nesnesini tetikle*/
+$( function() {
+	$( "#ogrenci_kullanici_resim" ).click( function() {
+		$( "#gizli_input_file" ).trigger( 'click' );
+	});
+});
+
+/* Seçilen resim önizle */
+function resimOnizle( input ) {
+	if ( input.files && input.files[ 0 ] ) {
+		var reader = new FileReader();
+		reader.onload = function ( e ) {
+			$( '#ogrenci_kullanici_resim' ).attr( 'src', e.target.result );
+		};
+		reader.readAsDataURL( input.files[ 0 ] );
+	}
+}
+</script>
 <script type="text/javascript">
 	var simdi = new Date(); 
 	//var simdi="11/25/2015 15:58";

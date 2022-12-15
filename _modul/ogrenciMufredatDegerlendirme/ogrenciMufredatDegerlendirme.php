@@ -180,7 +180,7 @@ foreach( $duzeyler as $duzey )
 				<h3 class="card-title">Müfredat</h3>
 				<div class="form-group  float-right mb-0">
 					<label class="control-label">Rotasyon : </label> 
-					<select class="form-control form-control-sm select2" name="ders_id" required  onchange="dersSecimi(this.value);">
+					<select class="form-control form-control-sm select2" name="ders_id" id="ders_id" data-ogrenci_id="<?php echo $ogrenci_id; ?>" required  >
 						<option value="">Rotasyon Seçiniz...</option>
 						<option value="-1" <?php echo -1 == @$rotasyon_id*1 ? 'selected' : null; ?>>
 							<?php echo $_SESSION[ 'uzmanlik_dali_adi' ];?>
@@ -581,15 +581,25 @@ foreach( $duzeyler as $duzey )
 	            $('#gorevliEkleModal').modal( "show" )
 	        });
 	    });
-	    function dersSecimi(rotasyon_id){
-			var  url 		= window.location;
+		$('#ders_id').on("change", function(e) { 
+			var url 		= window.location;
 			var origin		= url.origin;
 			var path		= url.pathname;
 			var search		= (new URL(document.location)).searchParams;
 			var modul   	= search.get('modul');
-			var rotasyon_id = "&rotasyon_id="+rotasyon_id;
-			
-			window.location.replace(origin + path+'?modul='+modul+''+rotasyon_id);
+			var rotasyon_id = $(this).val();;
+			var ogrenci_id	= $(this).data("ogrenci_id");
+			window.location.replace(origin + path+'?modul='+modul+'&rotasyon_id='+rotasyon_id+'&ogrenci_id='+ogrenci_id);
+	    });
+	    function dersSecimi(rotasyon_id){
+			var url 		= window.location;
+			var origin		= url.origin;
+			var path		= url.pathname;
+			var search		= (new URL(document.location)).searchParams;
+			var modul   	= search.get('modul');
+			//var rotasyon_id = "&rotasyon_id="+rotasyon_id;
+			var ogrenci_id	= $(this).data("ogrenci_id");
+			window.location.replace(origin + path+'?modul='+modul+'&rotasyon_id='+rotasyon_id+'&ogrenci_id='+ogrenci_id);
 		}
 
 		function secenekOku(e){

@@ -11,7 +11,7 @@
  Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 26/10/2022 22:44:02
+ Date: 16/12/2022 00:30:46
 */
 
 SET NAMES utf8mb4;
@@ -713,7 +713,7 @@ CREATE TABLE `tb_modul`  (
   `harici_sayfa` tinyint NULL DEFAULT 0,
   `kategori_acik` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 152 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 153 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_modul
@@ -740,6 +740,7 @@ INSERT INTO `tb_modul` VALUES (148, 'Klinik Sunuları', 'ogrenciKlinikSunulari',
 INSERT INTO `tb_modul` VALUES (149, 'Tezler', 'ogrenciTezleri', 'ogrenciTezleri', 'fas fa-book text-orange', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (150, 'Tez İzlemeleri', 'ogrenciTezIzlemeleri', 'ogrenciTezIzlemeleri', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (151, 'Müfredat Değerlendirme', 'ogrenciMufredatDegerlendirme', 'ogrenciMufredatDegerlendirme', 'fas fa-clipboard-list ', 1, 130, 0, 8, 0, 0);
+INSERT INTO `tb_modul` VALUES (152, 'Öğrenci Profil', 'ogrenciProfil', 'ogrenciProfil', NULL, 1, 0, 0, 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -1393,18 +1394,21 @@ CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
   `mufredat_id` int NULL DEFAULT NULL,
   `degerlendirme` tinyint NULL DEFAULT -1,
   `ogretim_elemani_id` int NULL DEFAULT NULL,
+  `ekleme_tarihi` datetime NULL DEFAULT NULL,
+  `guncelleme_tarihi` datetime NULL DEFAULT NULL,
+  `silme_tarihi` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_mufredat_degerlendirme
 -- ----------------------------
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 110, 142, 0, 4);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 110, 71, 1, 4);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 110, 73, 0, 4);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 110, 72, 1, 4);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 110, 76, 1, 19);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 110, 96, 1, 4);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 110, 142, 0, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 110, 71, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 110, 73, 0, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 110, 72, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 110, 76, 1, 19, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 110, 96, 1, 4, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari
@@ -1507,7 +1511,7 @@ CREATE TABLE `tb_ogrenciler`  (
   `resim` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'resim_yok.png',
   `kullanici_turu` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'ogrenci',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenciler
@@ -1552,7 +1556,7 @@ INSERT INTO `tb_ogrenciler` VALUES (37, 1, 1, '', '17060001057', 'Naz Neval', 'E
 INSERT INTO `tb_ogrenciler` VALUES (38, 1, 1, '', '17060001058', 'Yasin', 'DENİZ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (39, 1, 1, '', '17060001060', 'Ahmet', 'KOÇAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (40, 1, 1, '', '17060001062', 'Emine', 'KIZILDEMİR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (41, 1, 1, '', '17060001063', 'Arif', 'GÖKDERE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (41, 1, 1, '', '17060001063', 'Arif', 'GÖKDERE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (42, 1, 1, '', '17060001065', 'Hüseyin Harun', 'KADIRHAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (43, 1, 1, '', '17060001066', 'Diyar', 'VARIŞLI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (44, 1, 1, '', '17060001067', 'Yüksel', 'METİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
@@ -1621,7 +1625,7 @@ INSERT INTO `tb_ogrenciler` VALUES (106, 1, 1, '', '16060001088', 'Dilek', 'AFER
 INSERT INTO `tb_ogrenciler` VALUES (107, 1, 1, '', '16060001104', 'Ali', 'EROĞULLARI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (108, 1, 1, '', '16060001129', 'Mevlüt Özgür', 'ACAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (109, 1, 1, '', '16060001151', 'Mohamad', 'ALHAMDO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
-INSERT INTO `tb_ogrenciler` VALUES (110, 1, 1, '45985696652', '15060001133', 'Abdulsamet', 'BEŞKARDEŞ', NULL, NULL, 'dr.emin07@gmail.com', '5425655654', 'İskele mah. 2134 sk. İpekyolu/VAN', '1989-01-20', 'Van', '2021 Güz Dönemi', 85.3, '2022-10-05', '2022-10-02', '2022-10-03', 4, 4, 1, 'e10adc3949ba59abbe56e057f20f883e', 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (110, 1, 1, '45985696652', '15060001133', 'Abdulsamettt', 'BEŞKARDEŞ', NULL, NULL, 'dr.emin07@gmail.com', '5425655654', 'İskele mah. 2134 sk. İpekyolu/VAN', '1989-01-20', 'Van', '2021 Güz Dönemi', 85.3, '2022-10-05', '2022-10-02', '2022-10-03', 4, 4, 1, 'e10adc3949ba59abbe56e057f20f883e', 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (111, 1, 1, '', '14060001069', 'İbrahim', 'GÜLTEKİN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (112, 1, 1, '', '14060001135', 'Nail', 'BEYAZIT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (113, 1, 1, '', '19060001152', 'Elif', 'AVA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
@@ -1642,6 +1646,8 @@ INSERT INTO `tb_ogrenciler` VALUES (127, 1, 1, '', '16060001119', 'Ömer', 'KUTL
 INSERT INTO `tb_ogrenciler` VALUES (128, 1, 1, '', '16060001013', 'Abdullah', 'SEVAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (129, 1, 1, '', '14060001140', 'M.Kasım', 'ÇAKILLIKOYAK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
 INSERT INTO `tb_ogrenciler` VALUES (130, 1, 1, '', '15060001168', 'Mehmet', 'YAZAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 19, 0, 'resim_yok.png', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (133, 1, 1, '45982964018', '45982964018', 'Serbest', 'Ziyanak', NULL, NULL, 'serbest.ziyanak@gmail.com', '5444961144', 'Teknokent sk. Teknokent Binası No:20', '1989-01-20', 'Cizre', '2022-TUS 2. Dönem', 73.25, '2022-12-13', '2022-10-20', '2022-06-25', 4, 4, 1, 'bc000ebca4a5687a014d9c9f94da86e8', 19, 0, 'ogrenci_133.jpg', 'ogrenci');
+INSERT INTO `tb_ogrenciler` VALUES (134, 1, 1, '15151515151', '151515151515', 'deneme', 'deneme', NULL, NULL, 'serbest.ziyanak@gmail.com', '5444961144', 'Teknokent sk. Teknokent Binası No:20', '1989-01-20', 'asdasd', 'asdasd', 25, '2022-10-05', '2022-10-02', '2022-10-03', 7, 7, 1, 'bc000ebca4a5687a014d9c9f94da86e8', 19, 0, 'ogrenci_134.jpg', 'ogrenci');
 
 -- ----------------------------
 -- Table structure for tb_ogretim_elemanlari
@@ -1694,7 +1700,7 @@ INSERT INTO `tb_ogretim_elemanlari` VALUES (25, 1, 1, 1, NULL, 1, 'Halil', 'ÖZK
 INSERT INTO `tb_ogretim_elemanlari` VALUES (26, 1, 1, 1, NULL, 2, 'Zübeyir', 'HUYUT', 'mail@mail.com', '555 555 5555', 1, 'ogretim_elemani', NULL, 20, 0, 'resim_yok.png');
 INSERT INTO `tb_ogretim_elemanlari` VALUES (27, 1, NULL, 1, NULL, 1, 'Deneme', 'Deneme', 'deneme@yyu.edu.tr', '5444961144', 1, 'ogretim_elemani', NULL, 20, 0, 'resim_yok.png');
 INSERT INTO `tb_ogretim_elemanlari` VALUES (28, 1, NULL, 1, '123456987', 1, 'Deneme', 'Deneme', 'deneme@deneme.com', '444965588', 1, 'ogretim_elemani', NULL, 20, 0, 'resim_yok.png');
-INSERT INTO `tb_ogretim_elemanlari` VALUES (29, 1, NULL, 1, '345345345', 1, 'dfgdfg', 'dfgdfg', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 1, 'ogretim_elemani', NULL, 20, 0, 'resim_yok.png');
+INSERT INTO `tb_ogretim_elemanlari` VALUES (29, 1, NULL, 1, '345345345', 1, 'dfgdfg', 'dfgdfg', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 0, 'ogretim_elemani', NULL, 20, 0, 'resim_yok.png');
 
 -- ----------------------------
 -- Table structure for tb_programlar
@@ -1903,13 +1909,14 @@ CREATE TABLE `tb_sistem_kullanici`  (
   `kullanici_turu` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT 'admin',
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_sistem_kullanici
 -- ----------------------------
 INSERT INTO `tb_sistem_kullanici` VALUES (19, 'Ahmet', 'ŞAHAN', 'ahmetsahan@yandex.com', '0(551) 432-1362', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, '19.png', '22756151942', '1987-05-15 00:00:00', '1', 'admin', NULL);
 INSERT INTO `tb_sistem_kullanici` VALUES (31, 'Mehmet Emin', 'LAYIK', 'eminlayik@gmail.com', '0(533) 399-2652', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, '31.png', '19438375628', '1985-10-29 00:00:00', '1', 'admin', NULL);
+INSERT INTO `tb_sistem_kullanici` VALUES (32, 'Serbest', 'ZİYANAK', 'serbest.ziyanak@gmail.com', '0(544) 496-1144', 'bc000ebca4a5687a014d9c9f94da86e8', 1, 1, '32.jpg', '45982964018', '1989-01-20 00:00:00', '1', 'admin', NULL);
 
 -- ----------------------------
 -- Table structure for tb_sistem_kullanici_yetkili_birimler
@@ -2218,6 +2225,19 @@ INSERT INTO `tb_yontemler` VALUES (2, 'UE', 'Uygulamalı Eğitim Etkinlikleri');
 INSERT INTO `tb_yontemler` VALUES (3, 'BE', 'Bağımsız ve Keşfederek Öğrenme Etkinlikleri');
 
 -- ----------------------------
+-- View structure for ogrenci_sinavlari
+-- ----------------------------
+DROP VIEW IF EXISTS `ogrenci_sinavlari`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `ogrenci_sinavlari` AS SELECT 
+	os.*
+	,sk.adi AS sinav_kategori_adi
+	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
+FROM 
+	tb_ogrenci_sinavlari AS os
+LEFT JOIN tb_sinav_kategorileri AS sk ON sk.id = os.sinav_kategori_id
+LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id ;
+
+-- ----------------------------
 -- View structure for view_sistem_kullanici
 -- ----------------------------
 DROP VIEW IF EXISTS `view_sistem_kullanici`;
@@ -2268,5 +2288,11 @@ UNION
 FROM
 	tb_ogretim_elemanlari
 ) ;
+
+-- ----------------------------
+-- View structure for view_soyadi_yilmaz_ogrenciler
+-- ----------------------------
+DROP VIEW IF EXISTS `view_soyadi_yilmaz_ogrenciler`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogrenciler` AS select * from tb_ogrenciler where soyadi="YILMAZ" ;
 
 SET FOREIGN_KEY_CHECKS = 1;

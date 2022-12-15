@@ -214,7 +214,8 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							<p class="text-muted text-center">Fotoğraf değiştirmek için fotoğrafa tıklayınız</p>	
 							<h3 class="profile-username text-center"><?php echo $tek_ogrenci[ "adi" ]." ".$tek_ogrenci[ "soyadi" ]; ?></h3>
 							<input type="file" id="gizli_input_file" name = "input_ogrenci_resim" style = "display:none;" name = "resim" accept="image/gif, image/jpeg, image/png"  onchange="resimOnizle(this)"; />
-
+							<br><h5 class="float-right text-olive">Kişisel Bilgiler</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
+							
 							<div class="form-group">
 								<label  class="control-label">Uzmanlık Dalı</label>
 								<select class="form-control select2" name = "uzmanlik_dali_id" required >
@@ -258,6 +259,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 								<label class="control-label">Doğum Yeri</label>
 								<input required type="text" class="form-control form-control-sm" name ="dogum_yeri" value = "<?php echo $tek_ogrenci[ "dogum_yeri" ]; ?>"  autocomplete="off">
 							</div>
+							<br><h5 class="float-left text-olive">İletişim Bilgileri</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
 							<div class="form-group">
 								<label class="control-label">Cep Telefonu</label>
 								<input required type="tel" class="form-control form-control-sm" name ="cep_tel" value = "<?php echo $tek_ogrenci[ "cep_tel" ]; ?>" pattern="[0-9]{10}" placeholder="5555555555" autocomplete="off">
@@ -267,13 +269,10 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 								<input required type="email" class="form-control form-control-sm" name ="email" value = "<?php echo $tek_ogrenci[ "email" ]; ?>"  autocomplete="off">
 							</div>
 							<div class="form-group">
-								<label class="control-label">Şifre</label>
-								<input required type="password" minlength="6" class="form-control form-control-sm" name ="sifre" value = "<?php echo $tek_ogrenci[ "sifre" ]; ?>"  autocomplete="off">
-							</div>
-							<div class="form-group">
 								<label class="control-label">Adres</label>
 								<textarea name="adres" class="form-control form-control-sm" ><?php echo $tek_ogrenci[ "adres" ]; ?></textarea>
 							</div>
+							<br><h5 class="float-right text-olive">TUS Bilgileri</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
 							<div class="form-group">
 								<label class="control-label">TUS Dönemi</label>
 								<input required type="text" class="form-control form-control-sm" name ="tus_donemi" value = "<?php echo $tek_ogrenci[ "tus_donemi" ]; ?>"  autocomplete="off">
@@ -282,6 +281,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 								<label class="control-label">TUS Puanı</label>
 								<input required type="number" min="0.01" max="100.0" step="0.01" class="form-control form-control-sm" name ="tus_puani" value = "<?php echo $tek_ogrenci[ "tus_puani" ]; ?>"  autocomplete="off">
 							</div>
+							<br><h5 class="float-left text-olive">Uzmanlık Eğitimi Bilgileri</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
 							<div class="form-group">
 								<label class="control-label">Başlama Tarihi</label>
 								<div class="input-group date" id="baslama_tarihi" data-target-input="nearest">
@@ -332,6 +332,11 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 
 									?>
 								</select>
+							</div>
+							<br><h5 class="float-right text-olive">Şifre Değiştir</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
+							<div class="form-group">
+								<label class="control-label">Şifre</label>
+								<input required type="password" minlength="6" class="form-control form-control-sm" name ="sifre" value = "<?php echo $tek_ogrenci[ "sifre" ]; ?>"  autocomplete="off">
 							</div>
 						</div>
 						<div class="card-footer">

@@ -13,8 +13,8 @@ if( array_key_exists( 'sonuclar', $_SESSION ) ) {
 
 
 $islem			= array_key_exists( 'islem'		,$_REQUEST ) 	 ? $_REQUEST[ 'islem' ]			: 'ekle';
-$id				= array_key_exists( 'id'	,$_REQUEST ) ? $_REQUEST[ 'id' ]	: 0;
-
+$id				  = array_key_exists( 'id'	,$_REQUEST ) ? $_REQUEST[ 'id' ]	: 0;
+$ogrenci_id = 133;
 
 $satir_renk				= $id > 0	? 'table-warning'						: '';
 $kaydet_buton_yazi		= $id > 0	? 'Güncelle'							: 'Kaydet';
@@ -56,19 +56,25 @@ SQL;
 
 
 
-$SQL_tum_ogrenciler = <<< SQL
+$SQL_ogrenci_bilgileri = <<< SQL
 SELECT 
-	o.*,
-	CONCAT( o.adi, ' ', o.soyadi ) AS ad_soyadi,
-	u.adi as uzmanlik_dali_adi
+	o.*
+	,CONCAT( o.adi, ' ', o.soyadi ) AS adi_soyadi
+	,u.adi as uzmanlik_dali_adi
+	,CONCAT( unv.adi,' ',oe.adi, ' ', oe.soyadi ) as egitim_danisman_adi
+	,CONCAT( unvt.adi,' ',oet.adi, ' ', oet.soyadi ) as tez_danisman_adi
 FROM 
 	tb_ogrenciler AS o
 LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
+LEFT JOIN tb_ogretim_elemanlari AS oe ON oe.id = o.egitim_danisman_id
+LEFT JOIN tb_unvanlar AS unv ON unv.id = oe.unvan_id
+LEFT JOIN tb_ogretim_elemanlari AS oet ON oet.id = o.tez_danisman_id
+LEFT JOIN tb_unvanlar AS unvt ON unvt.id = oet.unvan_id
 WHERE
-	o.universite_id 	= ? AND
+	o.universite_id 	  = ? AND
 	o.uzmanlik_dali_id 	= ? AND
-	o.aktif 		  	= 1 
-ORDER BY o.adi ASC
+	o.aktif 		  	    = 1 AND
+  o.id                = ?
 SQL;
 
 if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
@@ -78,7 +84,7 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
 }
 
 @$tek_ogrenci_tez		= $vt->select( $SQL_tek_ogrenci_tez_oku, array( $id ) )[ 2 ][ 0 ];
-$ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
+$ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
 
 ?>
 
@@ -112,43 +118,43 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
 
             <!-- Profile Image -->
-            <div class="card card-primary card-outline">
+            <div class="card card-olive card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
+                       src="resimler/<?php echo $ogrenci['resim']; ?>"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center"><?php echo $ogrenci['adi_soyadi']; ?></h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center"><?php echo $ogrenci['tc_kimlik_no']; ?></p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
+                    <b>Uzmanlık Dalı</b> <a class="float-right"><?php echo $ogrenci['uzmanlik_dali_adi']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
+                    <b>Eğitim Danışmanı</b> <a class="float-right"><?php echo $ogrenci['egitim_danisman_adi']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                    <b>Tez Danışmanı</b> <a class="float-right"><?php echo $ogrenci['tez_danisman_adi']; ?></a>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="#" class="btn btn-olive btn-block"><b>Follow</b></a>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
 
             <!-- About Me Box -->
-            <div class="card card-primary">
+            <div class="card card-olive">
               <div class="card-header">
-                <h3 class="card-title">About Me</h3>
+                <h3 class="card-title">Hakkında</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -173,7 +179,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
                   <span class="tag tag-success">Coding</span>
                   <span class="tag tag-info">Javascript</span>
                   <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
+                  <span class="tag tag-olive">Node.js</span>
                 </p>
 
                 <hr>
@@ -187,7 +193,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
             <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-8">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -324,7 +330,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
                       <!-- /.timeline-label -->
                       <!-- timeline item -->
                       <div>
-                        <i class="fas fa-envelope bg-primary"></i>
+                        <i class="fas fa-envelope bg-olive"></i>
 
                         <div class="timeline-item">
                           <span class="time"><i class="far fa-clock"></i> 12:05</span>
@@ -338,7 +344,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
                             quora plaxo ideeli hulu weebly balihoo...
                           </div>
                           <div class="timeline-footer">
-                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
+                            <a href="#" class="btn btn-olive btn-sm">Read more</a>
                             <a href="#" class="btn btn-danger btn-sm">Delete</a>
                           </div>
                         </div>

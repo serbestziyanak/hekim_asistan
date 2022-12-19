@@ -11,7 +11,7 @@
  Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 16/12/2022 00:30:46
+ Date: 19/12/2022 21:12:44
 */
 
 SET NAMES utf8mb4;
@@ -1373,14 +1373,15 @@ CREATE TABLE `tb_ogrenci_makaleleri`  (
   `onaylayan_id` int NULL DEFAULT NULL,
   `onay_tarihi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_makaleleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_makaleleri` VALUES (2, 1, 117, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (2, 1, 133, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
 INSERT INTO `tb_ogrenci_makaleleri` VALUES (3, 1, 128, 'Deneme', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi) Layık M. E. , Ekin M., Demirci A.		', NULL, NULL, NULL);
 INSERT INTO `tb_ogrenci_makaleleri` VALUES (4, 1, 110, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (6, 1, 133, 'The Relationship Between Qt Interval And Pain Severity In Trauma Patients In The Emergency Department', 'KASTAMONU MEDICAL JOURNAL, cilt.1, sa.3, ss.75-78, 2021 (Hakemli Dergi) Nimetoğlu M. S. , Gökdemir M. T. , İz M., Layık M. E.', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_mufredat_degerlendirme
@@ -1426,13 +1427,15 @@ CREATE TABLE `tb_ogrenci_sinavlari`  (
   `onaylayan_id` int NULL DEFAULT NULL,
   `onay_tarihi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_sinavlari
 -- ----------------------------
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (2, 1, 117, 1, 'Formatif Sınav 1', '2022-10-05', 54, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (3, 1, 110, 1, '1.Yıl Formatif Sınavı', '2022-10-04', 75.6, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (2, 1, 133, 1, 'Formatif Sınav 1', '2022-10-05', 54, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (3, 1, 133, 1, 'Formatif Sınav 2', '2022-10-04', 75.6, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (4, 1, 133, 1, 'Formatif Sınav 3', '2022-11-22', 82.5, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (5, 1, 133, 2, 'Summatif Sınav', '2022-12-20', 85.5, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_tez_izlemeleri

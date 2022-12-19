@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100422 (10.4.22-MariaDB)
+ Source Server Version : 100424 (10.4.24-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100422 (10.4.22-MariaDB)
+ Target Server Version : 100424 (10.4.24-MariaDB)
  File Encoding         : 65001
 
- Date: 19/12/2022 21:12:44
+ Date: 20/12/2022 02:18:48
 */
 
 SET NAMES utf8mb4;
@@ -1335,7 +1335,7 @@ CREATE TABLE `tb_ogrenci_bilimsel_toplantilar`  (
 -- ----------------------------
 -- Records of tb_ogrenci_bilimsel_toplantilar
 -- ----------------------------
-INSERT INTO `tb_ogrenci_bilimsel_toplantilar` VALUES (2, 1, 110, 'Örnek Toplantı Adı', 'Örnek Toplantı Yeri', '2022-10-05', '1) Sunu 1\r\n2) Sunu 2', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_bilimsel_toplantilar` VALUES (2, 1, 133, 'Doku Mühendisliğinde Biyomimetik Yaklaşımlar', 'Acıbadem Üniversitesi', '2022-10-05', '1) Doku Mühendisliğinde Kullanılan Teknolojiler\r\n2) Tıp Eğitiminde Yapay Zeka', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_klinik_sunulari
@@ -1352,12 +1352,13 @@ CREATE TABLE `tb_ogrenci_klinik_sunulari`  (
   `onaylayan_id` int NULL DEFAULT NULL,
   `onay_tarihi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_klinik_sunulari
 -- ----------------------------
-INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 110, 'Örnek Sunu Konusu', 'Örnek Sunu Yeri', '2022-10-12', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 133, 'Pandemide Alıcı-Verici Hazırlanması', 'Cengiz Andiç Konferans Salonu', '2022-10-12', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (2, 1, 133, 'Solid Organ Nakli Enfeksiyonları Mikrobiyolojisi', 'Dursun Odabaş Tıp Merkezi Amfi III', '2022-12-13', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_makaleleri
@@ -1399,17 +1400,20 @@ CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
   `guncelleme_tarihi` datetime NULL DEFAULT NULL,
   `silme_tarihi` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_mufredat_degerlendirme
 -- ----------------------------
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 110, 142, 0, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 110, 71, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 110, 73, 0, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 110, 72, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 110, 76, 1, 19, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 110, 96, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 133, 142, 0, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 133, 71, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 133, 73, 0, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 133, 72, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 133, 76, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 133, 96, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (7, 1, -1, 133, 240, 1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (8, 1, -1, 133, 241, 0, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, -1, 133, 242, -1, 4, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari
@@ -1457,7 +1461,7 @@ CREATE TABLE `tb_ogrenci_tez_izlemeleri`  (
 -- ----------------------------
 -- Records of tb_ogrenci_tez_izlemeleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_tez_izlemeleri` VALUES (1, 1, 110, 1, '2022-10-11', 'Tez çalışmaları incelendi. ', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_tez_izlemeleri` VALUES (1, 1, 133, 0, '2022-10-11', 'Tez çalışmaları incelendi. Yeni makaleler önerildi.', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_tezleri
@@ -1479,7 +1483,7 @@ CREATE TABLE `tb_ogrenci_tezleri`  (
 -- ----------------------------
 -- Records of tb_ogrenci_tezleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_tezleri` VALUES (1, 1, 110, 'Aile Hekimliğinde İletişim', '2022-10-05', '2022-10-21', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_tezleri` VALUES (1, 1, 133, 'Hasta Güvenliği Literatürünün Bibliyometrik Analizi', '2022-10-05', '2022-10-21', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenciler
@@ -2238,7 +2242,7 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `ogrenci_sinavlari` AS SE
 FROM 
 	tb_ogrenci_sinavlari AS os
 LEFT JOIN tb_sinav_kategorileri AS sk ON sk.id = os.sinav_kategori_id
-LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id ;
+LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id ; ;
 
 -- ----------------------------
 -- View structure for view_sistem_kullanici
@@ -2290,12 +2294,12 @@ UNION
 	,uzmanlik_dali_id
 FROM
 	tb_ogretim_elemanlari
-) ;
+) ; ;
 
 -- ----------------------------
 -- View structure for view_soyadi_yilmaz_ogrenciler
 -- ----------------------------
 DROP VIEW IF EXISTS `view_soyadi_yilmaz_ogrenciler`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogrenciler` AS select * from tb_ogrenciler where soyadi="YILMAZ" ;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogrenciler` AS select * from tb_ogrenciler where soyadi="YILMAZ" ; ;
 
 SET FOREIGN_KEY_CHECKS = 1;

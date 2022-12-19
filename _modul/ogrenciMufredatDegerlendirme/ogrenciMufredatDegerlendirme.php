@@ -256,8 +256,8 @@ foreach( $duzeyler as $duzey )
 										}
 
 										$html .= "
-												<tr class='bg-renk7'>
-													<td class='$degerlendirme_ekle_class' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>
+												<tr>
+													<td class='$degerlendirme_ekle_class bg-renk7' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>
 														<a role='button' class='text-dark $degerlendirme_ekle_class' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>$kategori[adi]</a>
 														$isaret
 													</td>
@@ -267,8 +267,8 @@ foreach( $duzeyler as $duzey )
 									if( $kategori['kategori'] == 1 ){
 
 											$html .= "
-													<tr data-widget='expandable-table' aria-expanded='false' class='bg-renk$renk border-0'>
-														<td>
+													<tr data-widget='expandable-table' aria-expanded='false' class='border-0'>
+														<td class='bg-renk$renk'>
 														$kategori[adi]
 														<i class='expandable-table-caret fas fa-caret-right fa-fw'></i>
 														</td>
@@ -307,7 +307,7 @@ foreach( $duzeyler as $duzey )
 		</div>
 		<!-- right column -->
 	</div>
-
+</div>
 	<div id="gorevli"></div>
 
 	<!-- UYARI MESAJI VE BUTONU-->

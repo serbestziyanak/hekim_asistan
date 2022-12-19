@@ -139,3 +139,41 @@ ul.tree:before {
   color:rgb(0, 0, 0);
 }
 
+@media print {
+    .bg-renk1 td {
+        background-color: #264653 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk2 td {
+        background-color: #2a9d8f !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk3 td {
+        background-color: #f4a261 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk4 td {
+        background-color: #e76f51 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk5 td {
+        background-color: #a5908af6 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk6 td {
+        background-color: #eaac8b8e !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+    .bg-renk7 td {
+        background-color: #dfdfdf !important;
+        color:rgb(0, 0, 0) !important;
+        -webkit-print-color-adjust: exact !important; 
+    }
+}
+

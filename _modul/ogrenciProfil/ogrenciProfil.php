@@ -20,42 +20,6 @@ $satir_renk				= $id > 0	? 'table-warning'						: '';
 $kaydet_buton_yazi		= $id > 0	? 'Güncelle'							: 'Kaydet';
 $kaydet_buton_cls		= $id > 0	? 'btn btn-warning btn-sm pull-right'	: 'btn btn-success btn-sm pull-right';
 
-
-
-$SQL_tum_ogrenci_tezleri = <<< SQL
-SELECT 
-	os.*
-	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
-FROM 
-	tb_ogrenci_tezleri AS os
-LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
-WHERE
-	os.uzmanlik_dali_id = ?
-SQL;
-
-$SQL_tum_ogrenci_tezleri2 = <<< SQL
-SELECT 
-	os.*
-	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
-FROM 
-	tb_ogrenci_tezleri AS os
-LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
-WHERE
-	os.uzmanlik_dali_id = ? AND o.id = ?
-SQL;
-
-
-$SQL_tek_ogrenci_tez_oku = <<< SQL
-SELECT 
-	*
-FROM 
-	tb_ogrenci_tezleri
-WHERE 
-	id 				= ?
-SQL;
-
-
-
 $SQL_ogrenci_bilgileri = <<< SQL
 SELECT 
 	o.*
@@ -77,14 +41,91 @@ WHERE
   o.id                = ?
 SQL;
 
-if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
-	$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri2, array( $_SESSION[ 'uzmanlik_dali_id'], $_SESSION[ 'kullanici_id'] ) )[ 2 ];
-}else{
-	$ogrenci_tezleri		= $vt->select( $SQL_tum_ogrenci_tezleri, array( $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
-}
 
-@$tek_ogrenci_tez		= $vt->select( $SQL_tek_ogrenci_tez_oku, array( $id ) )[ 2 ][ 0 ];
-$ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$SQL_ogrenci_tezi = <<< SQL
+SELECT 
+	os.*
+	,concat(o.adi," ",o.soyadi) AS ogrenci_adi_soyadi
+FROM 
+	tb_ogrenci_tezleri AS os
+LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
+WHERE
+	os.uzmanlik_dali_id = ? AND o.id = ?
+SQL;
+
+$SQL_ogrenci_makaleleri = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogrenci_makaleleri
+WHERE
+	uzmanlik_dali_id 	= ? AND
+  ogrenci_id        = ?
+SQL;
+
+$SQL_ogrenci_bilimsel_toplantilar = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogrenci_bilimsel_toplantilar
+WHERE
+	uzmanlik_dali_id 	= ? AND
+  ogrenci_id        = ?
+SQL;
+
+$SQL_ogrenci_klinik_sunulari = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogrenci_klinik_sunulari
+WHERE
+	uzmanlik_dali_id 	= ? AND
+  ogrenci_id        = ?
+SQL;
+
+$SQL_ogrenci_tez_izlemeleri = <<< SQL
+SELECT 
+	*
+FROM 
+	tb_ogrenci_tez_izlemeleri
+WHERE
+	uzmanlik_dali_id 	= ? AND
+  ogrenci_id        = ?
+SQL;
+
+$SQL_mufredat_getir = <<< SQL
+SELECT
+	*
+FROM 
+	tb_mufredat
+WHERE 
+	rotasyon_id			= ? AND
+	uzmanlik_dali_id 	= ?
+SQL;
+
+$SQL_ogrenci_mufredat_degerlendirme = <<< SQL
+SELECT
+	omd.*
+	,concat(oe.adi," ",oe.soyadi) as ogretim_elemani_adi
+	,m.duzey
+	,m.yontem
+	,m.kidem
+FROM
+	tb_ogrenci_mufredat_degerlendirme as omd
+LEFT JOIN tb_ogretim_elemanlari AS oe ON oe.id = omd.ogretim_elemani_id
+LEFT JOIN tb_mufredat AS m ON m.id = omd.mufredat_id
+WHERE
+	omd.ogrenci_id 		= ? AND
+	omd.mufredat_id 	= ?
+SQL;
+
+$ogrenci						            = $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_tezi   		            = $vt->selectSingle( $SQL_ogrenci_tezi, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_makaleleri	            = $vt->select( $SQL_ogrenci_makaleleri, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_bilimsel_toplantilari  = $vt->select( $SQL_ogrenci_bilimsel_toplantilar, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_klinik_sunulari        = $vt->select( $SQL_ogrenci_klinik_sunulari, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_tez_izlemeleri         = $vt->select( $SQL_ogrenci_tez_izlemeleri, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$mufredatlar 			= $vt->select($SQL_mufredat_getir, array(  -1, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
 
 ?>
 
@@ -135,13 +176,13 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Uzmanlık Dalı</b> <span class="float-right"><?php echo $ogrenci['uzmanlik_dali_adi']; ?></span>
+                    <b>Uzmanlık Dalı</b> <span class="float-right text-muted"><b><?php echo $ogrenci['uzmanlik_dali_adi']; ?></b></span>
                   </li>
                   <li class="list-group-item">
-                    <b>Eğitim Danışmanı</b> <span class="float-right"><?php echo $ogrenci['egitim_danisman_adi']; ?></span>
+                    <b>Eğitim Danışmanı</b> <span class="float-right text-muted"><b><?php echo $ogrenci['egitim_danisman_adi']; ?></b></span>
                   </li>
                   <li class="list-group-item">
-                    <b>Tez Danışmanı</b> <span class="float-right"><?php echo $ogrenci['tez_danisman_adi']; ?></span>
+                    <b>Tez Danışmanı</b> <span class="float-right text-muted"><b><?php echo $ogrenci['tez_danisman_adi']; ?></b></span>
                   </li>
                 </ul>
 
@@ -159,34 +200,61 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
               <!-- /.card-header -->
               <div class="card-body">
                 <strong><i class="fas fa-book mr-1"></i> Makaleler</strong>
+                <?php foreach( $ogrenci_makaleleri as $ogrenci_makale ){ ?>
+                <p class="text-muted p-2">
+                  <?php echo $ogrenci_makale[ 'adi' ]; ?>
+                  (<b class="text-xs"><?php echo $ogrenci_makale[ 'dergi' ]; ?></b>)
+                </p>
+                <?php } ?>
+                <hr>
 
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Bilimsel Toplantılar</strong>
+
+                <?php foreach( $ogrenci_bilimsel_toplantilari as $ogrenci_bilimsel_toplanti ){ ?>
+                <p class="text-muted p-2">
+                  <?php echo $ogrenci_bilimsel_toplanti[ 'adi' ]; ?>
+                  (<b class="text-xs"><?php echo $ogrenci_bilimsel_toplanti[ 'yeri' ]." - ".$fn->tarihVer( $ogrenci_bilimsel_toplanti[ 'tarih' ] ); ?></b>)
+                  <span class="text-muted text-xs">
+                    <br><b><u>Sunular</u></b><br>
+                    <?php echo nl2br($ogrenci_bilimsel_toplanti[ 'sunular' ]); ?>
+                  </span>
+                </p>
+                <?php } ?>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Klinik Sunuları</strong>
+
+                <?php foreach( $ogrenci_klinik_sunulari as $ogrenci_klinik_sunu ){ ?>
+                <p class="text-muted p-2">
+                  <?php echo $ogrenci_klinik_sunu[ 'adi' ]; ?>
+                  (<b class="text-xs"><?php echo $ogrenci_klinik_sunu[ 'yeri' ]." - ".$fn->tarihVer( $ogrenci_klinik_sunu[ 'tarih' ] ); ?></b>)
+                </p>
+                <?php } ?>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Tez Konusu</strong>
+
+                <p class="text-muted p-2">
+                  <?php echo $ogrenci_tezi[ 'tez_konusu' ]; ?>
+                  <br>
+                  <b class="text-xs pl-2">Tez Konusu Verilme Tarihi : </b><span class="text-xs"><?php echo $fn->tarihVer( $ogrenci_tezi[ 'tez_konusu_verilme_tarihi' ] ); ?></span>
+                  <br>
+                  <b class="text-xs pl-2">Akademik Kurul Onay Tarihi : </b><span class="text-xs"><?php echo $fn->tarihVer( $ogrenci_tezi[ 'tez_konusu_verilme_tarihi' ] ); ?></span>
                 </p>
 
                 <hr>
 
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                <strong><i class="far fa-file-alt mr-1"></i> Tez İzlemeleri</strong>
 
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-olive">Node.js</span>
+                <?php foreach( $ogrenci_tez_izlemeleri as $ogrenci_tez_izleme ){ ?>
+                <p class="text-muted p-2">
+                  <?php echo $ogrenci_tez_izleme[ 'aciklama' ]; ?>
+                  (<b class="text-xs"><?php echo $ogrenci['tez_danisman_adi']." - ".$fn->tarihVer( $ogrenci_tez_izleme[ 'tarih' ] ); ?></b>)
                 </p>
+                <?php } ?>
 
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
               </div>
               <!-- /.card-body -->
             </div>
@@ -194,10 +262,10 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
           </div>
           <!-- /.col -->
           <div class="col-md-8">
-            <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+            <div class="card card-olive card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Yetkinlikler</a></li>
                   <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                 </ul>
@@ -205,117 +273,96 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                        <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Shared publicly - 7:30 PM today</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
+                    <?php
+                    if( isset($ogrenci_id) and $ogrenci_id>0 ){
+                    ?>
+                            <table class="table table-hover ">
+                              <tbody id="deneme">
+                      <?php
+                      //var_dump($mufredatlar);
+                        function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id){
+                          if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
+                            $degerlendirme_ekle_class = "";
+                          }else{
+                            $degerlendirme_ekle_class = "degerlendirmeEkle";
+                          }
+                          $html = "<tr class='expandable-body'>
+                                  <td>
+                                    <div class='p-0'>
+                                      <table class='table table-hover'>
+                                        <tbody>";
 
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
+                          foreach ($kategoriler as $kategori){
+                            if( $kategori['ust_id'] == $parent ){
+                              if( $parent == 0 ) {
+                                $renk = 1;
+                              } 
 
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
+                              if( $kategori['kategori'] == 0){
+                                $isaret = "";
+                                $ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $ogrenci_id, $kategori['id'] ) )[ 2 ];
+                                if( $ogrenci_mufredat_degerlendirme['ogrenci_id'] > 0 ){
+                                  $islem = "guncelle";
+                                  if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 1 )
+                                    //$isaret = "<i class='fas fa-check-circle text-success'></i>";
+                                    $isaret = "<h6><span class='btn btn-xs btn-success'>Başarılı</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
+                                  if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 0 )
+                                    //$isaret = "<i class='fas fa-times-circle text-danger'></i>";
+                                    $isaret = "<h6><span class='btn btn-xs btn-danger'>Başarısız</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
 
-                    <!-- Post -->
-                    <div class="post clearfix">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Sarah Ross</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Sent you a message - 3 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
+                                }else{
+                                  $islem="ekle";
+                                }
 
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.post -->
+                                $html .= "
+                                    <tr class='bg-renk7'>
+                                      <td class='$degerlendirme_ekle_class' role='button' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>
+                                        <span role='button' class='text-dark $degerlendirme_ekle_class' id='$kategori[id]' data-id='$kategori[id]' data-kategori_ad ='$kategori[adi]' data-degerlendirme='$ogrenci_mufredat_degerlendirme[degerlendirme]' data-islem='$islem' data-duzey='$kategori[duzey]' data-yontem='$kategori[yontem]' data-kidem='$kategori[kidem]'  data-modal='degerlendirme_ekle'>$kategori[adi]</span>
+                                        $isaret
+                                      </td>
+                                    </tr>";									
 
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Adam Jones</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Posted 5 photos - 5 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                          </div>
-                          <!-- /.row -->
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
+                              }
+                              if( $kategori['kategori'] == 1 ){
 
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
+                                  $html .= "
+                                      <tr data-widget='expandable-table' aria-expanded='false' class='bg-renk$renk border-0'>
+                                        <td class=''>
+                                        $kategori[adi]
+                                        <i class='expandable-table-caret fas fa-caret-right fa-fw'></i>
+                                        </td>
+                                      </tr>
+                                    ";								
+                                  $renk++;
+                                  $html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
+                                  
+                                  $renk--;
+                                
+                              }
+                            }
 
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
+                          }
+                          $html .= '
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </td>
+                              </tr>';
+                          return $html;
+                        }
+                        if( count( $mufredatlar ) ) 
+                          echo kategoriListele3($mufredatlar,0,0, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
+                        
+
+                      ?>
+                              </tbody>
+                            </table>
+                    <?php if ( count( $mufredatlar ) < 1) echo '<div class="alert alert-warning m-5">Bu uzmanlık dalı için müfredat eklenmemiş</div>'; ?>
+                    <?php
+                    }
+                    ?>
+
+
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline">
@@ -476,7 +523,16 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
     </section>
     <!-- /.content -->
 <script type="text/javascript">
+  function printDiv(divName) {
+      var printContents = document.getElementById(divName).innerHTML;
+      var originalContents = document.body.innerHTML;
 
+      document.body.innerHTML = printContents;
+
+      window.print();
+
+      document.body.innerHTML = originalContents;
+  }
 	$(function () {
 		$('#tarih').datetimepicker({
 			//defaultDate: simdi,

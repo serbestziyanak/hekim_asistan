@@ -135,17 +135,17 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Uzmanlık Dalı</b> <a class="float-right"><?php echo $ogrenci['uzmanlik_dali_adi']; ?></a>
+                    <b>Uzmanlık Dalı</b> <span class="float-right"><?php echo $ogrenci['uzmanlik_dali_adi']; ?></span>
                   </li>
                   <li class="list-group-item">
-                    <b>Eğitim Danışmanı</b> <a class="float-right"><?php echo $ogrenci['egitim_danisman_adi']; ?></a>
+                    <b>Eğitim Danışmanı</b> <span class="float-right"><?php echo $ogrenci['egitim_danisman_adi']; ?></span>
                   </li>
                   <li class="list-group-item">
-                    <b>Tez Danışmanı</b> <a class="float-right"><?php echo $ogrenci['tez_danisman_adi']; ?></a>
+                    <b>Tez Danışmanı</b> <span class="float-right"><?php echo $ogrenci['tez_danisman_adi']; ?></span>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-olive btn-block"><b>Follow</b></a>
+                <a href="#" class="btn btn-secondary btn-block"><b>Follow</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -158,7 +158,7 @@ $ogrenci						= $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'un
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                <strong><i class="fas fa-book mr-1"></i> Makaleler</strong>
 
                 <p class="text-muted">
                   B.S. in Computer Science from the University of Tennessee at Knoxville

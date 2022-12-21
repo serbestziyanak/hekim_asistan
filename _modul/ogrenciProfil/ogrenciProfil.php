@@ -103,6 +103,25 @@ WHERE
 	uzmanlik_dali_id 	= ?
 SQL;
 
+$SQL_mufredat_getir_zaman_tuneli = <<< SQL
+SELECT
+	*
+FROM 
+	tb_mufredat
+WHERE 
+	id = ?
+SQL;
+
+$SQL_zaman_tuneli = <<< SQL
+SELECT
+	*
+FROM 
+	view_zaman_tuneli
+WHERE 
+	ogrenci_id  			= ? 
+ORDER BY tarih
+SQL;
+
 $SQL_ogrenci_mufredat_degerlendirme = <<< SQL
 SELECT
 	omd.*
@@ -125,7 +144,22 @@ $ogrenci_makaleleri	            = $vt->select( $SQL_ogrenci_makaleleri, array( $
 $ogrenci_bilimsel_toplantilari  = $vt->select( $SQL_ogrenci_bilimsel_toplantilar, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
 $ogrenci_klinik_sunulari        = $vt->select( $SQL_ogrenci_klinik_sunulari, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
 $ogrenci_tez_izlemeleri         = $vt->select( $SQL_ogrenci_tez_izlemeleri, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$mufredatlar 			= $vt->select($SQL_mufredat_getir, array(  -1, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
+$mufredatlar               			= $vt->select($SQL_mufredat_getir, array(  -1, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
+$zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_id ) )[ 2 ];
+
+
+  $mufredat_id_zaman_tuneli = 71;
+  while( true ){
+    $mufredatlar_zaman_tuneli = $vt->selectSingle($SQL_mufredat_getir_zaman_tuneli, array(  $mufredat_id_zaman_tuneli ) )[ 2 ];
+    $mufredat_adi_zaman_tuneli[] = $mufredatlar_zaman_tuneli[ "adi" ];
+    if( $mufredatlar_zaman_tuneli[ "ust_id" ] > 0 ){
+      $mufredat_id_zaman_tuneli = $mufredatlar_zaman_tuneli[ "ust_id" ];
+    }else{
+      break;
+    }
+  }
+  rsort($mufredat_adi_zaman_tuneli);
+  var_dump($mufredat_adi_zaman_tuneli);
 
 ?>
 

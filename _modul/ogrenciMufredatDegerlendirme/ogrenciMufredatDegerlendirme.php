@@ -34,68 +34,6 @@ WHERE
 	uzmanlik_dali_id 	= ?
 SQL;
 
-$SQL_donemler_getir = <<< SQL
-SELECT 
-	dyd.id as id, 
-	d.id AS donem_id,
-	d.adi AS adi 
-FROM 
-	tb_ders_yili_donemleri AS dyd
-LEFT JOIN 
-	tb_donemler AS d ON d.id = dyd.donem_id
-WHERE 
-	dyd.ders_yili_id = ? AND
-	dyd.program_id 	 = ?
-SQL;
-
-/**/
-$SQL_komiteler_getir = <<< SQL
-SELECT
-	k.adi,
-	k.id,
-	k.ders_kodu 
-FROM 
-	tb_komiteler AS k
-LEFT JOIN tb_ders_yili_donemleri AS dyd ON dyd.id = k.ders_yili_donem_id
-WHERE 
-	dyd.ders_yili_id 	= ? AND 
-	dyd.donem_id 		= ? AND
-	dyd.program_id 		= ?
-SQL;
-
-$SQL_dersler_getir = <<< SQL
-SELECT 
-	d.* 
-FROM 
-	tb_donem_dersleri AS dd
-LEFT JOIN 
-	tb_dersler AS d ON d.id = dd.ders_id
-WHERE 
-	dd.ders_yili_donem_id = ?
-SQL;
-
-$SQL_donemler_getir = <<< SQL
-SELECT
-	dyd.id AS id,
-	d.adi AS adi
-FROM
-	tb_ders_yili_donemleri AS dyd
-LEFT JOIN tb_donemler AS d ON d.id = dyd.donem_id 
-WHERE
-	d.universite_id 	= ? AND
-	dyd.ders_yili_id 	= ? AND
-	dyd.program_id 		= ? AND
-	d.aktif 			= 1
-SQL;
-
-$SQL_soru_tipi_getir = <<< SQL
-SELECT
-	*
-FROM
-	tb_soru_turleri
-WHERE
-	universite_id 	= ?
-SQL;
 
 $SQL_duzeyler = <<< SQL
 SELECT
@@ -155,11 +93,7 @@ WHERE
 	omd.mufredat_id 	= ?
 SQL;
 
-$donemler 	 			= $vt->select( $SQL_donemler_getir, array( $_SESSION[ "universite_id" ], $_SESSION[ "aktif_yil" ], $_SESSION[ "program_id" ] ) )[2];
-@$_SESSION[ "donem_id" ] = $_SESSION[ "donem_id" ] ? $_SESSION[ "donem_id" ]  : $donemler[ 0 ][ "id" ];
 @$mufredatlar 			= $vt->select($SQL_mufredat_getir, array(  $rotasyon_id, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
-$dersler 	 			= $vt->select($SQL_dersler_getir, array( $_SESSION[ "donem_id" ] ) )[ 2 ];
-$soruTurleri 	 		= $vt->select($SQL_soru_tipi_getir, array( $_SESSION[ "universite_id" ] ) )[ 2 ];
 $duzeyler 	 			= $vt->select($SQL_duzeyler, array(  ) )[ 2 ];
 $yontemler 	 			= $vt->select($SQL_yontemler, array(  ) )[ 2 ];
 $rotasyonlar			= $vt->select( $SQL_tum_rotasyonlar, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];

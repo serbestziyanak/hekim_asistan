@@ -20,6 +20,7 @@ SET
 	,mufredat_id		= ?
 	,degerlendirme 		= ?
 	,ogretim_elemani_id	= ?
+	,ekleme_tarihi		= now()
 SQL;
 
 
@@ -33,6 +34,7 @@ SET
 	,mufredat_id		= ?
 	,degerlendirme 		= ?
 	,ogretim_elemani_id	= ?
+	,guncelleme_tarihi	= now()
 WHERE 
 	ogrenci_id 		= ? AND
 	mufredat_id 	= ?

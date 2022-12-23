@@ -119,7 +119,7 @@ FROM
 	view_zaman_tuneli
 WHERE 
 	ogrenci_id  			= ? 
-ORDER BY tarih
+ORDER BY tarih desc
 SQL;
 
 $SQL_ogrenci_mufredat_degerlendirme = <<< SQL
@@ -148,18 +148,7 @@ $mufredatlar               			= $vt->select($SQL_mufredat_getir, array(  -1, $_S
 $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_id ) )[ 2 ];
 
 
-  $mufredat_id_zaman_tuneli = 71;
-  while( true ){
-    $mufredatlar_zaman_tuneli = $vt->selectSingle($SQL_mufredat_getir_zaman_tuneli, array(  $mufredat_id_zaman_tuneli ) )[ 2 ];
-    $mufredat_adi_zaman_tuneli[] = $mufredatlar_zaman_tuneli[ "adi" ];
-    if( $mufredatlar_zaman_tuneli[ "ust_id" ] > 0 ){
-      $mufredat_id_zaman_tuneli = $mufredatlar_zaman_tuneli[ "ust_id" ];
-    }else{
-      break;
-    }
-  }
-  rsort($mufredat_adi_zaman_tuneli);
-  var_dump($mufredat_adi_zaman_tuneli);
+
 
 ?>
 
@@ -299,14 +288,14 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
             <div class="card card-olive card-tabs">
               <div class="card-header p-0 pt-1">
                 <ul class="nav nav-tabs">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Yetkinlikler</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Yetkinlikler</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Zaman Tüneli</a></li>
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
+                  <div class="tab-pane" id="activity">
                     <?php
                     if( isset($ogrenci_id) and $ogrenci_id>0 ){
                     ?>
@@ -399,94 +388,89 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
 
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
+                  <div class="active tab-pane" id="timeline">
                     <!-- The timeline -->
                     <div class="timeline timeline-inverse">
+                      <?php
+                        $renkler = array("olive","info","danger","warning","orange","maroon","purple");
+                        $renkler_ters = array_reverse($renkler);
+                        $renk_sira = 0;
+                        $en_son_tarih = "";
+                        foreach( $zaman_tuneli as $zaman_tuneli_deger ){
+                          unset( $mufredat_adi_zaman_tuneli );
+                          $mufredat_id_zaman_tuneli = $zaman_tuneli_deger['mufredat_id'];
+                          while( true ){
+                            $mufredatlar_zaman_tuneli = $vt->selectSingle($SQL_mufredat_getir_zaman_tuneli, array(  $mufredat_id_zaman_tuneli ) )[ 2 ];
+                            $mufredat_adi_zaman_tuneli[] = $mufredatlar_zaman_tuneli[ "adi" ];
+                            if( $mufredatlar_zaman_tuneli[ "ust_id" ] > 0 ){
+                              $mufredat_id_zaman_tuneli = $mufredatlar_zaman_tuneli[ "ust_id" ];
+                            }else{
+                              break;
+                            }
+                          }
+                          $mufredat_adi_zaman_tuneli = array_reverse($mufredat_adi_zaman_tuneli);
+                          //var_dump($mufredat_adi_zaman_tuneli);
+                      ?>
                       <!-- timeline time label -->
+                      <?php 
+                      if( $en_son_tarih != $fn->tarihVer( $zaman_tuneli_deger[ 'tarih' ] ) ){
+                      ?>
                       <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
+                        <span class="bg-<?php echo $renkler_ters[$renk_sira%count($renkler_ters)]; ?> text-white">
+                          <?php echo $fn->tarihVer( $zaman_tuneli_deger[ 'tarih' ] ); ?>
                         </span>
                       </div>
+                      <?php
+                      }
+                      $en_son_tarih = $fn->tarihVer( $zaman_tuneli_deger[ 'tarih' ] );
+                      ?>
                       <!-- /.timeline-label -->
                       <!-- timeline item -->
                       <div>
-                        <i class="fas fa-envelope bg-olive"></i>
+                        <i class="fas fa-tasks bg-<?php echo $renkler[$renk_sira%count($renkler)]; ?>"></i>
 
                         <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
+                          <span class="time"><i class="far fa-clock"></i> <?php echo $fn->saatDakikaVer( $zaman_tuneli_deger[ 'tarih' ] ); ?></span>
+                          <?php if( $zaman_tuneli_deger['islem_turu'] == "ekleme" ){ ?>
+                          <h3 class="timeline-header"><a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesi yaptı. <i class="fas fa-plus-square text-success"></i></h3>
+                          <?php } ?>
 
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                          <?php if( $zaman_tuneli_deger['islem_turu'] == "guncelleme" ){ ?>
+                          <h3 class="timeline-header"><a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesini güncelledi. <i class="fas fa-edit text-warning"></i></h3>
+                          <?php } ?>
 
                           <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
+                            <?php 
+                              $sira = 0;
+                              foreach( $mufredat_adi_zaman_tuneli as $mufredat ){
+                                if( $sira == (count( $mufredat_adi_zaman_tuneli ) -1) )
+                                  echo "<b>".str_repeat( "&emsp;", $sira )." <i class='fas fa-caret-right'></i> ".$mufredat."</b><br>";
+                                else
+                                  echo str_repeat( "&emsp;", $sira )." <i class='fas fa-caret-right'></i> ".$mufredat."<br>";
+                              $sira++;
+                              }
+                              $sira = 0;
+                              
+                            ?>
                           </div>
                           <div class="timeline-footer">
-                            <a href="#" class="btn btn-olive btn-sm">Read more</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                            <?php if( $zaman_tuneli_deger['degerlendirme'] == 0 ){ ?>
+                            <a  class="btn btn-danger btn-xs">Başarısız</a>
+                            <?php } ?>
+                            <?php if( $zaman_tuneli_deger['degerlendirme'] == 1 ){ ?>
+                            <a  class="btn btn-success btn-xs">Başarılı</a>
+                            <?php } ?>
+                            <a  class="btn btn-primary btn-xs"><?php echo $zaman_tuneli_deger['ogretim_elemani_adi']; ?></a>
                           </div>
                         </div>
                       </div>
                       <!-- END timeline item -->
+                      <?php
+                          $renk_sira++;
+                        }
+                      ?>
                       <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
 
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-comments bg-warning"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-success">
-                          3 Jan. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-camera bg-purple"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                          <div class="timeline-body">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                          </div>
-                        </div>
-                      </div>
                       <!-- END timeline item -->
                       <div>
                         <i class="far fa-clock bg-gray"></i>

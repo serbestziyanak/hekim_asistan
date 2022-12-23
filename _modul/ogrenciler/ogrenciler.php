@@ -153,6 +153,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 									<th>Adı Soyadı</th>
 									<th>Başlama Tarihi</th>
 									<th>Uzmanlık Dalı</th>
+									<th data-priority="1" style="width: 20px">Profil</th>
 									<th data-priority="1" style="width: 20px">Düzenle</th>
 									<th data-priority="1" style="width: 20px">Sil</th>
 								</tr>
@@ -166,6 +167,11 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 									<td><?php echo $ogrenci[ 'o_adi' ]; ?></td>
 									<td><?php echo $fn->tarihVer($ogrenci[ 'baslama_tarihi' ]); ?></td>
 									<td><?php echo $ogrenci[ 'uzmanlik_dali_adi' ]; ?></td>
+									<td align = "center">
+										<a modul = 'ogrenciler' yetki_islem="profil_goster" class="text-olive" href = "?modul=ogrenciProfil&ogrenci_id=<?php echo $ogrenci[ 'id' ]; ?>" >
+											<h5><i class="fas fa-id-card"></i></h5>
+										</a>
+									</td>
 									<td align = "center">
 										<a modul = 'ogrenciler' yetki_islem="duzenle" class = "btn btn-sm btn-warning btn-xs" href = "?modul=ogrenciler&islem=guncelle&ogrenci_id=<?php echo $ogrenci[ 'id' ]; ?>" >
 											Düzenle

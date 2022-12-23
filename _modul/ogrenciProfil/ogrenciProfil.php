@@ -460,6 +460,9 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                             <?php if( $zaman_tuneli_deger['degerlendirme'] == 1 ){ ?>
                             <a  class="btn btn-success btn-xs">Başarılı</a>
                             <?php } ?>
+                            <?php if( $zaman_tuneli_deger['degerlendirme'] == -1 ){ ?>
+                            <a  class="btn btn-warning btn-xs">Değerlendirilmedi</a>
+                            <?php } ?>
                             <a  class="btn btn-primary btn-xs"><?php echo $zaman_tuneli_deger['ogretim_elemani_adi']; ?></a>
                           </div>
                         </div>

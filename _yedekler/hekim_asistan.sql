@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 100424 (10.4.24-MariaDB)
+ Source Server Version : 100422 (10.4.22-MariaDB)
  Source Host           : localhost:3306
  Source Schema         : hekim_asistan
 
  Target Server Type    : MySQL
- Target Server Version : 100424 (10.4.24-MariaDB)
+ Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 20/12/2022 02:18:48
+ Date: 23/12/2022 16:01:49
 */
 
 SET NAMES utf8mb4;
@@ -740,7 +740,7 @@ INSERT INTO `tb_modul` VALUES (148, 'Klinik Sunuları', 'ogrenciKlinikSunulari',
 INSERT INTO `tb_modul` VALUES (149, 'Tezler', 'ogrenciTezleri', 'ogrenciTezleri', 'fas fa-book text-orange', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (150, 'Tez İzlemeleri', 'ogrenciTezIzlemeleri', 'ogrenciTezIzlemeleri', 'fas fa-book text-primary', 1, 130, 0, 8, 0, 0);
 INSERT INTO `tb_modul` VALUES (151, 'Müfredat Değerlendirme', 'ogrenciMufredatDegerlendirme', 'ogrenciMufredatDegerlendirme', 'fas fa-clipboard-list ', 1, 130, 0, 8, 0, 0);
-INSERT INTO `tb_modul` VALUES (152, 'Öğrenci Profil', 'ogrenciProfil', 'ogrenciProfil', NULL, 1, 0, 0, 1, 0, 0);
+INSERT INTO `tb_modul` VALUES (152, 'Öğrenci Profil', 'ogrenciProfil', 'ogrenciProfil', 'fas fa-id-card text-olive', 1, 0, 0, 1, 0, 0);
 
 -- ----------------------------
 -- Table structure for tb_modul_yetki_islemler
@@ -1405,15 +1405,14 @@ CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
 -- ----------------------------
 -- Records of tb_ogrenci_mufredat_degerlendirme
 -- ----------------------------
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (1, 1, -1, 133, 142, 0, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 133, 71, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 133, 73, 0, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 133, 72, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 133, 76, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 133, 96, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (7, 1, -1, 133, 240, 1, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (8, 1, -1, 133, 241, 0, 4, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, -1, 133, 242, -1, 4, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 133, 71, -1, 4, '2022-12-02 14:56:21', '2022-12-23 15:45:40', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 133, 73, 0, 4, '2022-12-03 14:56:21', '2022-12-21 15:43:25', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 133, 72, 1, 4, '2022-12-06 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 133, 76, 1, 4, '2022-12-08 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 133, 96, 1, 4, '2022-12-11 14:56:21', '2022-12-22 17:37:35', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (7, 1, -1, 133, 240, 1, 4, '2022-12-22 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (8, 1, -1, 133, 241, 0, 4, '2022-12-21 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, -1, 133, 242, 0, 4, '2022-12-23 15:44:07', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari
@@ -2242,7 +2241,7 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `ogrenci_sinavlari` AS SE
 FROM 
 	tb_ogrenci_sinavlari AS os
 LEFT JOIN tb_sinav_kategorileri AS sk ON sk.id = os.sinav_kategori_id
-LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id ; ;
+LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id ;
 
 -- ----------------------------
 -- View structure for view_sistem_kullanici
@@ -2294,12 +2293,50 @@ UNION
 	,uzmanlik_dali_id
 FROM
 	tb_ogretim_elemanlari
-) ; ;
+) ;
 
 -- ----------------------------
 -- View structure for view_soyadi_yilmaz_ogrenciler
 -- ----------------------------
 DROP VIEW IF EXISTS `view_soyadi_yilmaz_ogrenciler`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogrenciler` AS select * from tb_ogrenciler where soyadi="YILMAZ" ; ;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogrenciler` AS select * from tb_ogrenciler where soyadi="YILMAZ" ;
+
+-- ----------------------------
+-- View structure for view_zaman_tuneli
+-- ----------------------------
+DROP VIEW IF EXISTS `view_zaman_tuneli`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_zaman_tuneli` AS (
+select 
+	 omd.uzmanlik_dali_id
+	,omd.rotasyon_id
+	,omd.ogrenci_id
+	,omd.mufredat_id
+	,omd.degerlendirme
+	,concat(u.adi," ",oe.adi," ",oe.soyadi) as ogretim_elemani_adi
+	,oe.resim
+	,omd.ekleme_tarihi as tarih
+	,"ekleme" as islem_turu
+from tb_ogrenci_mufredat_degerlendirme as omd
+left join tb_ogretim_elemanlari as oe on oe.id = omd.ogretim_elemani_id
+left join tb_unvanlar as u on u.id = oe.unvan_id
+where ekleme_tarihi is not null
+)
+union
+(
+select 
+	 omd.uzmanlik_dali_id
+	,omd.rotasyon_id
+	,omd.ogrenci_id
+	,omd.mufredat_id
+	,omd.degerlendirme
+	,concat(u.adi," ",oe.adi," ",oe.soyadi) as ogretim_elemani_adi
+	,oe.resim
+	,omd.guncelleme_tarihi as tarih
+	,"guncelleme" as islem_turu
+from tb_ogrenci_mufredat_degerlendirme as omd
+left join tb_ogretim_elemanlari as oe on oe.id = omd.ogretim_elemani_id
+left join tb_unvanlar as u on u.id = oe.unvan_id
+where guncelleme_tarihi is not null
+) ;
 
 SET FOREIGN_KEY_CHECKS = 1;

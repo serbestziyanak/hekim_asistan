@@ -11,7 +11,7 @@
  Target Server Version : 100422 (10.4.22-MariaDB)
  File Encoding         : 65001
 
- Date: 23/12/2022 16:01:49
+ Date: 28/12/2022 17:32:11
 */
 
 SET NAMES utf8mb4;
@@ -1300,6 +1300,7 @@ INSERT INTO `tb_mufredat` VALUES (243, 148, 'YAŞLI SAĞLIĞININ YÖNETİMİ  ',
 DROP TABLE IF EXISTS `tb_ogrenci_bilimsel_toplanti_sunulari`;
 CREATE TABLE `tb_ogrenci_bilimsel_toplanti_sunulari`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `ogrenci_bilimsel_toplanti_id` int NULL DEFAULT NULL,
@@ -1320,6 +1321,7 @@ CREATE TABLE `tb_ogrenci_bilimsel_toplanti_sunulari`  (
 DROP TABLE IF EXISTS `tb_ogrenci_bilimsel_toplantilar`;
 CREATE TABLE `tb_ogrenci_bilimsel_toplantilar`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
@@ -1335,7 +1337,7 @@ CREATE TABLE `tb_ogrenci_bilimsel_toplantilar`  (
 -- ----------------------------
 -- Records of tb_ogrenci_bilimsel_toplantilar
 -- ----------------------------
-INSERT INTO `tb_ogrenci_bilimsel_toplantilar` VALUES (2, 1, 133, 'Doku Mühendisliğinde Biyomimetik Yaklaşımlar', 'Acıbadem Üniversitesi', '2022-10-05', '1) Doku Mühendisliğinde Kullanılan Teknolojiler\r\n2) Tıp Eğitiminde Yapay Zeka', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_bilimsel_toplantilar` VALUES (2, 1, 1, 133, 'Doku Mühendisliğinde Biyomimetik Yaklaşımlar', 'Acıbadem Üniversitesi', '2022-10-05', '1) Doku Mühendisliğinde Kullanılan Teknolojiler\r\n2) Tıp Eğitiminde Yapay Zeka', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_klinik_sunulari
@@ -1343,6 +1345,7 @@ INSERT INTO `tb_ogrenci_bilimsel_toplantilar` VALUES (2, 1, 133, 'Doku Mühendis
 DROP TABLE IF EXISTS `tb_ogrenci_klinik_sunulari`;
 CREATE TABLE `tb_ogrenci_klinik_sunulari`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
@@ -1357,8 +1360,8 @@ CREATE TABLE `tb_ogrenci_klinik_sunulari`  (
 -- ----------------------------
 -- Records of tb_ogrenci_klinik_sunulari
 -- ----------------------------
-INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 133, 'Pandemide Alıcı-Verici Hazırlanması', 'Cengiz Andiç Konferans Salonu', '2022-10-12', NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (2, 1, 133, 'Solid Organ Nakli Enfeksiyonları Mikrobiyolojisi', 'Dursun Odabaş Tıp Merkezi Amfi III', '2022-12-13', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (1, 1, 1, 133, 'Pandemide Alıcı-Verici Hazırlanması', 'Cengiz Andiç Konferans Salonu', '2022-10-12', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (2, 1, 1, 133, 'Solid Organ Nakli Enfeksiyonları Mikrobiyolojisi', 'Dursun Odabaş Tıp Merkezi Amfi III', '2022-12-13', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_makaleleri
@@ -1366,6 +1369,7 @@ INSERT INTO `tb_ogrenci_klinik_sunulari` VALUES (2, 1, 133, 'Solid Organ Nakli E
 DROP TABLE IF EXISTS `tb_ogrenci_makaleleri`;
 CREATE TABLE `tb_ogrenci_makaleleri`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `adi` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
@@ -1379,10 +1383,10 @@ CREATE TABLE `tb_ogrenci_makaleleri`  (
 -- ----------------------------
 -- Records of tb_ogrenci_makaleleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_makaleleri` VALUES (2, 1, 133, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_makaleleri` VALUES (3, 1, 128, 'Deneme', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi) Layık M. E. , Ekin M., Demirci A.		', NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_makaleleri` VALUES (4, 1, 110, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_makaleleri` VALUES (6, 1, 133, 'The Relationship Between Qt Interval And Pain Severity In Trauma Patients In The Emergency Department', 'KASTAMONU MEDICAL JOURNAL, cilt.1, sa.3, ss.75-78, 2021 (Hakemli Dergi) Nimetoğlu M. S. , Gökdemir M. T. , İz M., Layık M. E.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (2, 1, 1, 133, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (3, 1, 1, 128, 'Deneme', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi) Layık M. E. , Ekin M., Demirci A.		', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (4, 1, 1, 110, 'Evaluation Of The Effect On Perinatal Outcomes Of Maternal Body Mass Index In Ceasarean Births', 'Van Tıp Dergisi, cilt.24, sa.1, ss.1-6, 2017 (Hakemli Dergi)\r\nLayık M. E. , Ekin M., Demirci A.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_makaleleri` VALUES (6, 1, 1, 133, 'The Relationship Between Qt Interval And Pain Severity In Trauma Patients In The Emergency Department', 'KASTAMONU MEDICAL JOURNAL, cilt.1, sa.3, ss.75-78, 2021 (Hakemli Dergi) Nimetoğlu M. S. , Gökdemir M. T. , İz M., Layık M. E.', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_mufredat_degerlendirme
@@ -1390,6 +1394,7 @@ INSERT INTO `tb_ogrenci_makaleleri` VALUES (6, 1, 133, 'The Relationship Between
 DROP TABLE IF EXISTS `tb_ogrenci_mufredat_degerlendirme`;
 CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `rotasyon_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
@@ -1405,14 +1410,14 @@ CREATE TABLE `tb_ogrenci_mufredat_degerlendirme`  (
 -- ----------------------------
 -- Records of tb_ogrenci_mufredat_degerlendirme
 -- ----------------------------
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, -1, 133, 71, -1, 4, '2022-12-02 14:56:21', '2022-12-23 15:45:40', NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, -1, 133, 73, 0, 4, '2022-12-03 14:56:21', '2022-12-21 15:43:25', NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, -1, 133, 72, 1, 4, '2022-12-06 14:56:21', NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, -1, 133, 76, 1, 4, '2022-12-08 14:56:21', NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, -1, 133, 96, 1, 4, '2022-12-11 14:56:21', '2022-12-22 17:37:35', NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (7, 1, -1, 133, 240, 1, 4, '2022-12-22 14:56:21', NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (8, 1, -1, 133, 241, 0, 4, '2022-12-21 14:56:21', NULL, NULL);
-INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, -1, 133, 242, 0, 4, '2022-12-23 15:44:07', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (2, 1, 1, -1, 133, 71, -1, 4, '2022-12-02 14:56:21', '2022-12-23 15:45:40', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (3, 1, 1, -1, 133, 73, 0, 4, '2022-12-03 14:56:21', '2022-12-21 15:43:25', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (4, 1, 1, -1, 133, 72, 1, 4, '2022-12-06 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (5, 1, 1, -1, 133, 76, 1, 4, '2022-12-08 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (6, 1, 1, -1, 133, 96, 1, 4, '2022-12-11 14:56:21', '2022-12-22 17:37:35', NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (7, 1, 1, -1, 133, 240, 1, 4, '2022-12-22 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (8, 1, 1, -1, 133, 241, 0, 4, '2022-12-21 14:56:21', NULL, NULL);
+INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, 1, -1, 133, 242, 0, 4, '2022-12-23 15:44:07', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_sinavlari
@@ -1420,6 +1425,7 @@ INSERT INTO `tb_ogrenci_mufredat_degerlendirme` VALUES (9, 1, -1, 133, 242, 0, 4
 DROP TABLE IF EXISTS `tb_ogrenci_sinavlari`;
 CREATE TABLE `tb_ogrenci_sinavlari`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `sinav_kategori_id` int NULL DEFAULT NULL,
@@ -1430,15 +1436,15 @@ CREATE TABLE `tb_ogrenci_sinavlari`  (
   `onaylayan_id` int NULL DEFAULT NULL,
   `onay_tarihi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ogrenci_sinavlari
 -- ----------------------------
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (2, 1, 133, 1, 'Formatif Sınav 1', '2022-10-05', 54, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (3, 1, 133, 1, 'Formatif Sınav 2', '2022-10-04', 75.6, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (4, 1, 133, 1, 'Formatif Sınav 3', '2022-11-22', 82.5, NULL, NULL, NULL);
-INSERT INTO `tb_ogrenci_sinavlari` VALUES (5, 1, 133, 2, 'Summatif Sınav', '2022-12-20', 85.5, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (2, 1, 1, 133, 1, 'Formatif Sınav 1', '2022-10-05', 54, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (3, 1, 1, 133, 1, 'Formatif Sınav 2', '2022-10-04', 75.6, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (4, 1, 1, 133, 1, 'Formatif Sınav 3', '2022-11-22', 82.5, NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_sinavlari` VALUES (5, 1, 1, 133, 2, 'Summatif Sınav', '2022-12-20', 85.5, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_tez_izlemeleri
@@ -1446,6 +1452,7 @@ INSERT INTO `tb_ogrenci_sinavlari` VALUES (5, 1, 133, 2, 'Summatif Sınav', '202
 DROP TABLE IF EXISTS `tb_ogrenci_tez_izlemeleri`;
 CREATE TABLE `tb_ogrenci_tez_izlemeleri`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `ogrenci_tez_id` int NULL DEFAULT NULL,
@@ -1460,7 +1467,7 @@ CREATE TABLE `tb_ogrenci_tez_izlemeleri`  (
 -- ----------------------------
 -- Records of tb_ogrenci_tez_izlemeleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_tez_izlemeleri` VALUES (1, 1, 133, 0, '2022-10-11', 'Tez çalışmaları incelendi. Yeni makaleler önerildi.', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_tez_izlemeleri` VALUES (1, 1, 1, 133, 1, '2022-10-11', 'Tez çalışmaları incelendi. Yeni makaleler önerildi.', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenci_tezleri
@@ -1468,6 +1475,7 @@ INSERT INTO `tb_ogrenci_tez_izlemeleri` VALUES (1, 1, 133, 0, '2022-10-11', 'Tez
 DROP TABLE IF EXISTS `tb_ogrenci_tezleri`;
 CREATE TABLE `tb_ogrenci_tezleri`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `universite_id` int NULL DEFAULT NULL,
   `uzmanlik_dali_id` int NULL DEFAULT NULL,
   `ogrenci_id` int NULL DEFAULT NULL,
   `tez_konusu` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL,
@@ -1482,7 +1490,7 @@ CREATE TABLE `tb_ogrenci_tezleri`  (
 -- ----------------------------
 -- Records of tb_ogrenci_tezleri
 -- ----------------------------
-INSERT INTO `tb_ogrenci_tezleri` VALUES (1, 1, 133, 'Hasta Güvenliği Literatürünün Bibliyometrik Analizi', '2022-10-05', '2022-10-21', NULL, NULL, NULL);
+INSERT INTO `tb_ogrenci_tezleri` VALUES (1, 1, 1, 133, 'Hasta Güvenliği Literatürünün Bibliyometrik Analizi', '2022-10-05', '2022-10-21', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_ogrenciler
@@ -2016,7 +2024,7 @@ CREATE TABLE `tb_universiteler`  (
   `adi` varchar(255) CHARACTER SET utf8 COLLATE utf8_turkish_ci NULL DEFAULT NULL,
   `aktif` tinyint NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_turkish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_universiteler
@@ -2026,6 +2034,7 @@ INSERT INTO `tb_universiteler` VALUES (2, 'İstanbul Teknik Üniversitesi', 0);
 INSERT INTO `tb_universiteler` VALUES (3, 'Hacattepe Üniversitesi', 0);
 INSERT INTO `tb_universiteler` VALUES (4, 'Yıldız Teknik Üniversitesi', 0);
 INSERT INTO `tb_universiteler` VALUES (5, 'Dicle Üniversitesi', 1);
+INSERT INTO `tb_universiteler` VALUES (6, 'Adana Şehir Eğitim ve Araştırma Hastanesi', 1);
 
 -- ----------------------------
 -- Table structure for tb_unvanlar
@@ -2307,7 +2316,8 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_soyadi_yilmaz_ogren
 DROP VIEW IF EXISTS `view_zaman_tuneli`;
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `view_zaman_tuneli` AS (
 select 
-	 omd.uzmanlik_dali_id
+	 omd.universite_id
+	,omd.uzmanlik_dali_id
 	,omd.rotasyon_id
 	,omd.ogrenci_id
 	,omd.mufredat_id
@@ -2324,7 +2334,8 @@ where ekleme_tarihi is not null
 union
 (
 select 
-	 omd.uzmanlik_dali_id
+	 omd.universite_id
+	,omd.uzmanlik_dali_id
 	,omd.rotasyon_id
 	,omd.ogrenci_id
 	,omd.mufredat_id

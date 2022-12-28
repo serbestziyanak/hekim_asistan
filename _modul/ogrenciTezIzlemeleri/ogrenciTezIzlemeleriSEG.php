@@ -13,7 +13,8 @@ $SQL_ekle = <<< SQL
 INSERT INTO
 	tb_ogrenci_tez_izlemeleri
 SET
-	 uzmanlik_dali_id	 = ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
 	,ogrenci_tez_id		 = ?
 	,tarih				 = ?
@@ -24,7 +25,8 @@ $SQL_guncelle = <<< SQL
 UPDATE
 	tb_ogrenci_tez_izlemeleri
 SET
-	 uzmanlik_dali_id	 = ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
 	,ogrenci_tez_id		 = ?
 	,tarih				 = ?
@@ -46,7 +48,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 	switch( $_REQUEST[ 'islem' ] ) {
 		case 'ekle':
 			$sorgu_sonuc = $vt->insert( $SQL_ekle, array(
-				 $_REQUEST['uzmanlik_dali_id']
+				 $_SESSION['universite_id']
+				,$_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
 				,$_REQUEST['ogrenci_tez_id']
 				,$tarih
@@ -56,7 +59,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 		break;
 		case 'guncelle':
 			$sorgu_sonuc = $vt->update( $SQL_guncelle, array(
-				 $_REQUEST['uzmanlik_dali_id']
+				 $_SESSION['universite_id']
+				,$_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
 				,$_REQUEST['ogrenci_tez_id']
 				,$tarih

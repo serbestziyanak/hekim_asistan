@@ -30,7 +30,9 @@ FROM
 	tb_ogrenci_makaleleri AS os
 LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
 WHERE
-	os.uzmanlik_dali_id = ?
+	os.uzmanlik_dali_id = ? AND
+	o.universite_id		= ?
+
 SQL;
 
 $SQL_tum_ogrenci_makaleleri2 = <<< SQL
@@ -41,7 +43,9 @@ FROM
 	tb_ogrenci_makaleleri AS os
 LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
 WHERE
-	os.uzmanlik_dali_id = ? AND o.id = ?
+	os.uzmanlik_dali_id = ? AND 
+	o.universite_id = ? AND 
+	o.id = ?
 SQL;
 
 
@@ -71,9 +75,9 @@ ORDER BY o.adi ASC
 SQL;
 
 if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
-	$ogrenci_makaleleri			= $vt->select( $SQL_tum_ogrenci_makaleleri2, array( $_SESSION['uzmanlik_dali_id'], $_SESSION['kullanici_id'] ) )[ 2 ];
+	$ogrenci_makaleleri			= $vt->select( $SQL_tum_ogrenci_makaleleri2, array( $_SESSION['uzmanlik_dali_id'], $_SESSION['universite_id'], $_SESSION['kullanici_id'] ) )[ 2 ];
 }else{
-	$ogrenci_makaleleri			= $vt->select( $SQL_tum_ogrenci_makaleleri, array( $_SESSION['uzmanlik_dali_id'] ) )[ 2 ];
+	$ogrenci_makaleleri			= $vt->select( $SQL_tum_ogrenci_makaleleri, array( $_SESSION['uzmanlik_dali_id'], $_SESSION['universite_id'] ) )[ 2 ];
 }
 @$tek_ogrenci_makale		= $vt->select( $SQL_tek_ogrenci_makale_oku, array( $id ) )[ 2 ][ 0 ];
 $ogrenciler					= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];

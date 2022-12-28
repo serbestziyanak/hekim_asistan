@@ -50,7 +50,9 @@ FROM
 	tb_ogrenci_tezleri AS os
 LEFT JOIN tb_ogrenciler AS o ON o.id = os.ogrenci_id
 WHERE
-	os.uzmanlik_dali_id = ? AND o.id = ?
+	os.uzmanlik_dali_id = ? AND 
+  o.universite_id     = ? AND
+  o.id = ?
 SQL;
 
 $SQL_ogrenci_makaleleri = <<< SQL
@@ -59,6 +61,7 @@ SELECT
 FROM 
 	tb_ogrenci_makaleleri
 WHERE
+	universite_id    	= ? AND
 	uzmanlik_dali_id 	= ? AND
   ogrenci_id        = ?
 SQL;
@@ -69,6 +72,7 @@ SELECT
 FROM 
 	tb_ogrenci_bilimsel_toplantilar
 WHERE
+	universite_id    	= ? AND
 	uzmanlik_dali_id 	= ? AND
   ogrenci_id        = ?
 SQL;
@@ -79,6 +83,7 @@ SELECT
 FROM 
 	tb_ogrenci_klinik_sunulari
 WHERE
+	universite_id    	= ? AND
 	uzmanlik_dali_id 	= ? AND
   ogrenci_id        = ?
 SQL;
@@ -89,6 +94,7 @@ SELECT
 FROM 
 	tb_ogrenci_tez_izlemeleri
 WHERE
+	universite_id    	= ? AND
 	uzmanlik_dali_id 	= ? AND
   ogrenci_id        = ?
 SQL;
@@ -118,7 +124,8 @@ SELECT
 FROM 
 	view_zaman_tuneli
 WHERE 
-	ogrenci_id  			= ? 
+	ogrenci_id  			= ? AND
+  universite_id     = ? 
 ORDER BY tarih desc
 SQL;
 
@@ -135,17 +142,18 @@ LEFT JOIN tb_ogretim_elemanlari AS oe ON oe.id = omd.ogretim_elemani_id
 LEFT JOIN tb_mufredat AS m ON m.id = omd.mufredat_id
 WHERE
 	omd.ogrenci_id 		= ? AND
+	omd.universite_id	= ? AND
 	omd.mufredat_id 	= ?
 SQL;
 
 $ogrenci						            = $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$ogrenci_tezi   		            = $vt->selectSingle( $SQL_ogrenci_tezi, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$ogrenci_makaleleri	            = $vt->select( $SQL_ogrenci_makaleleri, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$ogrenci_bilimsel_toplantilari  = $vt->select( $SQL_ogrenci_bilimsel_toplantilar, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$ogrenci_klinik_sunulari        = $vt->select( $SQL_ogrenci_klinik_sunulari, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
-$ogrenci_tez_izlemeleri         = $vt->select( $SQL_ogrenci_tez_izlemeleri, array( $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_tezi   		            = $vt->selectSingle( $SQL_ogrenci_tezi, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_makaleleri	            = $vt->select( $SQL_ogrenci_makaleleri, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_bilimsel_toplantilari  = $vt->select( $SQL_ogrenci_bilimsel_toplantilar, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_klinik_sunulari        = $vt->select( $SQL_ogrenci_klinik_sunulari, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
+$ogrenci_tez_izlemeleri         = $vt->select( $SQL_ogrenci_tez_izlemeleri, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
 $mufredatlar               			= $vt->select($SQL_mufredat_getir, array(  -1, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
-$zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_id ) )[ 2 ];
+$zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_id,$_SESSION[ 'universite_id'] ) )[ 2 ];
 
 
 
@@ -323,7 +331,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
 
                               if( $kategori['kategori'] == 0){
                                 $isaret = "";
-                                $ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $ogrenci_id, $kategori['id'] ) )[ 2 ];
+                                $ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $ogrenci_id,$_SESSION[ 'universite_id'], $kategori['id'] ) )[ 2 ];
                                 if( $ogrenci_mufredat_degerlendirme['ogrenci_id'] > 0 ){
                                   $islem = "guncelle";
                                   if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 1 )
@@ -432,11 +440,17 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                         <div class="timeline-item">
                           <span class="time"><i class="far fa-clock"></i> <?php echo $fn->saatDakikaVer( $zaman_tuneli_deger[ 'tarih' ] ); ?></span>
                           <?php if( $zaman_tuneli_deger['islem_turu'] == "ekleme" ){ ?>
-                          <h3 class="timeline-header"><a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesi yaptı. <i class="fas fa-plus-square text-success"></i></h3>
+                          <h3 class="timeline-header">
+                            <img class=" img-circle elevation-2" style="height:30px;" src="resimler/<?php echo $zaman_tuneli_deger['resim']; ?>" alt="User profile picture">
+                            <a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesi yaptı. <i class="fas fa-plus-square text-success"></i>
+                          </h3>
                           <?php } ?>
 
                           <?php if( $zaman_tuneli_deger['islem_turu'] == "guncelleme" ){ ?>
-                          <h3 class="timeline-header"><a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesini güncelledi. <i class="fas fa-edit text-warning"></i></h3>
+                          <h3 class="timeline-header">
+                            <img class=" img-circle elevation-2" style="height:30px;" src="resimler/<?php echo $zaman_tuneli_deger['resim']; ?>" alt="User profile picture">
+                            <a href="#" class="text-danger"><?php echo $zaman_tuneli_deger[ 'ogretim_elemani_adi' ]; ?></a> müfredat değerlendirmesini güncelledi. <i class="fas fa-edit text-warning"></i>
+                          </h3>
                           <?php } ?>
 
                           <div class="timeline-body">

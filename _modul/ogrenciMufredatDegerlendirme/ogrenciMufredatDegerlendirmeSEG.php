@@ -14,7 +14,8 @@ $SQL_ogrenci_mufredat_degerlendirme_ekle = <<< SQL
 INSERT INTO 
 	tb_ogrenci_mufredat_degerlendirme
 SET
-	 uzmanlik_dali_id 	= ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,rotasyon_id 		= ?
 	,ogrenci_id 		= ?
 	,mufredat_id		= ?
@@ -28,7 +29,8 @@ $SQL_ogrenci_mufredat_degerlendirme_duzenle = <<< SQL
 UPDATE
 	tb_ogrenci_mufredat_degerlendirme
 SET
-	 uzmanlik_dali_id 	= ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,rotasyon_id 		= ?
 	,ogrenci_id 		= ?
 	,mufredat_id		= ?
@@ -73,6 +75,7 @@ switch( $islem ) {
 
 		$kategori = $_REQUEST[ "kategori" ] == "on" ? 1 : 0;
 
+		$degerler[] = $_SESSION[ "universite_id" ];
 		$degerler[] = $_REQUEST[ "uzmanlik_dali_id" ];
 		$degerler[] = $_REQUEST[ "rotasyon_id" ];
 		$degerler[] = $_REQUEST[ "ogrenci_id" ];
@@ -90,6 +93,7 @@ switch( $islem ) {
 		$duzey = implode(",", $_REQUEST[ "duzey" ]);
 		$yontem = implode(",", $_REQUEST[ "yontem" ]);
 
+		$degerler[] = $_SESSION[ "universite_id" ];
 		$degerler[] = $_REQUEST[ "uzmanlik_dali_id" ];
 		$degerler[] = $_REQUEST[ "rotasyon_id" ];
 		$degerler[] = $_REQUEST[ "ogrenci_id" ];

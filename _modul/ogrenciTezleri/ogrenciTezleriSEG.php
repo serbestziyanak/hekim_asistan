@@ -15,7 +15,8 @@ $SQL_ekle = <<< SQL
 INSERT INTO
 	tb_ogrenci_tezleri
 SET
-	 uzmanlik_dali_id	 = ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
 	,tez_konusu			 = ?
 	,tez_konusu_verilme_tarihi				 = ?
@@ -26,7 +27,8 @@ $SQL_guncelle = <<< SQL
 UPDATE
 	tb_ogrenci_tezleri
 SET
-	 uzmanlik_dali_id	 = ?
+	 universite_id		 = ?
+	,uzmanlik_dali_id	 = ?
 	,ogrenci_id			 = ?
 	,tez_konusu			 = ?
 	,tez_konusu_verilme_tarihi				 = ?
@@ -48,7 +50,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 	switch( $_REQUEST[ 'islem' ] ) {
 		case 'ekle':
 			$sorgu_sonuc = $vt->insert( $SQL_ekle, array(
-				 $_REQUEST['uzmanlik_dali_id']
+				 $_SESSION['universite_id']
+				,$_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
 				,$fn->ilkHarfleriBuyut( $_REQUEST[ 'tez_konusu' ] )
 				,$tez_konusu_verilme_tarihi
@@ -58,7 +61,8 @@ if( array_key_exists( 'islem', $_REQUEST ) ) {
 		break;
 		case 'guncelle':
 			$sorgu_sonuc = $vt->update( $SQL_guncelle, array(
-				 $_REQUEST['uzmanlik_dali_id']
+				 $_SESSION['universite_id']
+				,$_REQUEST['uzmanlik_dali_id']
 				,$_REQUEST['ogrenci_id']
 				,$fn->ilkHarfleriBuyut( $_REQUEST[ 'tez_konusu' ] )
 				,$tez_konusu_verilme_tarihi

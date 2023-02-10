@@ -232,7 +232,17 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 </section>
 
 <script type="text/javascript">
-	
+
+	<?php if( $islem == "guncelle" ){ ?>
+	    var $ogrenci_id = <?php echo $tek_ogrenci_tez_izleme[ "ogrenci_id" ]; ?>;
+	    var $data_islem = "tezListesiGetir";
+	    var $data_url 	= "./_modul/ajax/ajax_data.php";
+		$("#ogrenci_tez_id").empty();
+	    $.post($data_url, { islem : $data_islem, ogrenci_id : $ogrenci_id}, function (response) {
+	        $("#ogrenci_tez_id").append(response);
+	    });
+	<?php } ?>
+
 	$('#ogrenci_id_ajax').on("change", function(e) { 
 	    var $ogrenci_id = $(this).val();
 	    var $data_islem = $(this).data("islem");

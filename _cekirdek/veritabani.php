@@ -1,6 +1,5 @@
 <?php
 include dirname(__FILE__).'/../config.php';
-
 class VeriTabani {
 	private $vt;
 	private $hataLocal;

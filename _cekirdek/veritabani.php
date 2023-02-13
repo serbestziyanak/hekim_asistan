@@ -1,10 +1,13 @@
 <?php
+include dirname(__FILE__).'/../config.php';
 
 class VeriTabani {
 	private $vt;
 	private $hataLocal;
 	private $hataTopluIslem;
-
+	private $db_name = DB_NAME;
+	private $db_user = DB_USER;
+	private $db_pass = DB_PASS;
 	/* Veritabanına bağlan */
 	public function __construct() {
 		$this->vt				= NULL;
@@ -12,10 +15,7 @@ class VeriTabani {
 		$this->hataTopluIslem	= false;
 
 		try { 
-            if( $_SERVER['SERVER_NAME'] == "localhost" )
-            	$this->vt = new PDO( "mysql:host=localhost; dbname=hekim_asistan", "root", "" );
-            else
-            	$this->vt = new PDO( "mysql:host=localhost; dbname=syntaxbi_hekimasistan", "syntaxbi_hekimasistan", "Hekim.123" );
+            $this->vt = new PDO( "mysql:host=localhost; dbname=$this->db_name", $this->db_user, $this->db_pass );
         } catch ( PDOException $e ) {
 			echo "Veritabanı bağlantısı sağlanamadı";
 			exit;

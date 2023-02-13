@@ -14,7 +14,8 @@ if( array_key_exists( 'sonuclar', $_SESSION ) ) {
 
 $islem			= array_key_exists( 'islem'		,$_REQUEST ) 	 ? $_REQUEST[ 'islem' ]			: 'ekle';
 $id				  = array_key_exists( 'id'	,$_REQUEST ) ? $_REQUEST[ 'id' ]	: 0;
-$ogrenci_id = 133;
+$ogrenci_id	= array_key_exists( 'ogrenci_id'	,$_REQUEST ) ? $_REQUEST[ 'ogrenci_id' ]	: 0;
+
 
 $satir_renk				= $id > 0	? 'table-warning'						: '';
 $kaydet_buton_yazi		= $id > 0	? 'Güncelle'							: 'Kaydet';
@@ -298,7 +299,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                 <ul class="nav nav-tabs">
                   <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Yetkinlikler</a></li>
                   <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Zaman Tüneli</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  <!--li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li-->
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -311,7 +312,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                               <tbody id="deneme">
                       <?php
                       //var_dump($mufredatlar);
-                        function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id){
+                        function kategoriListele3( $kategoriler, $parent = 0, $renk = 0,$vt,$fn, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id){
                           if( $_SESSION[ 'kullanici_turu' ] == "ogrenci" ){
                             $degerlendirme_ekle_class = "";
                           }else{
@@ -333,13 +334,17 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                                 $isaret = "";
                                 $ogrenci_mufredat_degerlendirme	= $vt->selectSingle( $SQL_ogrenci_mufredat_degerlendirme, array( $ogrenci_id,$_SESSION[ 'universite_id'], $kategori['id'] ) )[ 2 ];
                                 if( $ogrenci_mufredat_degerlendirme['ogrenci_id'] > 0 ){
+                                  $degerlendirme_tarihi = $ogrenci_mufredat_degerlendirme[ 'guncelleme_tarihi' ];
+                                  if( $degerlendirme_tarihi*1 == 0 )
+                                    $degerlendirme_tarihi = $ogrenci_mufredat_degerlendirme[ 'ekleme_tarihi' ];
+                                  $degerlendirme_tarihi = $fn->tarihSaatVer( $degerlendirme_tarihi );
                                   $islem = "guncelle";
                                   if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 1 )
                                     //$isaret = "<i class='fas fa-check-circle text-success'></i>";
-                                    $isaret = "<h6><span class='btn btn-xs btn-success'>Başarılı</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
+                                    $isaret = "<h6><span class='btn btn-xs btn-success'>Başarılı</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span> <span class='btn btn-xs btn-info'>$degerlendirme_tarihi</span></h6>";
                                   if( $ogrenci_mufredat_degerlendirme['degerlendirme'] == 0 )
                                     //$isaret = "<i class='fas fa-times-circle text-danger'></i>";
-                                    $isaret = "<h6><span class='btn btn-xs btn-danger'>Başarısız</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span></h6>";
+                                    $isaret = "<h6><span class='btn btn-xs btn-danger'>Başarısız</span> <span class='btn btn-xs btn-primary'>$ogrenci_mufredat_degerlendirme[ogretim_elemani_adi]</span> <span class='btn btn-xs btn-info'>$degerlendirme_tarihi</span></h6>";
 
                                 }else{
                                   $islem="ekle";
@@ -365,7 +370,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                                       </tr>
                                     ";								
                                   $renk++;
-                                  $html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
+                                  $html .= kategoriListele3($kategoriler, $kategori['id'],$renk, $vt,$fn, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
                                   
                                   $renk--;
                                 
@@ -382,7 +387,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                           return $html;
                         }
                         if( count( $mufredatlar ) ) 
-                          echo kategoriListele3($mufredatlar,0,0, $vt, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
+                          echo kategoriListele3($mufredatlar,0,0, $vt,$fn, $SQL_ogrenci_mufredat_degerlendirme, $ogrenci_id);
                         
 
                       ?>

@@ -184,7 +184,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<h3 class="profile-username text-center"><b> </b></h3>
 							<div class="form-group">
 								<label  class="control-label">Öğrenci</label>
-								<select class="form-control select2" name = "ogrenci_id" id = "ogrenci_id_ajax"  data-url="./_modul/ajax/ajax_data.php" data-islem="tezListesiGetir" required>
+								<select class="form-control select2" name = "ogrenci_id" id = "ogrenci_id_ajax"  data-url="./_modul/ajax/ajax_data.php" data-islem="tezListesiGetir" data-ogrenci_tez_id="<?php echo $tek_ogrenci_tez_izleme[ 'ogrenci_id' ] ?>" required>
 									<option>Seçiniz...</option>
 									<?php 
 										foreach( $ogrenciler AS $ogrenci ){
@@ -201,7 +201,7 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 							<div class="form-group">
 								<label  class="control-label">Tez</label>
 								<select class="form-control select2" name = "ogrenci_tez_id" id = "ogrenci_tez_id"  required>
-									<option>Seçiniz...</option>
+									<option value="">Seçiniz...</option>
 
 								</select>
 							</div>
@@ -237,18 +237,21 @@ $ogrenciler							= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'univers
 	    var $ogrenci_id = <?php echo $tek_ogrenci_tez_izleme[ "ogrenci_id" ]; ?>;
 	    var $data_islem = "tezListesiGetir";
 	    var $data_url 	= "./_modul/ajax/ajax_data.php";
+		var $ogrenci_tez_id 	= <?php echo $tek_ogrenci_tez_izleme[ "ogrenci_tez_id" ]; ?>;
 		$("#ogrenci_tez_id").empty();
-	    $.post($data_url, { islem : $data_islem, ogrenci_id : $ogrenci_id}, function (response) {
+	    $.post($data_url, { islem : $data_islem, ogrenci_id : $ogrenci_id, ogrenci_tez_id : $ogrenci_tez_id}, function (response) {
 	        $("#ogrenci_tez_id").append(response);
 	    });
 	<?php } ?>
 
 	$('#ogrenci_id_ajax').on("change", function(e) { 
-	    var $ogrenci_id = $(this).val();
-	    var $data_islem = $(this).data("islem");
-	    var $data_url 	= $(this).data("url");
+	    var $ogrenci_id 		= $(this).val();
+	    var $data_islem 		= $(this).data("islem");
+	    var $data_url 			= $(this).data("url");
+	    var $ogrenci_tez_id 	= $(this).data("data-ogrenci_tez_id");
+
 	    $("#ogrenci_tez_id").empty();
-	    $.post($data_url, { islem : $data_islem, ogrenci_id : $ogrenci_id}, function (response) {
+	    $.post($data_url, { islem : $data_islem, ogrenci_id : $ogrenci_id, ogrenci_tez_id : $ogrenci_tez_id}, function (response) {
 	        $("#ogrenci_tez_id").append(response);
 	    });
 	});	

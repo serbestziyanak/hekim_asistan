@@ -303,7 +303,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 									<div class="input-group-append" data-target="#bitis_tarihi" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
-									<input required type="text" data-target="#bitis_tarihi" data-toggle="datetimepicker" name="bitis_tarihi" value="<?php if( $tek_ogrenci[ 'bitis_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'bitis_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+									<input type="text" data-target="#bitis_tarihi" data-toggle="datetimepicker" name="bitis_tarihi" value="<?php if( $tek_ogrenci[ 'bitis_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'bitis_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -312,7 +312,7 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 									<div class="input-group-append" data-target="#tez_tarihi" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
-									<input required type="text" data-target="#tez_tarihi" data-toggle="datetimepicker" name="tez_tarihi" value="<?php if( $tek_ogrenci[ 'tez_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'tez_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
+									<input type="text" data-target="#tez_tarihi" data-toggle="datetimepicker" name="tez_tarihi" value="<?php if( $tek_ogrenci[ 'tez_tarihi' ] !='' ){echo date('d.m.Y',strtotime($tek_ogrenci[ 'tez_tarihi' ] ));}//else{ echo date('d.m.Y'); } ?>" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker1"/>
 								</div>
 							</div>
 							<div class="form-group">

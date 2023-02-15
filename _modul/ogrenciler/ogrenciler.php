@@ -220,8 +220,8 @@ $ogretim_elemanlari			= $vt->select( $SQL_ogretim_elemanlari, array( $_SESSION[ 
 							<p class="text-muted text-center">Fotoğraf değiştirmek için fotoğrafa tıklayınız</p>	
 							<h3 class="profile-username text-center"><?php echo $tek_ogrenci[ "adi" ]." ".$tek_ogrenci[ "soyadi" ]; ?></h3>
 							<input type="file" id="gizli_input_file" name = "input_ogrenci_resim" style = "display:none;" name = "resim" accept="image/gif, image/jpeg, image/png"  onchange="resimOnizle(this)"; />
+
 							<br><h5 class="float-right text-olive">Kişisel Bilgiler</h5><br><hr style="border: 2px solid green; border-radius: 5px;" >
-							
 							<div class="form-group">
 								<label  class="control-label">Uzmanlık Dalı</label>
 								<select class="form-control select2" name = "uzmanlik_dali_id" required >

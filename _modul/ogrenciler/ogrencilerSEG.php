@@ -147,7 +147,7 @@ switch( $islem ) {
 				$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
 				$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
 				$ogrenci_id = $son_eklenen_id;
-				$resim_adi = "ogrenci_".$son_eklenen_id;
+				$resim_adi = "ogrenci_".uniqid($ogrenci_id.'_');
 				$resim_sonuc = $fn->resimYukle( 'input_ogrenci_resim', $resim_adi );
 				if( $resim_sonuc[ 0 ] ) {
 					$sorgu_sonuc = $vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $son_eklenen_id ) );
@@ -193,10 +193,13 @@ switch( $islem ) {
 			$___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
 		}else{
 			$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] );
-			$resim_adi = "ogrenci_".$ogrenci_id;
+			$resim_adi = "ogrenci_".uniqid($ogrenci_id.'_');
 			$resim_sonuc = $fn->resimYukle( 'input_ogrenci_resim', $resim_adi );
 			if( $resim_sonuc[ 0 ] ) {
 				$vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $ogrenci_id ) );
+				if( $tek_ogrenci_oku['resim'] != "resim_yok.png" ){
+					unlink(dirname(__FILE__)."/../../resimler/".$tek_ogrenci_oku['resim']);
+				}
 			}
 		}
 	break;

@@ -70,6 +70,15 @@ WHERE
 	id = ?
 SQL;
 
+$SQL_resim_guncelle = <<<SQL
+UPDATE
+	tb_ogretim_elemanlari
+SET
+	resim = ?
+WHERE
+	id = ?
+SQL;
+
 $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => 0 );
 
 switch( $islem ) {
@@ -87,10 +96,18 @@ switch( $islem ) {
 				,$_REQUEST['cep_tel']
 				,md5($_REQUEST['sifre'])
 			) );
-			if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
-			else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
-			$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
-			$ogretim_elamani_id = $son_eklenen_id;
+			if( $sorgu_sonuc[ 0 ] ){
+				$___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+			}else{
+				$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
+				$son_eklenen_id	= $sorgu_sonuc[ 2 ]; 
+				$ogretim_elamani_id = $son_eklenen_id;
+				$resim_adi = "ogretim_elemani_".uniqid($ogretim_elamani_id.'_');
+				$resim_sonuc = $fn->resimYukle( 'input_ogretim_elemani_resim', $resim_adi );
+				if( $resim_sonuc[ 0 ] ) {
+					$sorgu_sonuc = $vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $son_eklenen_id ) );
+				}
+			}
 		}else{
 			$___islem_sonuc = array( 'hata' => true, 'mesaj' => 'Bu Email Önceden Eklenmiş', 'id' => $sonuc[ 2 ] );
 		}
@@ -116,8 +133,19 @@ switch( $islem ) {
 			,$sifre
 			,$ogretim_elamani_id
 		) );
-		if( $sorgu_sonuc[ 0 ] ) $___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt eklenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
-		else $___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] ); 
+		if( $sorgu_sonuc[ 0 ] ){
+			$___islem_sonuc = array( 'hata' => $sorgu_sonuc[ 0 ], 'mesaj' => 'Kayıt güncellenirken bir hata oluştu ' . $sorgu_sonuc[ 1 ] );
+		}else{
+			$___islem_sonuc = array( 'hata' => false, 'mesaj' => 'İşlem başarı ile gerçekleşti', 'id' => $sorgu_sonuc[ 2 ] );
+			$resim_adi = "ogretim_elemani_".uniqid($ogretim_elamani_id.'_');
+			$resim_sonuc = $fn->resimYukle( 'input_ogretim_elemani_resim', $resim_adi );
+			if( $resim_sonuc[ 0 ] ) {
+				$vt->update( $SQL_resim_guncelle, array( $resim_sonuc[ 1 ], $ogretim_elamani_id ) );
+				if( $ogretim_elemani_varmi['resim'] != "resim_yok.png" ){
+					unlink(dirname(__FILE__)."/../../resimler/".$ogretim_elemani_varmi['resim']);
+				}
+			}
+		}
 	break;
 	case 'sil':
 		//Silinecek olan tarife giriş yapılan firmaya mı ait oldugu kontrol ediliyor Eger firmaya ait ise silinecektir.

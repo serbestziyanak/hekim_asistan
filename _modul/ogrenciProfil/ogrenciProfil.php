@@ -147,6 +147,21 @@ WHERE
 	omd.mufredat_id 	= ?
 SQL;
 
+$SQL_tum_ogrenciler = <<< SQL
+SELECT 
+	o.*,
+	CONCAT( o.adi, ' ', o.soyadi ) AS ad_soyadi,
+	u.adi as uzmanlik_dali_adi
+FROM 
+	tb_ogrenciler AS o
+LEFT JOIN tb_uzmanlik_dallari AS u ON u.id = o.uzmanlik_dali_id
+WHERE
+	o.universite_id 	= ? AND
+	o.uzmanlik_dali_id 	= ? AND
+	o.aktif 		  	= 1 
+ORDER BY o.adi ASC
+SQL;
+
 $ogrenci						            = $vt->selectSingle( $SQL_ogrenci_bilgileri, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'], $ogrenci_id ) )[ 2 ];
 $ogrenci_tezi   		            = $vt->selectSingle( $SQL_ogrenci_tezi, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
 $ogrenci_makaleleri	            = $vt->select( $SQL_ogrenci_makaleleri, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
@@ -155,7 +170,7 @@ $ogrenci_klinik_sunulari        = $vt->select( $SQL_ogrenci_klinik_sunulari, arr
 $ogrenci_tez_izlemeleri         = $vt->select( $SQL_ogrenci_tez_izlemeleri, array( $_SESSION[ 'uzmanlik_dali_id'],$_SESSION[ 'universite_id'], $ogrenci_id ) )[ 2 ];
 $mufredatlar               			= $vt->select($SQL_mufredat_getir, array(  -1, $_SESSION[ "uzmanlik_dali_id" ] ) )[ 2 ];
 $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_id,$_SESSION[ 'universite_id'] ) )[ 2 ];
-
+$tum_ogrenciler            			= $vt->select( $SQL_tum_ogrenciler, array( $_SESSION[ 'universite_id'], $_SESSION[ 'uzmanlik_dali_id'] ) )[ 2 ];
 
 
 
@@ -185,7 +200,25 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
 		$( this ).find( '.btn-evet' ).attr( 'href', $( e.relatedTarget ).data( 'href' ) );
 	} );
 </script>
+				<?php if( $_SESSION[ 'kullanici_turu' ] != "ogrenci" ){ ?>
+				<form class="form-horizontal" action = "index.php" method = "GET" >
+					<div class="form-group">
+						<input type="hidden" name="modul" value="ogrenciProfil">
+						<label  class="control-label">Öğrenci</label>
+						<select class="form-control select2" name = "ogrenci_id" required >
+							<option value="">Seçiniz...</option>
+							<?php 
+								foreach( $tum_ogrenciler AS $tum_ogrenci ){
+									echo '<option value="'.$tum_ogrenci[ "id" ].'" '.( $ogrenci_id == $tum_ogrenci[ "id" ] ? "selected" : null) .'>'.$tum_ogrenci[ "ad_soyadi" ].'</option>';
+								}
 
+							?>
+						</select>
+						<br>
+						<button modul= 'ogrenciProfil' yetki_islem="ogrenci_sec" type="submit" class="btn btn-sm btn-primary"> Öğrenci Seç</button>
+					</div>
+				</form>
+				<?php } ?>
 
     <!-- Main content -->
     <section class="content">
@@ -198,7 +231,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="resimler/<?php echo $ogrenci['resim']; ?>"
+                       src="resimler/<?php echo array_key_exists( 'resim'	,$ogrenci ) ? $ogrenci[ 'resim' ]	: 'resim_yok.png'; ?>"
                        alt="User profile picture">
                 </div>
 
@@ -218,7 +251,7 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-secondary btn-block"><b>Follow</b></a>
+                <a href="?modul=ogrenciler&islem=guncelle&ogrenci_id=<?php echo $ogrenci['id']; ?>" class="btn btn-secondary btn-block"><b>Düzenle</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -440,8 +473,14 @@ $zaman_tuneli              			= $vt->select($SQL_zaman_tuneli, array( $ogrenci_i
                       <!-- /.timeline-label -->
                       <!-- timeline item -->
                       <div>
-                        <i class="fas fa-tasks bg-<?php echo $renkler[$renk_sira%count($renkler)]; ?>"></i>
+                        
+                        <?php if( $zaman_tuneli_deger['islem_turu'] == "ekleme" ){ ?>
+                        <i class="fas fa-plus bg-<?php echo $renkler[$renk_sira%count($renkler)]; ?>"></i>
+                        <?php } ?>
 
+                        <?php if( $zaman_tuneli_deger['islem_turu'] == "guncelleme" ){ ?>
+                        <i class="fas fa-redo bg-<?php echo $renkler[$renk_sira%count($renkler)]; ?>"></i>
+                        <?php } ?>
                         <div class="timeline-item">
                           <span class="time"><i class="far fa-clock"></i> <?php echo $fn->saatDakikaVer( $zaman_tuneli_deger[ 'tarih' ] ); ?></span>
                           <?php if( $zaman_tuneli_deger['islem_turu'] == "ekleme" ){ ?>

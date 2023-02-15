@@ -200,6 +200,24 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 									<input type = "hidden" name = "islem" value = "<?php echo $islem; ?>" >
 									<input type = "hidden" name = "universite_id" value = "<?php echo $_SESSION['universite_id']; ?>">
 									<input type = "hidden" name = "ogretim_elemani_id" value = "<?php echo $ogretim_elemani_id; ?>">
+									<?php
+										if( $islem == "guncelle" ){
+											$resim_src = "resimler/".$tek_ogretim_elemani[ "resim" ];
+										}else{
+											$resim_src = "resimler/resim_yok.png";
+										}
+									?>
+									<div class="text-center">
+										<img class="img-fluid img-circle img-thumbnail mw-100"
+											style="width:120px; cursor:pointer;"
+											src="<?php echo $resim_src; ?>" 
+											alt="User profile picture"
+											id = "ogrenci_kullanici_resim">
+									</div>
+									<p class="text-muted text-center">Fotoğraf değiştirmek için fotoğrafa tıklayınız</p>	
+									<h3 class="profile-username text-center"><?php echo $tek_ogretim_elemani[ "adi" ]." ".$tek_ogretim_elemani[ "soyadi" ]; ?></h3>
+									<input type="file" id="gizli_input_file" name = "input_ogretim_elemani_resim" style = "display:none;" name = "resim" accept="image/gif, image/jpeg, image/png"  onchange="resimOnizle(this)"; />
+
 									<h3 class="profile-username text-center"><b> </b></h3>
 									<div class="form-group">
 										<label  class="control-label">Uzmanlık Dalı</label>
@@ -266,6 +284,27 @@ if( $_SESSION[ 'kullanici_turu' ] == "ogretim_elemani" ){
 		</div>
 	</div>
 </section>
+
+<script>
+/* Kullanıcı resmine tıklayınca file nesnesini tetikle*/
+$( function() {
+	$( "#ogrenci_kullanici_resim" ).click( function() {
+		$( "#gizli_input_file" ).trigger( 'click' );
+	});
+});
+
+/* Seçilen resim önizle */
+function resimOnizle( input ) {
+	if ( input.files && input.files[ 0 ] ) {
+		var reader = new FileReader();
+		reader.onload = function ( e ) {
+			$( '#ogrenci_kullanici_resim' ).attr( 'src', e.target.result );
+		};
+		reader.readAsDataURL( input.files[ 0 ] );
+	}
+}
+</script>
+
 <script type="text/javascript">
 
 // ESC tuşuna basınca formu temizle
